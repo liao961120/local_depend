@@ -20,3 +20,5 @@ Delete the current line: `Ctrl + D`
 New Code Chunk: `Ctrl + Alt + I`
 
 Select: `Shift + [arrow]`
+
+Reformat script: `Ctrl + Shift + A`
