@@ -4,13 +4,15 @@
 ### Global code chunk behaviour
 
 ```r
-knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, comment="")
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, comment="", dev='svg')
 ```
 - `echo=FALSE`: Don't display codes in code chunks.
 
 - `message=FALSE`, `warning=FALSE`: Don't display message/warning after executing the code chunks.
 
 - `comment=""`: Change `##`(default) to nothing when showing text output from code chunks.
+
+- `dev='svg'`: Output figure as `svg`, doesn't work properly with multibites character in graphics.
 
 #### Speed up Knitting
 The code below speeds up knitting by not evaluating cached code chunks but instead load them from previously saved databases. 
