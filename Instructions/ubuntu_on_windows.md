@@ -14,7 +14,10 @@
 
 - Root Directory: `/`
 
-- Absolute path: `C:\Users\user\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs`
+- Absolute path: 
+```
+C:\Users\user\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs
+```
 
 ### `/home/liao961120`
 
@@ -31,11 +34,20 @@
 cd /mnt/c/Users/user
 ```
 
-```bash
-for foo in (ls bar)
-do
-  echo $foo
-done
+
+## **Change Home Directory**
+
+Navigate to: 
+```
+C:\Users\user\AppData\Local\Packages\CanonicalGroupLimited.UbuntuonWindows_79rhkp1fndgsc\LocalState\rootfs\etc\passwd
 ```
 
+Open it with a text editor, and find the line with:
+```
+liao961120:x:1000:1000:,,,:/home/liao961120:/bin/bash
+```
 
+Change it to:
+```
+liao961120:x:1000:1000:,,,:/mnt/c/Users/user:/bin/bash
+```
