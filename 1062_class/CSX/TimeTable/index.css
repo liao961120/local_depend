@@ -1,0 +1,21 @@
+h1 {
+    text-align: left;
+    color: red;
+    background: rgba(0, 0, 0, 0.8);
+    border: 5px solid;
+    margin: 10px;
+    /*內邊界*/
+    padding: 15px 5px 5px 20px;
+    /*外邊界*/
+}
+
+p {
+    font-size: 1em;
+    line-height: 1.5em;
+}
+
+th,
+tr,
+td {
+    border: 0.05em solid;
+}
