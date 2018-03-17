@@ -6,7 +6,7 @@ date: March 13, 2018
 output:
   ioslides_presentation:
     fig_height: 3
-    css: ../presentation_style.css
+    css: ../style_sheets/presentation_style.css
     incremental: false
     logo: tux.svg
     df_print: kable
