@@ -1,15 +1,28 @@
-grViz('
-digraph { //directed graph
-    "總攻" -> "受";
-    "強攻" -> "受";
-    "健氣攻" -> "受";
-     }'
-)
+library(DiagrammeR)
 
-grViz('
-graph { //non-directed graph
-    "總 攻" -- "受";
-    "強 攻" -- "受";
-    "健氣攻" -- "受";
-     }'
-)
+var <- 1:3
+
+grViz("
+digraph { //non-directed graph
+      graph [layout = neato]  //layout = dot|neato|twopi|circo|fdp
+      
+      node [shape = circle,
+      style = filled,
+      color = orange]
+      
+      node [fillcolor = red]
+      a [label = '受']
+      
+      node [fillcolor = orange1]  //orange1-4
+      b [label = '@@1-1']
+      c [label = '@@1-2']
+      d [label = '@@1-3']
+      
+      edge [color = grey, arrowhead = none, arrowtail = none]
+      {b c d} -> a
+      }
+      
+      # Comments for Ref: vector of length=3
+      [1]: paste('Number: ', var, sep='')   
+
+      ")

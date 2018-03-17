@@ -35,13 +35,25 @@ When you click the **Knit** button a document will be generated that includes bo
 
 A Graph
 ```{r fig_retina=1}
-grViz('
-digraph { //directed graph
-    "總攻" -> "受";
-    "強攻" -> "受";
-    "健氣攻" -> "受";
-     }'
-)
+grViz("
+graph { //non-directed graph
+    graph [layout = neato]  //layout = dot|neato|twopi|circo|fdp
+    
+    node [shape = circle,
+          style = filled,
+          color = orange]
+
+    node [fillcolor = red]
+    a [label = '受']
+
+    node [fillcolor = orange1]  //orange1-4
+    b [label = '總攻']
+    c [label = '強攻']
+    d [label = '健氣攻']
+
+    edge [color = grey]
+    {b c d} -- a
+    }")
 ```
 
 ## Slide with Plot {.smaller}

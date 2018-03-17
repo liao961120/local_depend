@@ -18,3 +18,13 @@ li {
 li.red {
     color: red;
 }
+
+
+/* footer icon size */
+
+slides>slide:not(.nobackground):before {
+    /* width: 1.5em;
+    height: 1.6em;
+    background-size: 1.6em 1.6em; */
+    padding-bottom: 0.55em
+}

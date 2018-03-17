@@ -102,7 +102,7 @@
     }
   </style>
 
-  <link href="data:text/css;charset=utf-8,%2Earticle%20%7B%0Afont%2Dfamily%3A%20%2Dapple%2Dsystem%2C%20BlinkMacSystemFont%2C%20%22Roboto%22%2C%20%27Helvetica%20Neue%27%2C%20%27Arial%27%2C%20%22%E6%96%87%E6%B3%89%E9%A9%9B%E6%AD%A3%E9%BB%91%22%2C%20%22WenQuanYi%20Zen%20Hei%22%2C%20%22%E8%98%8B%E6%96%B9%2D%E7%B9%81%22%2C%20%22PingFang%20TC%22%2C%20%27PingFang%20SC%27%2C%20%22%E5%84%B7%E9%BB%91%20Pro%22%2C%20%22LiHei%20Pro%22%2C%20%22Noto%20Sans%20CJK%22%2C%20%22%E6%80%9D%E6%BA%90%E9%BB%91%E9%AB%94%22%2C%20%22%E5%BE%AE%E8%BB%9F%E6%AD%A3%E9%BB%91%E9%AB%94%22%2C%20%22Microsoft%20JhengHei%22%2C%20%27Microsoft%20YaHei%27%2C%20SimSun%2C%20sans%2Dserif%3B%0A%7D%0Abody%20h1%2C%0Ah2%2C%0Ah3%2C%0Aul%2C%0Aol%2C%0Ali%20%7B%0Acolor%3A%20%23000000%3B%0A%7D%0A%2Ecode%20%7B%0Afont%2Dfamily%3A%20Menlo%2C%20Consolas%2C%20%22Courier%20New%22%2C%20Courier%2C%20%22Liberation%20Mono%22%2C%20monospace%3B%0A%7D%0Ali%2Ered%20%7B%0Acolor%3A%20red%3B%0A%7D" rel="stylesheet" type="text/css" />
+  <link href="data:text/css;charset=utf-8,%2Earticle%20%7B%0Afont%2Dfamily%3A%20%2Dapple%2Dsystem%2C%20BlinkMacSystemFont%2C%20%22Roboto%22%2C%20%27Helvetica%20Neue%27%2C%20%27Arial%27%2C%20%22%E6%96%87%E6%B3%89%E9%A9%9B%E6%AD%A3%E9%BB%91%22%2C%20%22WenQuanYi%20Zen%20Hei%22%2C%20%22%E8%98%8B%E6%96%B9%2D%E7%B9%81%22%2C%20%22PingFang%20TC%22%2C%20%27PingFang%20SC%27%2C%20%22%E5%84%B7%E9%BB%91%20Pro%22%2C%20%22LiHei%20Pro%22%2C%20%22Noto%20Sans%20CJK%22%2C%20%22%E6%80%9D%E6%BA%90%E9%BB%91%E9%AB%94%22%2C%20%22%E5%BE%AE%E8%BB%9F%E6%AD%A3%E9%BB%91%E9%AB%94%22%2C%20%22Microsoft%20JhengHei%22%2C%20%27Microsoft%20YaHei%27%2C%20SimSun%2C%20sans%2Dserif%3B%0A%7D%0Abody%20h1%2C%0Ah2%2C%0Ah3%2C%0Aul%2C%0Aol%2C%0Ali%20%7B%0Acolor%3A%20%23000000%3B%0A%7D%0A%2Ecode%20%7B%0Afont%2Dfamily%3A%20Menlo%2C%20Consolas%2C%20%22Courier%20New%22%2C%20Courier%2C%20%22Liberation%20Mono%22%2C%20monospace%3B%0A%7D%0Ali%2Ered%20%7B%0Acolor%3A%20red%3B%0A%7D%0A%0Aslides%3Eslide%3Anot%28%2Enobackground%29%3Abefore%20%7B%0A%0Apadding%2Dbottom%3A%200%2E55em%0A%7D" rel="stylesheet" type="text/css" />
 
 </head>
 
@@ -141,8 +141,8 @@
 
 </article></slide><slide class=""><hgroup><h2>Slide with R Output</h2></hgroup><article  id="slide-with-r-output">
 
-<p>A Graph <div id="htmlwidget-f7d273a6bc23c2e55bce" style="width:720px;height:288px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f7d273a6bc23c2e55bce">{"x":{"diagram":"\ndigraph { //directed graph\n    \"總攻\" -> \"受\";\n    \"強攻\" -> \"受\";\n    \"健氣攻\" -> \"受\";\n     }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script></p>
+<p>A Graph <div id="htmlwidget-62aa1ba011803783f02c" style="width:720px;height:288px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-62aa1ba011803783f02c">{"x":{"diagram":"\ngraph { //non-directed graph\n    graph [layout = neato]  //layout = dot|neato|twopi|circo|fdp\n    \n    node [shape = circle,\n          style = filled,\n          color = orange]\n\n    node [fillcolor = red]\n    a [label = \"受\"]\n\n    node [fillcolor = orange1]  //orange1-4\n    b [label = \"總攻\"]\n    c [label = \"強攻\"]\n    d [label = \"健氣攻\"]\n\n    edge [color = grey]\n    {b c d} -- a\n    }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script></p>
 
 </article></slide><slide class=""><hgroup><h2>Slide with Plot</h2></hgroup><article  id="slide-with-plot" class="smaller">
 
@@ -154,8 +154,8 @@ digraph { //directed graph
      }&#39;
 )</pre>
 
-<div id="htmlwidget-1493761edb7d2e1e2e0c" style="width:720px;height:288px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-1493761edb7d2e1e2e0c">{"x":{"diagram":"\ndigraph { //directed graph\n    \"總攻\" -> \"受\";\n    \"強攻\" -> \"受\";\n    \"健氣攻\" -> \"受\";\n     }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script></article></slide>
+<div id="htmlwidget-c9450cf7ce08c26cec6f" style="width:720px;height:288px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-c9450cf7ce08c26cec6f">{"x":{"diagram":"\ndigraph { //directed graph\n    \"總攻\" -> \"受\";\n    \"強攻\" -> \"受\";\n    \"健氣攻\" -> \"受\";\n     }","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script></article></slide>
 
 
   <slide class="backdrop"></slide>
