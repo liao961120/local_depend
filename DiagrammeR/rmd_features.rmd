@@ -11,6 +11,9 @@ output:
     css: ../style_sheets/style.css
     df_print: kable
     code_folding: show
+    toc: true
+    toc_depth: 4
+    toc_float: true
 ---
 <!--more-->
 
@@ -18,7 +21,8 @@ output:
 knitr::opts_chunk$set(
 	echo = TRUE,
 	message = FALSE,
-	warning = FALSE
+	warning = FALSE,
+	dev='svg'
 )
 ```
 
@@ -80,7 +84,7 @@ kable(iris_data, format = "markdown", align = "c")
 ```
 
 ### Plotting Expression
-```{r}
+```{r fig.height=3}
 library(latex2exp)
 library(ggplot2)
 iris_data2 <- iris[c(1:3, 50:53, 100 :103),] %>% select(Sepal.Length, Sepal.Width, Species)
@@ -94,7 +98,7 @@ iris_data2 %>% ggplot() +
 
 
 ## Citations 
-To include **Citations**[^1], [Read this](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html){target="_blank"}.
+To include **Citations**, [Read this](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html){target="_blank"}.
 
 The text cited [@RN9].
 
@@ -125,41 +129,124 @@ nocite: |
 ### Full Example
 ```{html}
 <div class="success">
-| This is pragraph 1. [**Red text**]{.red}, line 1. The text[^2] is abcd 中文
-| This is [line two]{style="color:rgba(255, 0, 0, 1)"}. 
+| This is pragraph one. [**Red text**]{.red}, line 1. Text text text text.
+| This is [line 2]{style="color:rgba(255, 0, 0, 1)"} of paragraph one. 
 
-Paragraph 2 starts here.
+Paragraph two starts here.
 </div>
 ```
 
 <div class="success">
-| This is [**Red text**]{.red}, line 1. The text[^2] is abcd 中文
-| This is [line two]{style="color:rgba(255, 0, 0, 1)"}. 
+| This is line 1, pragraph one. [**Red text**]{.red}. Text text text text.
+| This is [line 2]{style="color:rgba(255, 0, 0, 1)"} of paragraph one. 
 
-Paragraph.
+Paragraph two starts here.
 </div>
 
 ### Colored divs
-There are 4 choices of class: 
+There are 4 choices of classes, defined in my stylesheet[^css]: 
+
 1. success
-2. info
+2. warning
 3. warning
 4. error
+
 ```{html}
-<div class="success">
-    some text in the colored region
+<div class="error">
+some text in the colored region
 </div>
 ```
 
+<div class="error">
+some text in the colored region
+</div>
+
+### New Line
+```{markdown}
+| Text of line 1
+| Text of line 2
+
+New paragraph
+```
+
+<div class="warning">
+| Text of line 1
+| Text of line 2
+
+New paragraph
+</div>
+
+### Attach Attributes
+By using `[`text`]`, pandoc turns the text in the square brackets into the HTML `<span>` tag. HTML `class`, `id`, attributes specific to `<span>` can then be attached by using the curly braces.
+
+#### `class`
+```{markdown}
+[**Red Bold text**]{.red}
+```
+<div class="warning">
+[**Red Bold text**]{.red}
+</div>
+
+Note[^red].
+
+#### Other Attributes
+```{markdown}
+Add color through [span style]{style="color:rgba(255, 0, 0, 1)"}
+```
+<div class="warning">
+Add color through [span style]{style="color:rgba(255, 0, 0, 1)"}
+</div>
+
+## Footnotes with Paragraphs
+Check [Pandoc](http://pandoc.org/MANUAL.html#footnotes){target="_blank"} for details.
+
+Look at a long footnote[^longnote]
+```{markdown}
+[^longnote]: Here's one with multiple blocks.
+
+    Subsequent paragraphs are indented to show that they
+belong to the previous footnote.
+
+    In this way, multi-paragraph footnotes work like multi-paragraph list items.
+```
 
 
+## Shaped Images {.tabset}
+
+### Rounded Edge
+```{html}
+<div class="rounded">
+![](../icons/jekyll_dark.ico){width=auto height="30%"}
+</div>
+```
+<div class="rounded">
+![](../icons/jekyll_dark.ico){width=auto height="30%"}
+</div>
+
+### Circle Image
+```{html}
+<div class="circle">
+![](../icons/jekyll_dark.ico){width=auto height="30%"}
+</div>
+```
+<div class="circle">
+![](../icons/jekyll_dark.ico){width=auto height="30%"}
+</div>
 
 
-[^1]: This is footnote 1.
+<!-- footnotes -->
+[^css]: Look at my [stylesheet](https://github.com/liao961120/local_depend/blob/master/style_sheets/style.css){target="_blank"} for syntax details.
 
-[^2]: This is footnote 2.
+[^longnote]: Here's one with multiple blocks.
 
-    long footnotes.
- 
-<!-- syntax of pandoc: reference will be added here --> 
-# References 
+    Subsequent paragraphs are indented to show that they
+belong to the previous footnote.
+
+    In this way, multi-paragraph footnotes work like multi-paragraph list items.
+
+[^red]: `.red` is also a self-defined class in my stylesheet.
+<!-- footnotes -->
+
+
+<!-- syntax for Reference section --> 
+## References 
