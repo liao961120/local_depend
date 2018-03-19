@@ -18,18 +18,30 @@ library(DiagrammeR)
 ```
 
 
-## 中文 
+## 中文
+
 
 - **粗體**
-- <div class="red2">蘋方?</div>
+- [紅色2]{.red2}
+- [**color=red**]{style="color:#8A2BE2"}
 
+<div class="error">
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
+</div>
 
 ## Slide with Bullets
 
 - Bullet 1
 - Bullet 2
 - Bullet 3
+
+<div class="notes">
+This is my *note*.
+
+- It can contain markdown
+- like this list
+
+</div>
 
 ## Slide with R Output
 
@@ -60,7 +72,9 @@ graph { //non-directed graph
 
 ```{r echo=TRUE}
 grViz('
+### <b>
 digraph { //directed graph
+### </b>
     "總攻" -> "受";
     "強攻" -> "受";
     "健氣攻" -> "受";
@@ -68,3 +82,9 @@ digraph { //directed graph
 )
 ```
 
+
+
+## Dataframe Printing
+```{r}
+knitr::kable(head(iris), align = "c", format = "markdown")
+```

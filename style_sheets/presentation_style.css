@@ -15,10 +15,6 @@ li {
     font-family: Menlo, Consolas, "Courier New", Courier, "Liberation Mono", monospace;
 }
 
-li.red {
-    color: red;
-}
-
 
 /* footer icon size */
 
@@ -27,4 +23,60 @@ slides>slide:not(.nobackground):before {
     height: 1.6em;
     background-size: 1.6em 1.6em; */
     padding-bottom: 0.55em
+}
+
+.success {
+    padding-top: 0.65em;
+    padding-bottom: 0em;
+    padding-left: 0.6em;
+    margin-bottom: 0.6em;
+    border-radius: 0.6em;
+    background-color: rgba(0, 255, 0, 0.1);
+    /* 10% opacity */
+    border: 1px solid rgba(0, 255, 0, 1);
+}
+
+.info {
+    /* padding: 0.6em; */
+    padding-top: 0.65em;
+    padding-bottom: 0em;
+    padding-left: 0.6em;
+    margin-bottom: 0.6em;
+    border-radius: 0.6em;
+    background-color: rgba(77, 184, 255, 0.1);
+    border: 1px solid rgba(77, 184, 255, 1);
+}
+
+.warning {
+    padding-top: 0.65em;
+    padding-bottom: 0em;
+    padding-left: 0.6em;
+    margin-bottom: 0.6em;
+    border-radius: 0.6em;
+    background-color: rgba(255, 173, 51, 0.1);
+    border: 1px solid rgba(255, 173, 51, 1);
+    ;
+}
+
+.error {
+    padding-top: 0.65em;
+    padding-bottom: 0em;
+    padding-left: 0.6em;
+    margin-bottom: 0.6em;
+    border-radius: 0.6em;
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 1);
+}
+
+
+/* image shapes */
+
+.rounded>img {
+    border-radius: 15px;
+    box-shadow: 5px 10px;
+    margin-bottom: 1em;
+}
+
+.circle>img {
+    border-radius: 50%;
 }

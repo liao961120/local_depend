@@ -1,0 +1,165 @@
+---
+title: "Rmarkdown Features"
+subtitle: "This is subtitle"
+author: Yongfu Liao
+date: March 18, 2018
+bibliography: ./citation/neanderthals.bib
+csl: ./citation/apa-no-doi-no-issue.csl
+link-citations: yes
+output:
+  html_document:
+    css: ../style_sheets/style.css
+    df_print: kable
+    code_folding: show
+---
+<!--more-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+## yaml Setup {.tabset}
+
+### Citation
+
+Include the code in yaml header.
+
+```{yaml}
+bibliography: ./citation/neanderthals.bib
+csl: ./citation/apa-no-doi-no-issue.csl
+link-citations: yes
+```
+
+### HTML Output Options
+
+Include the code in yaml header.
+```{yaml}
+output:
+  html_document:
+    df_print: kable
+    code_folding: hide
+    fig_width: 7
+    fig_height: 6
+```
+
+
+## Dynamic Variables
+
+Include **R Code Chunks' Variables** in the body of text.
+
+```{r}
+alpha <- 1:3
+text <- c("a", "b")
+```
+
+
+1. The numeric variable $\alpha =$ `r alpha[1]`.
+    ```{yaml}
+    # The numeric variable $\alpha =$ `r alpha[1]`.
+    ```
+
+2. The string variable $text =$ `r text[1]`.
+    ```{yaml}
+    # The string variable $text =$ `r text[1]`.
+    ```
+
+## $\LaTeX$ Rendering {.tabset}
+
+### kable
+```{r}
+library(knitr)
+library(dplyr)
+iris_data <- head(iris) %>% select(Sepal.Length, Sepal.Width)
+
+colnames(iris_data) <- c("$\\alpha$", "$\\frac{a}{b}$")
+kable(iris_data, format = "markdown", align = "c")
+```
+
+### Plotting Expression
+```{r}
+library(latex2exp)
+library(ggplot2)
+iris_data2 <- iris[c(1:3, 50:53, 100 :103),] %>% select(Sepal.Length, Sepal.Width, Species)
+
+iris_data2 %>% ggplot() +
+    geom_point(mapping = aes(x=Sepal.Length, y=Sepal.Width, color=Species))+
+    labs(x=TeX("Length($\\frac{kg}{cm^2}$)"),
+         y=TeX("\\frac{a}{b}"))
+```
+
+
+
+## Citations 
+To include **Citations**[^1], [Read this](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html){target="_blank"}.
+
+The text cited [@RN9].
+
+@RN15 主張...
+
+### Include `.bib` file in Reference {.tabset}
+
+#### Specific References
+Include specific references, which are **not cited** in the body of text.
+```{pandoc}
+---
+nocite: |
+  @item1, @item2
+...
+```
+
+#### All References
+Include **All references** in the body of text.
+```{pandoc}
+---
+nocite: |
+  @*
+...
+```
+
+## Emphasis {.tabset}
+
+### Full Example
+```{html}
+<div class="success">
+| This is pragraph 1. [**Red text**]{.red}, line 1. The text[^2] is abcd 中文
+| This is [line two]{style="color:rgba(255, 0, 0, 1)"}. 
+
+Paragraph 2 starts here.
+</div>
+```
+
+<div class="success">
+| This is [**Red text**]{.red}, line 1. The text[^2] is abcd 中文
+| This is [line two]{style="color:rgba(255, 0, 0, 1)"}. 
+
+Paragraph.
+</div>
+
+### Colored divs
+There are 4 choices of class: 
+1. success
+2. info
+3. warning
+4. error
+```{html}
+<div class="success">
+    some text in the colored region
+</div>
+```
+
+
+
+
+
+[^1]: This is footnote 1.
+
+[^2]: This is footnote 2.
+
+    long footnotes.
+ 
+<!-- syntax of pandoc: reference will be added here --> 
+# References 

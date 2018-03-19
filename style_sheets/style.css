@@ -1,0 +1,152 @@
+/* font-family */
+
+.article {
+    font-family: -apple-system, BlinkMacSystemFont, "Roboto", 'Helvetica Neue', 'Arial', "文泉驛正黑", "WenQuanYi Zen Hei", "蘋方-繁", "PingFang TC", 'PingFang SC', "儷黑 Pro", "LiHei Pro", "Noto Sans CJK", "思源黑體", "微軟正黑體", "Microsoft JhengHei", 'Microsoft YaHei', SimSun, sans-serif;
+}
+
+
+/* page layout: spacing between h2, h3 divs */
+
+div.level2 {
+    padding-bottom: 1.5em;
+}
+
+div.level3 {
+    padding-top: 0.4em;
+    padding-bottom: 1.2em;
+}
+
+div.level4 {
+    padding-top: 0.4em;
+    padding-bottom: 1em;
+}
+
+
+/* Title header settings: Title, subtitles, author, date */
+
+div#header {
+    /* Title Portion: includes title, subtitle, author, date, etc.*/
+    margin-bottom: 3em;
+}
+
+h1.title {
+    font-weight: 900;
+    font-size: 50px;
+    margin-bottom: 0em;
+}
+
+#header>h3.subtitle {
+    font-weight: 700;
+    margin-top: 0em;
+    margin-bottom: 0.4em;
+}
+
+#header>h4.author {
+    font-style: normal;
+    font-size: 14px;
+    margin-bottom: 0.15em;
+}
+
+#header>h4.date {
+    font-style: italic;
+    font-size: 10px;
+    margin-top: 0em;
+}
+
+
+/* Heading style setting */
+
+h2 {
+    font-weight: bold;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+h3 {
+    font-weight: bold;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
+#reference>h1 {
+    font-weight: bold;
+}
+
+
+/* footnotes spacing */
+
+div.footnotes>ol>li {
+    padding-bottom: 0.4em;
+    margin-bottom: 0.2em;
+}
+
+div.footnotes>ol>li>p {
+    margin-bottom: 0em;
+    padding-bottom: 0em;
+}
+
+
+/* special div blocks, for text emphasis */
+
+.success {
+    padding-top: 0.6em;
+    padding-bottom: 0.05em;
+    padding-left: 0.6em;
+    margin-bottom: 0.6em;
+    border-radius: 0.6em;
+    background-color: rgba(0, 255, 0, 0.1);
+    /* 10% opacity */
+    border: 1px solid rgba(0, 255, 0, 1);
+}
+
+.info {
+    /* padding: 0.6em; */
+    padding-top: 0.6em;
+    padding-bottom: 0.05em;
+    padding-left: 0.6em;
+    margin-bottom: 0.6em;
+    border-radius: 0.6em;
+    background-color: rgba(77, 184, 255, 0.1);
+    border: 1px solid rgba(77, 184, 255, 1);
+}
+
+.warning {
+    padding-top: 0.6em;
+    padding-bottom: 0.05em;
+    padding-left: 0.6em;
+    margin-bottom: 0.6em;
+    border-radius: 0.6em;
+    background-color: rgba(255, 173, 51, 0.1);
+    border: 1px solid rgba(255, 173, 51, 1);
+    ;
+}
+
+.error {
+    padding-top: 0.6em;
+    padding-bottom: 0.05em;
+    padding-left: 0.6em;
+    margin-bottom: 0.6em;
+    border-radius: 0.6em;
+    background-color: rgba(255, 0, 0, 0.1);
+    border: 1px solid rgba(255, 0, 0, 1);
+}
+
+
+/* image shapes */
+
+.rounded>img {
+    border-radius: 15px;
+    box-shadow: 5px 10px;
+    margin-bottom: 1em;
+}
+
+.circle>img {
+    border-radius: 50%;
+}
+
+
+/* custom classes: for span attachment*/
+
+.red {
+    color: red;
+}
