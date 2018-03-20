@@ -1,0 +1,10 @@
+csl: ../style_sheets/apa-no-doi-no-issue.csl
+link-citations: yes
+output:
+    html_document:
+    css: ../style_sheets/style.css
+    df_print: kable
+    code_folding: show
+    toc: true
+    toc_depth: 4
+    toc_float: true

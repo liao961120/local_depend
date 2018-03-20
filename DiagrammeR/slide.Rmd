@@ -7,7 +7,8 @@ output:
   ioslides_presentation:
     fig_height: 3
     css: ../style_sheets/presentation_style.css
-    incremental: false
+    incremental: true
+    transition: 0.4
     logo: tux.svg
     df_print: kable
 ---
@@ -17,9 +18,10 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, comment="")
 library(DiagrammeR)
 ```
 
+Part 1
+==================
 
-## 中文
-
+## 中文 {.build}
 
 - **粗體**
 - [紅色2]{.red2}
@@ -28,6 +30,7 @@ library(DiagrammeR)
 <div class="error">
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document.
 </div>
+
 
 ## Slide with Bullets
 
@@ -42,6 +45,11 @@ This is my *note*.
 - like this list
 
 </div>
+
+
+Part 2
+==================
+
 
 ## Slide with R Output
 
