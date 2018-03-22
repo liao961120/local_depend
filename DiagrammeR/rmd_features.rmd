@@ -114,8 +114,8 @@ The text cited [@RN9].
 
 ### Include `.bib` file in Reference {.tabset}
 
-#### Specific References
-Include specific references, which are **not cited** in the body of text.
+#### Specific Refs
+Include specific references that were **not cited** in the body of text.
 ```{pandoc}
 ---
 nocite: |
@@ -123,7 +123,7 @@ nocite: |
 ...
 ```
 
-#### All References
+#### All Refs
 Include **All references** in the body of text.
 ```{pandoc}
 ---

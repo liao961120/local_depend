@@ -8,6 +8,7 @@
 
 ### Editing
 `Ctrl + /`: Comment
+
 `Shift + tab`: Unindent
 
 
@@ -71,7 +72,21 @@ Contents to show on the page
 </table>
 ```
 
+- `<th>`: Column name
+- `<td>`: Table data
+
 
 ## CSS Basics
 `em`: Size relative to screen size
 `px`: Absolute size as measured by pixel
+
+### padding
+```css
+p {
+    padding: 10px 5px 15px 20px;
+}
+```
+1. top padding: 10px
+2. right padding: 5px
+3. bottom padding: 15px
+4. left padding: 20px

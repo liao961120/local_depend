@@ -1,11 +1,15 @@
-h1 {
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Roboto", 'Helvetica Neue', 'Arial', "文泉驛正黑", "WenQuanYi Zen Hei", "蘋方-繁", "PingFang TC", 'PingFang SC', "儷黑 Pro", "LiHei Pro", "Noto Sans CJK", "思源黑體", "微軟正黑體", "Microsoft JhengHei", 'Microsoft YaHei', SimSun, sans-serif;
+}
+
+.header {
     text-align: left;
-    color: red;
-    background: rgba(0, 0, 0, 0.8);
-    border: 5px solid;
-    margin: 10px;
+    color: black;
+    background: rgba(255, 173, 97, 0.8);
+    border: 0.3px solid;
+    margin: auto;
     /*內邊界*/
-    padding: 15px 5px 5px 20px;
+    padding: 0.1em 0.5em 0.1em 0.5em;
     /*外邊界*/
 }
 
@@ -14,8 +18,39 @@ p {
     line-height: 1.5em;
 }
 
-th,
+p#table {
+    font-size: 20px;
+    font-weight: bold;
+    padding: 0.1em;
+    margin-bottom: 0.1em;
+}
+
+table {
+    width: 80%;
+    border: solid 3px gray;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 tr,
 td {
-    border: 0.05em solid;
+    /* border: 0.05em solid; */
+    text-align: center;
+    vertical-align: middle;
+}
+
+tr {
+    height: 56px;
+}
+
+tr:nth-child(even) {
+    background-color: rgba(252, 215, 7, 0.8);
+}
+
+tr:nth-child(odd) {
+    background-color: rgba(252, 215, 7, 0.2);
+}
+
+tr.title {
+    background-color: rgba(192, 191, 191, 0.911);
 }
