@@ -26,6 +26,9 @@ int main (void) {
     return 0;
 }
 ```
+Download [source1.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/W2/source1.c){target="_blank"}
+
+
 
 ## Question 2
 
@@ -45,5 +48,5 @@ int main (void) {
     return 0;
 }
 ```
-
+Download [source2.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/W2/source2.c){target="_blank"}
 

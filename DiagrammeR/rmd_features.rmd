@@ -10,12 +10,12 @@ output:
   html_document:
     css: ../style_sheets/style.css
     df_print: kable
-    code_folding: show
     toc: true
     toc_depth: 4
     toc_float: true
 ---
-<!--more-->
+
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
@@ -76,6 +76,35 @@ text <- c("a", "b")
     ```
 
 ## $\LaTeX$ Rendering {.tabset}
+
+### Passing Matrix Object
+
+#### Setup
+
+Add `results='asis'` to r code chunk option.
+```{r results='asis'}
+library(mat2tex)
+mt <- c(1,2)
+"$A =" %_% xm(mt,0) %_%"_{2 \\times 1}$"
+```
+
+#### Include Matrix in Text
+
+![](mat2tex.png){width=60% height=auto}
+
+renders as:
+
+<div class="success">
+This is the variable `mt`,
+```{r results='asis', echo=FALSE}
+library(mat2tex)
+mt <- matrix(1:4, 2,2)
+"$A =" %_% xm(mt,0) %_%"^{-1}$"
+```
+, which is a matrix.
+</div>
+
+Check [here](http://markheckmann.github.io/mat2tex/){target=_blank""} for more information.
 
 ### kable
 ```{r}
