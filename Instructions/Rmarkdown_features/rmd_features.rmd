@@ -3,12 +3,12 @@ title: "Rmarkdown Features"
 subtitle: "This is subtitle"
 author: Yongfu Liao
 date: March 18, 2018
-bibliography: ./citation/neanderthals.bib
-csl: ./citation/apa-no-doi-no-issue.csl
+bibliography: /Users/user/local_depend/citation/neanderthals.bib
+csl: /Users/user/local_depend/style_sheets/apa-no-doi-no-issue.csl
 link-citations: yes
 output:
   html_document:
-    css: ../style_sheets/style.css
+    css: /Users/user/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
     toc_depth: 4
@@ -26,7 +26,8 @@ knitr::opts_chunk$set(
 )
 ```
 
-## yaml Setup {.tabset}
+yaml Setup {.tabset}
+-----------------------------
 Include the code in yaml header.
 
 ### Citation
@@ -55,7 +56,8 @@ output:
 ```
 
 
-## Dynamic Variables
+Dynamic Variables
+-----------------------------
 
 Include **R Code Chunks' Variables** in the body of text.
 
@@ -75,8 +77,8 @@ text <- c("a", "b")
     # The string variable $text =$ `r text[1]`.
     ```
 
-## $\LaTeX$ Rendering {.tabset}
-
+$\LaTeX$ Rendering {.tabset}
+-----------------------------
 ### Passing Matrix Object
 
 #### Setup
@@ -90,7 +92,7 @@ mt <- c(1,2)
 
 #### Include Matrix in Text
 
-![](mat2tex.png){width=60% height=auto}
+![](mat2tex.png){width=85% height=auto .rounded}
 
 renders as:
 
@@ -133,8 +135,9 @@ iris_data2 %>% ggplot() +
 ```
 
 
+Citations 
+-----------------------------
 
-## Citations 
 To include **Citations**, [Read this](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html){target="_blank"}.
 
 The text cited [@RN9].
@@ -161,7 +164,8 @@ nocite: |
 ...
 ```
 
-## Emphasis {.tabset}
+Emphasis {.tabset}
+-----------------------------
 
 ### Full Example
 ```{html}
@@ -234,7 +238,8 @@ Add color through [span style]{style="color:rgba(255, 0, 0, 1)"}
 Add color through [span style]{style="color:rgba(255, 0, 0, 1)"}
 </div>
 
-## Footnotes with Paragraphs
+Footnotes with Paragraphs
+-----------------------------
 Check [Pandoc](http://pandoc.org/MANUAL.html#footnotes){target="_blank"} for details.
 
 ```{markdown}
@@ -248,30 +253,28 @@ belong to the previous footnote.
 - Output[^longnote].
 
 
-## Shaped Images {.tabset}
+Shaped Images {.tabset}
+-----------------------------
 
 ### Rounded Edge
 ```{html}
-<div class="rounded">
-![](../icons/jekyll_dark.ico){width=auto height="30%"}
-</div>
+![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .rounded}
 ```
-<div class="rounded">
-![](../icons/jekyll_dark.ico){width=auto height="30%"}
-</div>
+![](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .rounded}
 
 ### Circle Image
 ```{html}
-<div class="circle">
-![](../icons/jekyll_dark.ico){width=auto height="30%"}
-</div>
+![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .circle}
 ```
-<div class="circle">
-![](../icons/jekyll_dark.ico){width=auto height="30%"}
-</div>
+![This is figure Caption](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .circle}
 
 
-<!-- footnotes -->
+
+
+
+
+
+<!-- footnotes ---------------------------- -->
 [^css]: Look at my [stylesheet](https://github.com/liao961120/local_depend/blob/master/style_sheets/style.css){target="_blank"} for syntax details.
 
 [^longnote]: Here's one with multiple blocks.
@@ -282,8 +285,23 @@ belong to the previous footnote.
     In this way, multi-paragraph footnotes work like multi-paragraph list items.
 
 [^red]: `.red` is also a self-defined class in my stylesheet.
-<!-- footnotes -->
+<!-- footnotes -------------------------- -->
 
 
 <!-- syntax for Reference section --> 
-## References 
+
+Figures
+-----------------------------
+
+### Captions
+Include `fig.cap='An Caption of the Plot'` in the code chunk option gives:
+```{r fig.cap='An Caption of the Plot'}
+library(ggplot2)
+ggplot(iris)+
+    geom_point(aes(x=Sepal.Length, y=Sepal.Width, color=Species))
+```
+
+
+
+References
+-----------------------------

@@ -1,0 +1,203 @@
+---
+title: "多變量分析: 作業一"
+author: "劉昱維, 吳冠瑋, 廖永賦, 謝靖惟, 黃奎鈞"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    includes:
+      in_header: header.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+library(dplyr)
+library(latex2exp)
+library(ggplot2)
+theme <- theme(axis.text.x = element_text(size = 7, face = "plain", angle = 30),
+               axis.text.y = element_text(size = 7, face = "plain"),
+               axis.title.x = element_text(size = 9, face = "bold"),
+    axis.title.y = element_text(size = 9, face = "bold"))
+```
+
+
+4.1
+----------------------
+### (a)
+$f(x_1,x_2)=\frac{1}{1.2\sqrt{2}\pi}e^{-\frac{{x_1}^2+1.6x_1x_2+2{x_2}^2-(4.8\sqrt{2}+2)x_1-(1.6\sqrt{2}+12)x_2+4.8\sqrt{2}+19}{1.44}}$
+
+### (b)
+$\frac{{x_1}^2+1.6x_1x_2+2{x_2}^2-(4.8\sqrt{2}+2)x_1-(1.6\sqrt{2}+12)x_2+4.8\sqrt{2}+19}{0.36}$
+
+### (c) Contour Plot
+Plot $Distance^2 < \chi_2^2(.50)=1.39$:
+
+$f(\textbf x) = \frac{1}{2 \pi det(\Sigma)^{(1/2)}} e^{- \chi_2^2(.50)/2 }$
+
+```{r fig.height=2, fig.width=2.5}
+library(ellipse)
+library(latex2exp)
+# mu <- c(1, 3)
+# sigma <- matrix(c(2, -0.8*sqrt(2), -0.8*sqrt(2), 1), 2)
+# mixtools::ellipse(mu, sigma, npoints = 1000, newplot = TRUE, alpha = 0.5,
+#     pch = 16, cex = .1, xlab = TeX("x_1"), ylab = TeX("x_2"),
+#     main="50% Contour Plot")
+
+# ellipse::ellipse(corr, std(vector), centre = mu(vector), level = 0.5, npoints= 1000)
+ell_data <- ellipse(-0.8, c(sqrt(2),1), centre = c(1,3), level = 0.5, npoints= 1000)
+ggplot(as.data.frame(ell_data))+
+    geom_point(aes(x=x, y=y),size = 0.1, color="#F8766D")+
+    labs(x=TeX("$x_1$"), 
+        y=TeX("$x_2$"), 
+        title="50% Contour Plot") + theme+
+    theme(axis.text.x = element_text(size = 7, face = "plain", angle = 0))
+```
+
+4.6
+----------------------
+Ans: (a)(c)(d)
+
+- (a), (c): $\because ~Cov(X_1,X_2)=Cov(X_2,X_3)=0$
+
+- (d): $\because ~both~X_1~and~X_3~are~independent~to~X_2$
+
+
+4.19
+------------------------
+
+### (a)
+$By~lecture~4~in~class,~it~follows~{\chi}^2_6$
+
+### (b)
+$By~CLT,~\overline{X}\xrightarrow{d}N_6(\mu,\frac{1}{20}\Sigma),~and~\sqrt{n}(\overline{X}-\mu)\xrightarrow{d}N_6(0,\Sigma)$
+
+### (c)
+$By~textbook,~19S~follows~Wishart~distribution~with~19~d.~f.$
+
+
+4.24 (a)
+----------------------
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(readr)
+data <- read_table2("P1-4.txt", col_names = FALSE)
+quantiles <- qnorm(p=seq(0.5,9.5, 1)/10)
+QQ_1 <- cbind(x=sort(data$X1), quantiles)
+QQ_2 <- cbind(x=sort(data$X2), quantiles)
+QQ_3 <- cbind(x=sort(data$X3), quantiles)
+```
+
+```{r fig.height=2, fig.width=7.5}
+library(ggplot2)
+library(scales)
+library(cowplot)
+library(latex2exp)
+
+p1 <- ggplot(as.data.frame(QQ_1))+
+        geom_point(aes(x=quantiles, y=x), 
+                   color=hue_pal()(3)[1])+
+    scale_x_continuous(breaks = seq(-1.8,1.8, 0.45))+
+    scale_y_continuous(breaks = seq(50,300, 25))+
+    labs(x=TeX("$q_{(j)}$"),
+         y=TeX("$x_{(j)}$"),
+         title=TeX("$x_1$ Q-Q Plot"))+ theme
+p2 <- ggplot(as.data.frame(QQ_2))+
+        geom_point(aes(x=quantiles, y=x), 
+                   color=hue_pal()(3)[2])+
+    scale_x_continuous(breaks = seq(-1.8,1.8, 0.45))+
+    scale_y_continuous(breaks = seq(5,30, 2))+
+    labs(x=TeX("$q_{(j)}$"),
+         y=TeX("$x_{(j)}$"),
+         title=TeX("$x_2$ Q-Q Plot"))+ theme
+
+p3 <- ggplot(as.data.frame(QQ_3))+
+        geom_point(aes(x=quantiles, y=x), 
+                   color=hue_pal()(3)[3])+
+    scale_x_continuous(breaks = seq(-1.8,1.8, 0.45))+
+    scale_y_continuous(breaks = seq(180,1500, 150))+
+    labs(x=TeX("$q_{(j)}$"),
+         y=TeX("$x_{(j)}$"),
+         title=TeX("$x_3$ Q-Q Plot"))+ theme
+
+plot_grid(p1, p2, p3, nrow = 1)
+```
+
+
+The distribution of $x_1$ seems to deviate from a normal distribution a lot, since the curve of the Q-Q plot isn't straight and looks much more like an S-shaped curve.
+
+The distribution of $x_2$ is much closer to normal. If the most upper-right point is removed, the curve from the Q-Q plot would resemble a straight line.
+
+4.26
+------------------
+
+```{r}
+x_1 <- c(1,2,3,3,4,5,6,8,9,11)
+x_2 <- c(18.95,19,17.95,15.54,14,12.95,8.94,7.49,6,3.99)
+data <- as.data.frame(cbind(x_1,x_2))
+```
+
+```{r}
+cov_mt <- cov(data)
+x_b <- c(mean(x_1), mean(x_2))
+mt_r <- round(cov_mt, digits = 2)
+```
+
+### (a): Equations
+
+```{r results='asis', echo=FALSE}
+library(mat2tex)
+xx("\\textbf{S} = \\begin{pmatrix}
+  s_{11} & s_{12} \\\\
+  s_{12} & s_{22} \\\\
+ \\end{pmatrix} =", mt_r, ", \\ \\overline{\\textbf{x}}=", x_b)
+```
+
+
+$distance^2 = (\textbf{x}_j - \overline{\textbf{x}})^T \textbf{S}^{-1} (\textbf{x}_j - \overline{\textbf{x}})
+\\
+= \left( 0.7538828748926251\left( {{x}_{\mathit{j2}}}-12.841\right) \\
++1.25693419723757\left( {{x}_{\mathit{j1}}}-5.2\right) \right) \left( {{x}_{\mathit{j2}}}-12.841\right) \\
++\left( {{x}_{\mathit{j1}}}-5.2\right) \left( 1.25693419723757\left( {{x}_{\mathit{j2}}}-12.841\right) \\
++2.189804123676667\left( {{x}_{\mathit{j1}}}-5.2\right) \right)$
+
+
+### (b)
+```{r}
+x_b <- c(mean(x_1),mean(x_2))
+dist <- rep(NA, 10)
+for (i in 1:10) {
+    dist[i] <- as.matrix(data[i,] - x_b) %*%  solve(cov_mt) %*% t(as.matrix(data[i,] - x_b))
+}
+```
+
+- $distance^2 = (`r round(dist, 2)`)$
+
+Observations **within estimated 50% probability contour ** is equivalent to observations with $distance^2 < \chi_2^2(.50) = 1.39$.
+
+Exactly **`r sum(dist>1.39)/10*100`%** of observations fall within the estimated 50% probability contour, i.e. `r sum(dist>1.39)/10*100`% of observations have $distance^2 < \chi_2^2(.50) =1.39$.
+
+### (c): Chi-square plot
+```{r}
+ordered <- sort(dist)
+q_chi <- qchisq((1:10-0.5)/10, 2)
+chi_plot <- as.data.frame(cbind(ordered, q_chi))
+```
+
+- **Ordered distance^2^**: `r round(ordered,2 )`
+
+```{r fig.height=2, fig.width=2.5}
+library(latex2exp)
+library(ggplot2)
+ggplot(chi_plot)+
+    geom_point(aes(x=q_chi, y=ordered), color="#F8766D")+
+    scale_x_continuous(breaks = seq(0,6.5, 0.5))+
+    scale_y_continuous(breaks = seq(0,4.5, 1))+
+    labs(x=TeX("$\\frac{\\chi_2^2(j-0.5)}{10}$"),
+         y=TeX("$d_{(j)}^2$"),
+         title="Chi-square Plot")+ theme
+```
+
+##### Plotting Source Code
+R Code: https://liao961120.github.io/notes/HW.html

@@ -123,12 +123,19 @@ The retured values are the same(very close), since they are on the same contour.
 
 Generater covariance and correlation Matricies:
 ```{r echo=TRUE}
-cov(iris[,1:4]) ## Cov Matrix of variable 1~4
-
+library(mat2tex)
+cov.mt <- cov(iris[,1:4]) ## Cov Matrix of variable 1~4
+cor.mt <- cor(iris[,1:4]) ## Cor Matrix of variable 1~4
 ```
 
-```{r echo=TRUE}
-cor(iris[,1:4]) ## Cor Matrix of variable 1~4
+Covariance matrix 
+```{r echo=FALSE, results='asis'}
+"$=" %_% xm(cov.mt,2) %_%"$"
+```
+
+Correlation matrix 
+```{r echo=FALSE, results='asis'}
+"$=" %_% xm(cor.mt,2) %_%"$"
 ```
 
 

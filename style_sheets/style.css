@@ -146,13 +146,13 @@ div.footnotes>ol>li>p {
 
 /* image shapes */
 
-.rounded img {
+img.rounded {
     border-radius: 15px;
-    box-shadow: 5px 10px rgba(216, 216, 216, 0.3);
+    box-shadow: 2px 2px rgba(216, 216, 216, 0.137);
     margin-bottom: 1em;
 }
 
-.circle img {
+img.circle {
     border-radius: 50%;
 }
 
