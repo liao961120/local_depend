@@ -1,0 +1,59 @@
+---
+title: "Ecological Modeling HW1"
+author: Yongfu Liao
+date: March 15, 2018
+output: html_document
+css: /Users/user/local_depend/style_sheets/style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Question 1
+
+> Correct the following source codes and arrange them in a readable way.
+
+```c
+#include <stdio.h>
+int main (void) {Printf(“How are you? \n”); printf(“Not bad”\n):
+return O;
+```
+
+```c
+#include <stdio.h>
+
+int main (void) {
+	printf("How are you? \n"); 
+	printf("Not bad\n");
+	
+	return 0;
+}
+```
+Download [Q1.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C2/Q1.c){target="_blank"}
+
+
+
+## Question 2
+
+> Write a source code, which is intended to output the following tab
+separated numbers.
+
+```c
+1.2 3.4 0.5
+3.5 6.0 -10
+```
+
+```c
+#include <stdio.h>
+
+int main (void) {
+	printf("%.1f\t%.1f\t%.1f\n", 1.2, 3.4, 0.5);
+	printf("%.1f\t%.1f\t%d\n", 3.5, 6.0, -10);
+
+	return 0;
+}
+```
+Download [Q2.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C2/Q2.c){target="_blank"}
+
