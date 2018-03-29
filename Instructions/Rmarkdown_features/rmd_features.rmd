@@ -22,7 +22,8 @@ knitr::opts_chunk$set(
 	echo = TRUE,
 	message = FALSE,
 	warning = FALSE,
-	dev='svg'
+	dev='svg',
+	fig.dim = c(5.5, 3.5)  # (width, height)
 )
 ```
 

@@ -1,0 +1,71 @@
+div.namecard {
+    background-color: #eeeeee;
+    height: 248px;
+    width: 729px;
+    padding: 5px;
+    margin-top: -7px;
+    border-radius: 3%;
+}
+
+#tux {
+    box-shadow: 3px 5px 16px 0px;
+    border-radius: 8%;
+    height: 150px;
+    width: 150px;
+    margin-left: 30px;
+    margin-top: 37px;
+    background-color: #cdd5ff;
+}
+
+div.intro {
+    margin-left: 207px;
+    margin-right: 360px;
+    margin-top: -201px;
+}
+
+.intro h2 {
+    letter-spacing: 12px;
+    font-weight: bold;
+    font-size: 42px;
+    margin-bottom: -4px;
+}
+
+.intro span {
+    font-size: 11px;
+    letter-spacing: 7.5px;
+    ;
+    ;
+}
+
+div.intro>p {
+    margin-bottom: -8px;
+    font-size: 10px;
+}
+
+div.round {
+    border: solid 5px orange;
+    border-radius: 100%;
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    margin-left: 509px;
+    margin-top: -143px;
+}
+
+div.round2 {
+    border: solid 5px red;
+    width: 100px;
+    height: 100px;
+}
+
+div.namecard:hover .round2 {
+    transform-origin: 30% 30%;
+    transform: scale(1.8);
+    transition-duration: 0.5s;
+}
+
+div.namecard:hover .round1 {
+    transform-origin: 100% 100%;
+    transform: scale(0.5);
+    transition-duration: 0.5s;
+}

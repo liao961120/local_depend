@@ -1,0 +1,66 @@
+---
+title: "Ecological Modeling HW3"
+author: Yongfu Liao
+date: March 29, 2018
+output: html_document
+css: /Users/user/local_depend/style_sheets/style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Question 1
+
+```c
+#include<stdio.h>
+
+int main (void) {
+    int bot_len, height;
+    double area;
+    
+    printf("Please input the bottom length of a triangle (integer).\n");
+    scanf("%d", &bot_len);
+    
+    printf("Please input the height of the triangle (integer).\n");
+    scanf("%d", &height);
+    
+    area = (double) bot_len * (double) height / 2.0;
+    printf("The area of the traingle is %.2lf.\n", area);
+    
+    return 0;
+}
+
+```
+Download [Q1.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/W3/Q1.c){target="_blank"}
+
+
+
+## Question 2
+
+```c
+#include<stdio.h>
+
+int main (void) {
+    double height, weight, BMI;
+    double height_meter, std_weight;
+    
+    printf("Please input your height (cm) and weight (kg).\n");
+    scanf("%lf", &height);
+    scanf("%lf", &weight);
+    
+    height_meter = height / 100.0;
+    
+    BMI = (weight) / (height_meter * height_meter);
+    std_weight = 24.0 * (height_meter * height_meter);
+    
+    printf("Your BMI is %.2lf.\n", BMI);
+    printf("The standard BMI is assumed to be 24.0.\n");
+    printf("The difference with a standard weight is %.2lf kg. \n", weight - std_weight);
+    
+    return 0;
+}
+```
+Download [Q2.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/W3/Q2.c){target="_blank"}
+
