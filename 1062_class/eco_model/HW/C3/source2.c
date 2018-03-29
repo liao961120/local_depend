@@ -8,7 +8,7 @@ int main (void) {
     scanf("%d", &age);
     scanf("%lf", &height);
 
-    printf("Your age is %d and your height is %.1f cm.\n", age, height);
+    printf("Your age is %d and your height is %.1lf cm.\n", age, height);
 
     return 0;
 }

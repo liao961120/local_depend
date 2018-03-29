@@ -13,6 +13,16 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Question 1
 
+> Please input the bottom length of a triangle (integer). (output)
+> 
+> 3 ⏎ (input)
+> 
+> Please input the height of the triangle (integer). (output)
+> 
+> 4 ⏎ (input)
+> 
+> The area of the triangle is 6.00. (output)
+
 ```c
 #include<stdio.h>
 
@@ -33,11 +43,23 @@ int main (void) {
 }
 
 ```
-Download [Q1.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/W3/Q1.c){target="_blank"}
+Download [Q1.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C4/Q1.c){target="_blank"}
 
 
 
 ## Question 2
+
+> Please input your height (cm) and weight (kg). (output)
+>
+> 172.3 ⏎ (input)
+>
+> 65.0 ⏎ (input)
+>
+> Your BMI is XXXX. (output)
+>
+> The standard BMI is assumed to be 24.0. (output)
+>
+> The difference with a standard weight is YYY kg. (output)
 
 ```c
 #include<stdio.h>
@@ -62,5 +84,5 @@ int main (void) {
     return 0;
 }
 ```
-Download [Q2.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/W3/Q2.c){target="_blank"}
+Download [Q2.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C4/Q2.c){target="_blank"}
 

@@ -1,0 +1,66 @@
+---
+title: "Ecological Modeling HW2"
+author: Yongfu Liao
+date: March 22, 2018
+output: html_document
+css: /Users/user/local_depend/style_sheets/style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Question 1
+
+> How old are you? (output)
+>
+> 23 ⏎ (input)
+>
+> You are 23 years old. (output)
+
+```c
+#include <stdio.h>
+
+int main (void) {
+    int age;
+
+    printf("How old are you?\n");
+    scanf("%d", &age);
+    printf("You are %d years old.\n", age);
+
+    return 0;
+}
+```
+Download [source1.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C3/source1.c){target="_blank"}
+
+
+
+## Question 2
+
+> Please input your age and height (cm). (output)
+>
+> 23 ⏎ (input)
+> 
+> 172.3 ⏎ (input)
+>
+> Your age is 23 and your height is 172.3 cm. (output)
+
+```c
+#include <stdio.h>
+
+int main (void) {
+    int age;
+    double height;
+
+    printf("Please enter your age and height(cm).\n");
+    scanf("%d", &age);
+    scanf("%lf", &height);
+
+    printf("Your age is %d and your height is %.1lf cm.\n", age, height);
+
+    return 0;
+}
+```
+Download [source2.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C3/source2.c){target="_blank"}
+
