@@ -1,0 +1,20 @@
+X1; If the energy shortage gets any worse, the country will be in bad shape.
+X2; The worst of the energy crisis has passed.
+X3; Science and technology will be able to resolve the energy crisis without conservation.
+X4; Saving energy requires you to make major sacrifices.
+X5; The energy crisis is for real.
+X6; Utility companies should be allowed to burn cheaper fuel even though this would cause more pollution.
+X7; The petroleum companies have not done all they can to solve the energy problem.
+X8; Congress has done all it can to solve the energy problem.
+X9; Rationing of energy resources will be necessary for at least the next five years.
+X10; Conserving electricity will save me money in the long run.
+X11; The natural gas companies have done all they can to solve the energy problem.
+X12; My electricity bill would be the same no matter what I did.
+X13; There is not much an average citizen can do to save electricity.
+X14; President Carter has done all he can to solve the energy problem.
+X15; At this point in time our traditional energy resources (coal, oil, natural gas, etc.) are insufficient to continue energy consumption at the present rate.
+X16; It would be easy for me to cut down on the use of electricity in my home.
+X17; We should forget about reducing pollution until our energy problems are solved.
+X18; My personal conservation efforts have little impact on total consumption of energy.
+X19; Because of the abundance of coal, industries should be encouraged to switch to coal as a fuel despite the air pollution it causes.
+X20; The electric companies have not done all they can to solve the energy problem.

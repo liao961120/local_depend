@@ -1,0 +1,68 @@
+---
+title: 'Q6: questionare'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message=FALSE,
+                      warning=FALSE)
+library(readr)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+```{r data_import_rm.na}
+var_content <- read_delim("data/var_masst.txt", 
+    ";", escape_double = FALSE, col_names = FALSE, 
+    trim_ws = TRUE)
+colnames(var_content) <- NULL
+
+response <- read.table("C:/Users/user/local_depend/1062_class/Multivariate_Analysis/HW2/data/masst.txt", quote="\"", comment.char="", na.strings=".", stringsAsFactors=FALSE) %>%
+    drop_na()
+```
+
+```{r}
+PCA <- prcomp(response, scale = TRUE)
+
+std_pc <- PCA[["sdev"]] 
+# std(sqrt(eigenvalue) of corr matrix) of PCs
+```
+
+(a)
+===============================
+
+### Loading of the First 5 Pricinple Components
+```{r}
+# First 5 PCs
+pc5 <- as.data.frame(PCA[["rotation"]][,1:5]) 
+
+styled_pc5 <- round(pc5,3) %>%
+    mutate(
+        PC1 = cell_spec(PC1, "html", color = ifelse(PC1 < 0, "red", "blue")),
+        PC2 = cell_spec(PC2, "html", color = ifelse(PC2 < 0, "red", "blue")),
+        PC3 = cell_spec(PC3, "html", color = ifelse(PC3 < 0, "red", "blue")),
+        PC4 = cell_spec(PC4, "html", color = ifelse(PC4 < 0, "red", "blue")),
+        PC5 = cell_spec(PC5, "html", color = ifelse(PC5 < 0, "red", "blue"))
+                        )
+
+loadings <- kable(styled_pc5, "html", escape = F, align="c", row.names = T) %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+loadings
+```
+
+### Percentage of Variance Accounted
+```{r}
+per_5pc <- sum(std_pc[1:5]^2)/sum(std_pc^2)
+```
+The percentage accounted is `r round(per_5pc*100,2)`%.  
+
+(b)
+==============================
+
+```{r fig.show='hold'}
+loadings
+var_content %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+```
+

@@ -5,7 +5,8 @@ var <- 1:3
 grViz("
 digraph { //non-directed graph
       graph [layout = neato]  //layout = dot|neato|twopi|circo|fdp
-      
+      rankdir=BT    // TB|RL|LR, LR: Left to Right orientation
+
       node [shape = circle,
       style = filled,
       color = orange]

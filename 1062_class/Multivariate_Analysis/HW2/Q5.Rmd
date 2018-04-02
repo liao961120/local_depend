@@ -1,0 +1,89 @@
+---
+title: 'Q5: Food Price'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message=FALSE,
+                      warning=FALSE,
+                      dev='svg',
+                      fig.dim=c(3.6, 3.2))
+library(readr)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+```
+
+```{r data_import}
+fp <- read_table2("data/FOODP.txt", col_names = FALSE, 
+    skip = 5)[1:24, -1]
+colnames(fp) <- c("city", paste("food",1:5,sep=""))
+```
+
+(a) Scree Plot, PCs, Interpretation
+=======================================
+```{r scree_plot}
+library(factoextra) # For Visualizing MvA
+PCA <- prcomp(fp[,-1], scale=T)
+# fviz_eig(PCA)
+
+eigva <- as_data_frame(PCA[["sdev"]]^2)
+scree <- cbind(1:5 , eigva)
+scree <- cbind(scree, "a")
+colnames(scree) <- c("PC", "var", "a")
+
+ggplot(scree, aes(x = PC, y = var, group = a)) +
+    geom_point() + geom_line() +
+    scale_y_continuous(
+        sec.axis = sec_axis(~ . / sum(eigva) * 100,
+                            name = "Variance Accounted (%)")
+                   )+
+    labs(x="Principle Components",
+         y=latex2exp::TeX("$\\hat{\\lambda_i}$"),
+         title="Scree Plot")    
+```
+
+By either the "elbow" of the scree plot or the unity criterion, **one principle component** is sufficient, which explains **`r round(eigva[1,1]/sum(eigva)*100, 2)`%** of the total variance.
+
+```{r PC_loadings}
+pc <- PCA[["rotation"]]
+kable(round(pc,3),"markdown", align = "c")
+```
+
+(b) The First Two principal component scores
+===================================================
+
+```{r}
+# PCA[["x"]] returns the "rotated" score(pc score) of the original data
+pc_score12 <- as.data.frame(PCA[["x"]][,1:2])
+pc_score12 <- cbind(fp$city, pc_score12) %>% rename(city=`fp$city`)
+kable(pc_score12, "markdown", align="c",digits = 2)
+```
+
+
+(c) Scatter Plot: PC1 vs. PC2
+============================================
+```{r fig.dim=c(7, 4)}
+ggplot(pc_score12, aes(x=PC1, y=PC2))+
+    geom_point()+
+    geom_text(aes(label=city),
+              hjust=-0.1, vjust=0, size = 3)+
+    scale_x_continuous(limits = c(-4.6, 2.9), breaks = seq(-4.5,3, 0.5))+
+    scale_y_continuous(limits = c(-1.7, 1.5), breaks = seq(-1.75,1.5, 0.25))+
+    labs(title="Scatter Plot of PC1 & PC2",
+         x="Principle Component 1",
+         y="Principle Component 2")
+```
+
+(d) Food Price in Different Cities
+===============================================
+```{r}
+## Max PC score: cheapest food price
+cheap <- pc_score12$city[pc_score12$PC1 == max(pc_score12$PC1)]
+
+## min PC score
+expense <- pc_score12$city[pc_score12$PC1 == min(pc_score12$PC1)]
+```
+
+Using principle component 1 as indicator, since it has the same sign on all "weighted" food price, and it's the most important principle component in explaining the variability of the data, the x-axis of the scatter above showed that **`r cheap`** has the cheapest food price, and **`r expense`** has the most expensive food price.

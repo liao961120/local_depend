@@ -1,0 +1,53 @@
+---
+title: 'Q3: Air Pollution'
+output: html_document
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message=FALSE,
+                      warning=FALSE,
+                      dev='svg',
+                      fig.dim=c(3.6, 3.2))
+library(readr)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+theme <- theme(axis.text.x = element_text(size = 7, face = "plain", angle = 30),
+               axis.text.y = element_text(size = 7, face = "plain"),
+               axis.title.x = element_text(size = 9, face = "bold"),
+    axis.title.y = element_text(size = 9, face = "bold"))
+```
+
+```{r}
+air<- read_table2("data/T1-5.dat", col_names = FALSE)
+colnames(air) <- c("wind", "radiation", "CO", "NO", "NO2", "O3", "HC")
+```
+
+PCA with Covariance Matrix vs. Correlation Matrix
+================================
+```{r}
+PCA_cov <- prcomp(air, scale=F)
+PCA_cor <- prcomp(air, scale =T)
+```
+
+```{r fig.dim=c(6, 3.3)}
+library(factoextra)
+library(cowplot)
+
+p_cov <- fviz_eig(PCA_cov, choice = "eigenvalue", main="PCA with S", geom = "line")
+p_cor <- fviz_eig(PCA_cor, choice = "eigenvalue", main="PCA with R", geom = "line")
+
+plot_grid(p_cov, p_cor, nrow = 1)
+```
+
+
+### Principle Components(eigenvector) of Covariance Matrix
+```{r}
+kable(PCA_cov[["rotation"]], format = "markdown", align = "c", digits = 2)
+```
+
+### Principle Components(eigenvector) of Correlation Matrix
+```{r}
+kable(PCA_cor[["rotation"]], format = "markdown", align = "c", digits=2)
+```
+

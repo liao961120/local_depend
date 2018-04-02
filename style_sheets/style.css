@@ -59,6 +59,12 @@ h1.title {
 
 /* Heading style setting */
 
+div.level1 h1 {
+    font-weight: bold;
+    margin-top: 0.3em;
+    margin-bottom: 0.3em;
+}
+
 div.level2 h2 {
     font-weight: bold;
     margin-top: 0.3em;
