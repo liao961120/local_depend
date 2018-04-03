@@ -2,12 +2,13 @@
 title: "Rmarkdown Features"
 subtitle: "This is subtitle"
 author: Yongfu Liao
-date: March 18, 2018
+date: Apr 3, 2018
 bibliography: /Users/user/local_depend/citation/neanderthals.bib
 csl: /Users/user/local_depend/style_sheets/apa-no-doi-no-issue.csl
 link-citations: yes
 output:
   html_document:
+    code_folding: show
     css: /Users/user/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
@@ -26,6 +27,79 @@ knitr::opts_chunk$set(
 	fig.dim = c(5.5, 3.5)  # (width, height)
 )
 ```
+
+About This Document {.tabset}
+-----------------------------
+### yaml of this Doc
+```yaml
+---
+title: "Rmarkdown Features"
+subtitle: "This is subtitle"
+author: Yongfu Liao
+date: March 18, 2018
+bibliography: /Users/user/local_depend/citation/neanderthals.bib
+csl: /Users/user/local_depend/style_sheets/apa-no-doi-no-issue.csl
+link-citations: yes
+output:
+  html_document:
+    code_folding: show
+    css: /Users/user/local_depend/style_sheets/style.css
+    df_print: kable
+    toc: true
+    toc_depth: 4
+    toc_float: true
+---
+```
+
+
+
+
+PDF Document (Chinese) {.tabset}
+-----------------------------
+
+### yaml
+
+```yaml
+---
+output:
+  pdf_document:
+    latex_engine: xelatex    
+    includes:
+        in_header: header.tex
+documentclass: article
+urlcolor: "blue"
+fontsize: 12pt
+---
+```
+
+### header.tex
+```tex
+%加這個就可以設定字體
+\usepackage{fontspec}
+%使用xeCJK，其他的還有CJK或是xCJK
+\usepackage{xeCJK}
+
+
+%設定英文字型，不設的話就會使用預設的字型
+\setmainfont{Calibri}
+
+%設定中英文的字型
+%字型的設定可以使用系統內的字型，而不用像以前一樣另外安裝
+\setCJKmainfont{蘋方-繁}
+
+%中文自動換行
+\XeTeXlinebreaklocale "zh"
+
+%文字的彈性間距
+\XeTeXlinebreakskip = 0pt plus 1pt
+
+%設定段落之間的距離
+\setlength{\parskip}{0.15cm}
+
+%設定行距
+\linespread{1.2}\selectfont
+```
+
 
 yaml Setup {.tabset}
 -----------------------------
@@ -78,7 +152,7 @@ text <- c("a", "b")
     # The string variable $text =$ `r text[1]`.
     ```
 
-$\LaTeX$ Rendering {.tabset}
+$\LaTeX$ Math Rendering {.tabset}
 -----------------------------
 ### Passing Matrix Object
 
@@ -190,17 +264,35 @@ There are 4 choices of classes, defined in my stylesheet[^css]:
 
 1. success
 2. warning
-3. warning
+3. info
 4. error
 
 ```{html}
-<div class="error">
+<div class="info">
 some text in the colored region
 </div>
 ```
 
-<div class="error">
+<div class="info">
 some text in the colored region
+</div>
+
+#### Bootstrap Alert
+
+Alternatively, you can use bootstrap's default alert divs, defined by four classes:
+
+1. alert-success
+2. alert-warning
+3. alert-info
+4. alert-danger
+```{html}
+<div class="alert alert-success">
+some text in the colored region
+</div>
+```
+
+<div class="alert alert-success">
+Bootstrap-defined colored region
 </div>
 
 ### New Line

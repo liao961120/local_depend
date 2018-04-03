@@ -1,0 +1,104 @@
+---
+title: 'Q1, Q2'
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE,
+                      message=FALSE,
+                      warning=FALSE,
+                      dev='svg',
+                      fig.dim=c(3.6, 3.2))
+library(readr)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(mat2tex)
+theme <- theme(axis.text.x = element_text(size = 7, face = "plain", angle = 30),
+               axis.text.y = element_text(size = 7, face = "plain"),
+               axis.title.x = element_text(size = 9, face = "bold"),
+    axis.title.y = element_text(size = 9, face = "bold"))
+source("multivariate_fc.R")
+```
+
+Q1: 8.1
+====================================
+
+```{r}
+covmt <- matrix(c(5,2,2,2), nrow = 2)
+eig <- eigen(covmt)
+```
+
+```{r}
+eigval <- eig$values
+eigvec <- eig$vectors
+percent <- eigval[1]/sum(eigval)
+```
+
+- First Principle Component: 
+    $\lambda_1 = `r eigval[1]`$, $Y_1 = `r round(eigvec[1,1], 3)`X_1 `r round(eigvec[2,1], 3)`X_2$
+
+- Second Principle Component:
+    $\lambda_2 = `r eigval[2]`$, $Y_2 = `r round(eigvec[1,2], 3)`X_1 `r round(eigvec[2,2], 3)`X_2$
+
+- Proprotion of variance explained by the first PC: 
+    $\frac{\lambda_1}{\Sigma \lambda_i} = `r round(percent*100, 2)`$%
+    
+Q2: 8.2
+=======================================
+
+```{r}
+cormt <- diag(1/sqrt(diag(covmt)))%*%covmt%*%diag(1/sqrt(diag(covmt)))
+```
+
+$\rho = diag(\Sigma)^{\frac{-1}{2}} ~ \Sigma ~ diag(\Sigma)^{\frac{-1}{2}} =
+```{r results='asis'} 
+xm(cormt, round=T) %_% "$"
+```
+
+### (a)
+```{r}
+eig <- eigen(cormt)
+eigval <- eig$values
+eigvec <- eig$vectors
+percent <- eigval[1]/sum(eigval)
+```
+
+- First Principle Component: 
+    $\lambda_1 = `r round(eigval[1],2)`$, $Y_1 = `r round(eigvec[1,1], 3)`Z_1 `r round(eigvec[2,1], 3)`Z_2$
+
+- Second Principle Component:
+    $\lambda_2 = `r round(eigval[2],2)`$, $Y_2 = `r round(eigvec[1,2], 3)`Z_1 `r round(eigvec[2,2], 3)`Z_2$
+
+- Proprotion of variance explained by the first PC: 
+    $\frac{\lambda_1}{\Sigma \lambda_i} = `r round(percent*100, 2)`$%
+
+### (b)
+
+Principle components from 8.1 & 8.2 are different since they came from two different matrix (covariance matrix vs. correlation matrix). Mathmetically, the difference resulted from two different matrices have different eigenvalues and eigenvectors, hence different principle component. This difference reflects the fact that scaling has an effect on the principle component.
+
+### (c)
+
+```{r}
+e_11 <- round(eigvec[1,1],3)
+sqrt_eigen_1 <- round(sqrt(eigval[1]), 3)
+v11 <- eigvec[1,1]*sqrt(eigval[1])
+
+e_12 <- round(eigvec[2,1],2)
+v12 <- eigvec[2,1]*sqrt(eigval[1])
+
+e_21 <- round(eigvec[1,2],2)
+sqrt_eigen_2 <- round(sqrt(eigval[2]), 2)
+v21 <- eigvec[1,2]*sqrt(eigval[2])
+```
+
+$\rho_{Y_i,~Z_k} = \frac{e_{ik} \sqrt{\lambda_i}} {\sqrt{\sigma_{kk}}}$
+
+$\rho_{Y_1,~Z_1} = \frac{(`r e_11`)(`r sqrt_eigen_1`) }{\sqrt{1}} = `r round(v11,3)`$
+
+$\rho_{Y_1,~Z_2} = `r round(v12,3)`$
+
+$\rho_{Y_2,~Z_1} = `r round(v21,3)`$
+
+
+

@@ -23,12 +23,21 @@ sweet <- read_table2("data/T5-1.txt", col_names = FALSE)
 colnames(sweet) <- c("sweet_rate", "sodium", "potassium")
 ```
 
-```{r}
+```{r fig.dim=c(7, 4)}
+source("multivariate_fc.R")
 PCA <- prcomp(sweet, scale=F)
+PCA_cor <- prcomp(sweet, scale=T)
 
-library(factoextra)
-fviz_eig(PCA)
+p_cov <- scree_plot(PCA, "variance", addlabels=TRUE, main="Covariance mat", sub_axis_name="", axis_limits = c(0,100))
+p_cor <- scree_plot(PCA_cor, "variance", addlabels=TRUE, main="Correlation mat",ylab = "", axis_limits = c(0,100))
+cowplot::plot_grid(p_cov, p_cor, nrow = 1)
 ```
+
+```{r}
+library(mat2tex)
+kable(PCA[["rotation"]], format="markdown", align="c", digits = 2)
+```
+
 
 ```{r}
 quantiles <- qnorm(p=seq(0.25,9.75, 0.5)/10) 
