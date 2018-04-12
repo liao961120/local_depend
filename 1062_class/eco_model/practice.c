@@ -1,16 +1,17 @@
 #include<stdio.h>
 
 int main (void) {
-    int d1 = 3;
-    int d2 = 4;
-    int d2_d1;
-    double div1, div2;
+    int num;
+    int sum=0;
+    int j;
     
-    div1 = d1/d2;
-    div2 = (double) d1/(double) d2;
-    d2_d1 = d1/d2;
+    printf("This program calculates the sum from 1 to input number.\n");
+    scanf("%d", &num);
     
-    printf("div1 = %lf & div2 = %lf & d2/d1 = %d\n", div1, div2, d2_d1);
+    for(j=1; j<=num; j++){
+        sum = sum + j;
+    }//end_for
     
+    printf("The sum from 1 to %d is %d.\n", num, sum);
     return 0;
 }

@@ -1,0 +1,547 @@
+---
+title: "多變量分析 HW2"
+author: "劉昱維, 吳冠瑋, 廖永賦, 謝靖惟, 黃奎鈞"
+output:
+  pdf_document:
+    latex_engine: xelatex
+    includes:
+      in_header: header.tex
+  html_document: default
+css: /Users/user/local_depend/style_sheets/style.css
+always_allow_html: yes
+---
+
+```{r setup, include=FALSE}
+if (knitr::is_html_output()) {
+    knitr::opts_chunk$set(echo = TRUE,
+                          message=FALSE,
+                          warning=FALSE,
+                          dev='svg',
+                          fig.dim=c(3.6, 3.2))
+} else {
+    knitr::opts_chunk$set(echo = FALSE,
+                          message=FALSE,
+                          warning=FALSE,
+                          out.width = '70%',
+                          out.height = '5.5cm')
+}
+options(digits = 2)
+library(readr)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(mat2tex)
+theme <- theme(axis.text.x = element_text(size = 7, face = "plain", angle = 30),
+               axis.text.y = element_text(size = 7, face = "plain"),
+               axis.title.x = element_text(size = 9, face = "bold"),
+    axis.title.y = element_text(size = 9, face = "bold"))
+source("multivariate_fc.R")
+```
+
+Q1: 8.1
+====================================
+
+```{r}
+covmt <- matrix(c(5,2,2,2), nrow = 2)
+eig <- eigen(covmt)
+```
+
+```{r}
+eigval <- eig$values
+eigvec <- eig$vectors
+percent <- eigval[1]/sum(eigval)
+```
+
+- First Principle Component: 
+    $\lambda_1 = `r eigval[1]`$, $Y_1 = `r round(eigvec[1,1], 3)`X_1 `r round(eigvec[2,1], 3)`X_2$
+
+- Second Principle Component:
+    $\lambda_2 = `r eigval[2]`$, $Y_2 = `r round(eigvec[1,2], 3)`X_1 `r round(eigvec[2,2], 3)`X_2$
+
+- Proprotion of variance explained by the first PC: 
+    $\frac{\lambda_1}{\Sigma \lambda_i} = `r round(percent*100, 2)`$%
+  
+---------------------
+
+Q2: 8.2
+=======================================
+
+```{r}
+cormt <- diag(1/sqrt(diag(covmt)))%*%covmt%*%diag(1/sqrt(diag(covmt)))
+```
+
+$\rho = diag(\Sigma)^{\frac{-1}{2}} ~ \Sigma ~ diag(\Sigma)^{\frac{-1}{2}} =
+```{r echo=FALSE, results='asis'}
+xm(cormt, round=T) %_% "$"
+```
+
+### (a)
+```{r}
+eig <- eigen(cormt)
+eigval <- eig$values
+eigvec <- eig$vectors
+percent <- eigval[1]/sum(eigval)
+```
+
+- First Principle Component: 
+    $\lambda_1 = `r round(eigval[1],2)`$, $Y_1 = `r round(eigvec[1,1], 3)`Z_1 `r round(eigvec[2,1], 3)`Z_2$
+
+- Second Principle Component:
+    $\lambda_2 = `r round(eigval[2],2)`$, $Y_2 = `r round(eigvec[1,2], 3)`Z_1 `r round(eigvec[2,2], 3)`Z_2$
+
+- Proprotion of variance explained by the first PC: 
+    $\frac{\lambda_1}{\Sigma \lambda_i} = `r round(percent*100, 2)`$%
+
+### (b)
+
+Principle components from 8.1 & 8.2 are different since they came from two different matrix (covariance matrix vs. correlation matrix). Mathmetically, the difference resulted from two different matrices have different eigenvalues and eigenvectors, hence different principle component. This difference reflects the fact that scaling has an effect on the principle component.
+
+### (c)
+
+```{r}
+e_11 <- round(eigvec[1,1],3)
+sqrt_eigen_1 <- round(sqrt(eigval[1]), 3)
+v11 <- eigvec[1,1]*sqrt(eigval[1])
+
+e_12 <- round(eigvec[2,1],2)
+v12 <- eigvec[2,1]*sqrt(eigval[1])
+
+e_21 <- round(eigvec[1,2],2)
+sqrt_eigen_2 <- round(sqrt(eigval[2]), 2)
+v21 <- eigvec[1,2]*sqrt(eigval[2])
+```
+
+$\rho_{Y_i,~Z_k} = \frac{e_{ik} \sqrt{\lambda_i}} {\sqrt{\sigma_{kk}}}$
+
+$\rho_{Y_1,~Z_1} = \frac{(`r e_11`)(`r sqrt_eigen_1`) }{\sqrt{1}} = `r round(v11,3)`$
+
+$\rho_{Y_1,~Z_2} = `r round(v12,3)`$
+
+$\rho_{Y_2,~Z_1} = `r round(v21,3)`$
+
+
+----------------------------
+
+Q3: PCA with Covariance Matrix vs. Correlation Matrix
+================================
+```{r}
+air<- read_table2("data/T1-5.dat", col_names = FALSE)
+colnames(air) <- c("wind", "radiation", "CO", "NO", "NO2", "O3", "HC")
+```
+
+```{r}
+PCA_cov <- prcomp(air, scale=F)
+PCA_cor <- prcomp(air, scale =T)
+```
+
+```{r fig.dim=c(6, 3)}
+library(factoextra)
+library(cowplot)
+
+p_cov <- fviz_eig(PCA_cov, choice = "eigenvalue", main="PCA with S", geom = "line")
+p_cor <- fviz_eig(PCA_cor, choice = "eigenvalue", main="PCA with R", geom = "line")
+
+plot_grid(p_cov, p_cor, nrow = 1)
+```
+
+
+### Principle Components: Covariance Matrix
+```{r}
+kable(PCA_cov[["rotation"]], format = "markdown", align = ifelse(knitr::is_html_output(), "c", "l"), digits = 2)
+```
+
+### Principle Components: Correlation Matrix
+```{r}
+kable(PCA_cor[["rotation"]], format = "markdown", align = ifelse(knitr::is_html_output(), "c", "l"), digits=2)
+```
+
+### Interpretation
+
+#### PCA with $\mathbf{S}$
+The scree plot of PCA using $\mathbf{S}$ indicates that only one principle component is important, which explains `r 100*PCA_cov$sdev[1]^2/(PCA_cov$sdev^2 %>% sum())`% of the total variance.
+
+The first principle component obtained by **covariance matrix** explains nearly all the variation in the data, this is probably due to the **large scale of the variable radiation** compared to orther variables. A better explanation of PCA should rely on the **correlation matrix** in this case. 
+
+#### PCA with $\mathbf{R}$
+According to the unity criterion and the scree plot (a not-so-obvious elbow at the forth PC), three principle components can well summarize the data, which explains `r 100*(PCA_cor$sdev[1:3]^2 %>% sum())/(PCA_cor$sdev^2 %>% sum())`% of the total variance.
+
+The interpretation of the first principle component obtained by the correlation matricies is straightforward: the variable **wind** constrasts with other variables consist of **pollutants**, probably because strong wind blows away pollutants, i.e. wind and polutants have opposite effect on air polution.
+
+Interpretation of the remaining two principle components requires extensive knowledge on air pollution.
+
+-------------------------
+
+Q4
+==================================
+```{r data_import}
+sweet <- read_table2("data/T5-1.txt", col_names = FALSE)
+colnames(sweet) <- c("sweet_rate", "sodium", "potassium")
+```
+
+```{r fig.dim=c(7, 4)}
+source("multivariate_fc.R")
+PCA <- prcomp(sweet, scale=F)
+PCA_cor <- prcomp(sweet, scale=T)
+
+p_cov <- scree_plot(PCA, "variance", addlabels=TRUE, main="Covariance matrix", sub_axis_name="", axis_limits = c(0,100))
+p_cor <- scree_plot(PCA_cor, "variance", addlabels=TRUE, main="Correlation matrix",ylab = "", axis_limits = c(0,100))
+cowplot::plot_grid(p_cov, p_cor, nrow = 1)
+```
+
+```{r}
+library(mat2tex)
+kable(PCA[["rotation"]], format="markdown", align="c", digits = 2)
+```
+
+
+```{r}
+quantiles <- qnorm(p=seq(0.25,9.75, 0.5)/10) 
+PC1 <- as.data.frame(PCA[["x"]][,1])
+    PC1 <- cbind(rownames(PC1), PC1)
+    colnames(PC1) <- c("ID", "PC1")
+    PC1 <- PC1 %>% 
+        arrange(PC1) %>% mutate(quantile=quantiles)
+    
+PC2 <- as.data.frame(PCA[["x"]][,2])
+    PC2 <- cbind(rownames(PC2), PC2)
+    colnames(PC2) <- c("ID", "PC2")
+    PC2 <- PC2 %>% 
+        arrange(PC2) %>% mutate(quantile=quantiles)
+    
+PC3 <- as.data.frame(PCA[["x"]][,3])
+    PC3 <- cbind(rownames(PC3), PC3)
+    colnames(PC3) <- c("ID", "PC3")
+    PC3 <- PC3 %>% 
+        arrange(PC3) %>% mutate(quantile=quantiles)
+```
+
+```{r fig.dim=c(7.5, 3.3)}
+library(ggplot2)
+library(scales)
+library(cowplot)
+library(latex2exp)
+
+size <- 2.3 # dot label text-size
+p1 <- ggplot(PC1, aes(x=quantiles, y=PC1))+
+        geom_point(color=hue_pal()(3)[1])+
+        geom_text(aes(label=ID),
+                  hjust=-0.1, vjust=0, size = size)+
+        scale_x_continuous(breaks = seq(-2,2, 0.5))+
+        scale_y_continuous(breaks = seq(-35,35, 5))+
+        labs(x=TeX("$q_{(j)}$"),
+             y="PC1",
+             title="PC1 Q-Q Plot")+ theme
+
+
+p2 <- ggplot(PC2, aes(x=quantiles, y=PC2))+
+        geom_point(color=hue_pal()(3)[2])+
+        geom_text(aes(label=ID),
+                  hjust=-0.1, vjust=0, size = size)+
+        scale_x_continuous(breaks = seq(-2,2, 0.5))+
+        scale_y_continuous(breaks = seq(-4.5,3.5, 0.5))+
+        labs(x=TeX("$q_{(j)}$"),
+             y="PC2",
+             title="PC2 Q-Q Plot")+ theme
+
+p3 <- ggplot(PC3, aes(x=quantiles, y=PC3))+
+        geom_point(color=hue_pal()(3)[3])+
+        geom_text(aes(label=ID),
+                  hjust=-0.1, vjust=0, size = size)+
+        scale_x_continuous(breaks = seq(-2,2, 0.5))+
+        scale_y_continuous(breaks = seq(-2,2, 0.5))+
+        labs(x=TeX("$q_{(j)}$"),
+             y="PC3",
+             title="PC3 Q-Q Plot")+ theme
+
+plot_grid(p1, p2, p3, nrow = 1)
+```
+
+### Suspect Observations?
+From the three Q-Q plots above, there seems no obvious deviation from the straight lines, and there are no unique points that deviate from the main data in all three Q-Q plots. For detecting suspect observations, more techniques are needed.
+
+--------------------------
+
+Q5
+===================================
+```{r data_import2}
+fp <- read_table2("data/FOODP.txt", col_names = FALSE, 
+    skip = 5)[1:24, -1]
+colnames(fp) <- c("city", paste("food",1:5,sep=""))
+```
+
+### (a) Scree Plot, PCs, Interpretation
+
+```{r scree_plot}
+library(factoextra) # For Visualizing MvA
+PCA <- prcomp(fp[,-1], scale=T)
+# fviz_eig(PCA)
+
+eigva <- as_data_frame(PCA[["sdev"]]^2)
+scree <- cbind(1:5 , eigva)
+scree <- cbind(scree, "a")
+colnames(scree) <- c("PC", "var", "a")
+
+ggplot(scree, aes(x = PC, y = var, group = a)) +
+    geom_point() + geom_line() +
+    scale_y_continuous(
+        sec.axis = sec_axis(~ . / sum(eigva) * 100,
+                            name = "Variance Accounted (%)")
+                   )+
+    labs(x="Principle Components",
+         y=latex2exp::TeX("$\\hat{\\lambda_i}$"),
+         title="Scree Plot")    
+```
+
+
+```{r PC_loadings}
+pc <- PCA[["rotation"]]
+kable(round(pc,3),"markdown", align = ifelse(knitr::is_html_output(), "c", "l"))
+```
+
+#### Interpretation
+By either the "elbow" of the scree plot or the unity criterion, the **first principle component** is sufficient, which explains **`r round(eigva[1,1]/sum(eigva)*100, 2)`%** of the total variance.
+
+The data can be greatly reduced to 1 variable by the first principle component, and the "weight" of the first principle component on each variable have the same sign, indicating the price of each food has similar effect on the variation of the data.
+
+### (b) The First Two principal component scores
+
+
+```{r}
+# PCA[["x"]] returns the "rotated" score(pc score) of the original data
+pc_score12 <- as.data.frame(PCA[["x"]][,1:2])
+pc_score12 <- cbind(fp$city, pc_score12) %>% rename(city=`fp$city`)
+
+kable(pc_score12, align="c",digits = 2, format ="markdown")
+```
+
+
+### (c) Scatter Plot: PC1 vs. PC2
+
+```{r fig.dim=c(7, 4)}
+ggplot(pc_score12, aes(x=PC1, y=PC2))+
+    geom_point()+
+    geom_text(aes(label=city),
+              hjust=-0.1, vjust=0, size = 3)+
+    scale_x_continuous(limits = c(-4.6, 2.9), breaks = seq(-4.5,3, 0.5))+
+    scale_y_continuous(limits = c(-1.7, 1.5), breaks = seq(-1.75,1.5, 0.25))+
+    geom_segment(x=3,y=1.1,
+                 xend=-4.6, yend=-0.5)+
+    labs(title="Scatter Plot of PC1 & PC2",
+         x="Principle Component 1",
+         y="Principle Component 2")
+```
+
+Two clusters seems to be identified on the scatter plot, ignoring **Buffalo**.
+
+### (d) Food Price in Different Cities
+```{r}
+## Max PC score: cheapest food price
+cheap <- pc_score12$city[pc_score12$PC1 == max(pc_score12$PC1)]
+
+## min PC score
+expense <- pc_score12$city[pc_score12$PC1 == min(pc_score12$PC1)]
+```
+
+Using principle component 1 as indicator, since it has the same sign on all "weighted" food price, and it's the most important principle component in explaining the variability of the data, the x-axis of the scatter above showed that **`r cheap`** has the cheapest food price, and **`r expense`** has the most expensive food price.
+
+----------------------
+
+Q6
+================================
+```{r data_import_rm.na}
+var_content <- read_delim("data/var_masst.txt", 
+    ";", escape_double = FALSE, col_names = FALSE, 
+    trim_ws = TRUE)
+colnames(var_content) <- NULL
+
+response <- read.table("C:/Users/user/local_depend/1062_class/Multivariate_Analysis/HW2/data/masst.txt", quote="\"", comment.char="", na.strings=".", stringsAsFactors=FALSE) %>%
+    drop_na()
+```
+
+```{r}
+PCA <- prcomp(response, scale = TRUE)
+
+std_pc <- PCA[["sdev"]] 
+# std(sqrt(eigenvalue) of corr matrix) of PCs
+```
+
+### (a)
+
+#### Weight of the First 5 Pricinple Components on each Variable
+```{r}
+# First 5 PCs
+pc5 <- as.data.frame(PCA[["rotation"]][,1:5]) 
+
+styled_pc5 <- round(pc5,3) %>%
+    mutate(
+        PC1 = cell_spec(PC1, "html", color = ifelse(PC1 < 0, "red", "blue")),
+        PC2 = cell_spec(PC2, "html", color = ifelse(PC2 < 0, "red", "blue")),
+        PC3 = cell_spec(PC3, "html", color = ifelse(PC3 < 0, "red", "blue")),
+        PC4 = cell_spec(PC4, "html", color = ifelse(PC4 < 0, "red", "blue")),
+        PC5 = cell_spec(PC5, "html", color = ifelse(PC5 < 0, "red", "blue"))
+                        )
+
+loadings <- kable(styled_pc5, "markdown", escape = F, align="c", row.names = T) %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+loadings %>%
+  kableExtra::landscape()
+```
+
+#### Percentage of Variance Accounted
+
+$\hat{\lambda_1}$ = `r std_pc[1]^2`,
+$\hat{\lambda_2}$ = `r std_pc[2]^2`,
+$\hat{\lambda_3}$ = `r std_pc[3]^2`,
+$\hat{\lambda_4}$ = `r std_pc[4]^2`,
+$\hat{\lambda_5}$ = `r std_pc[5]^2`.
+
+```{r}
+per_5pc <- sum(std_pc[1:5]^2)/sum(std_pc^2)
+```
+The percentage of total variance accounted by the first 5 PCs is `r per_5pc*100`%.  
+
+### (b)
+
+```{r fig.show='hold'}
+t <- var_content %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```
+
+
+```{r fig.dim=c(6,5)}
+BrBG <- colorRampPalette(c("purple","blue","white", "red", "orange"))
+hm <- function(data) {
+    heatmaply::heatmaply(round(cor(data),2), margins = c(50, 50),
+          k_col = 2, k_row = 2,
+          colors = BrBG,
+          dendrogram = "none",
+          label_names=c("row", "column", "Corr."),
+          column_text_angle = 60,
+          fontsize_row=5, fontsize_col=5,
+          limits = c(-1,1))
+}
+```
+
+```{r}
+factoextra::fviz_eig(PCA, choice = "variance", main="First 5 PCs", geom = "line", ncp=8, addlabels=T)+ scale_y_continuous(limits = c(4, 16))
+```
+
+
+#### First PC
+```{r}
+h <- hm(response[,c(which(pc5$PC1>0), which(pc5$PC1<0))])
+if (knitr::is_html_output()) {h}
+```
+
+```{r}
+t <- var_content[which(pc5$PC1>0),] %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```
+
+`r if (knitr::is_html_output()) "contrasts"`
+
+```{r}
+t <- var_content[which(pc5$PC1<0),] %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```
+
+The first PC group variables as:
+
+- The variables `r paste(which(pc5$PC1>0), collapse=", ")` seem to reflect the trade-offs between cutting down energy usage and solving energy crysis.
+
+- The variables `r paste(which(pc5$PC1<0), collapse=", ")` seem to reflect 2 attitudes: 
+    1. Little can be done to change the energy crysis.
+    2. Favor solving energy crysis at the cost of pollution.
+
+#### Second PC
+
+```{r}
+h <- hm(response[,c(which(pc5$PC2>0), which(pc5$PC2<0))])
+if (knitr::is_html_output()) {h}
+```
+
+```{r}
+t <- var_content[which(pc5$PC2>0),] %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```
+
+`r if (knitr::is_html_output()) "contrasts"`
+
+```{r}
+t <- var_content[which(pc5$PC2<0),] %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```
+
+The second PC group variables as:
+
+- The variables `r paste(which(pc5$PC2>0), collapse=", ")` mostly reflect the attitude that little can be done to solve the energy crysis.
+
+- The variables `r paste(which(pc5$PC2<0), collapse=", ")` seem to reflect that the energy crysis is changable despite some sacrifices such as pollution.
+
+#### Third, Forth, and Fifth PC
+
+The third, forth, and fifth PC are not obvious and easy to interpret, and in fact, they account for only 10%, 8%, and 6% of total variance, respectively.
+
+`r if (knitr::is_html_output()) "#### Third PC"`
+```{r}
+h <- hm(response[,c(which(pc5$PC3>0), which(pc5$PC3<0))])
+if (knitr::is_html_output()) {h}
+```
+
+```{r}
+t <- var_content[which(pc5$PC3>0),] %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```
+
+`r if (knitr::is_html_output()) "contrasts"`
+
+```{r}
+t <- var_content[which(pc5$PC3<0),] %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```
+
+`r if (knitr::is_html_output()) "#### Forth PC"`
+```{r}
+h <- hm(response[,c(which(pc5$PC4>0), which(pc5$PC4<0))])
+if (knitr::is_html_output()) {h}
+```
+
+```{r}
+t <- var_content[which(pc5$PC4>0),] %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```
+
+`r if (knitr::is_html_output()) "contrasts"`
+
+```{r}
+t <- var_content[which(pc5$PC4<0),] %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```
+
+`r if (knitr::is_html_output()) "#### Fifth PC"`
+```{r}
+h <- hm(response[,c(which(pc5$PC5>0), which(pc5$PC5<0))])
+if (knitr::is_html_output()) {h}
+```
+
+```{r}
+t <- var_content[which(pc5$PC5>0),] %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```
+
+`r if (knitr::is_html_output()) "contrasts"`
+
+```{r}
+t <- var_content[which(pc5$PC5<0),] %>% 
+kable(format = "html", align="l") %>% kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = F)
+if (knitr::is_html_output()) {t}
+```

@@ -15,17 +15,17 @@
 
 ## HTML Basics
 
-### <head> tag
+### `<head>` tag
 Contents to communicate with browser.
 
-### <body> tag
+### `<body>` tag
 Contents to show on the page
 
 ### Default html template
 
 `!` + `tab`: Default html template
 
-### Emmit Syntax
+### Emmet Syntax
 
 `tag{contents}` + `tab`: renders as 
 ```html

@@ -2,7 +2,7 @@
 title: "Rmarkdown Features"
 subtitle: "This is subtitle"
 author: Yongfu Liao
-date: Apr 3, 2018
+date: "`r Sys.Date()`"
 bibliography: /Users/user/local_depend/citation/neanderthals.bib
 csl: /Users/user/local_depend/style_sheets/apa-no-doi-no-issue.csl
 link-citations: yes
@@ -12,8 +12,9 @@ output:
     css: /Users/user/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
-    toc_depth: 4
-    toc_float: true
+    toc_depth: 3
+    toc_float:
+        collapsed: false
 ---
 
 
@@ -28,9 +29,15 @@ knitr::opts_chunk$set(
 )
 ```
 
-About This Document {.tabset}
+yaml Setup {.tabset}
 -----------------------------
+
+yaml metadata determines the output file format, looking, and any other additional customizing features of Rmarkdown files.  
+
 ### yaml of this Doc
+
+This is the complete yaml header of this document.
+
 ```yaml
 ---
 title: "Rmarkdown Features"
@@ -46,19 +53,30 @@ output:
     css: /Users/user/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
-    toc_depth: 4
-    toc_float: true
+    toc_depth: 3
+    toc_float:
+        collapsed: false
 ---
 ```
 
+### HTML Output
 
+```{yaml}
+output:
+  html_document:
+    css: ../style_sheets/style.css
+    df_print: kable
+    code_folding: hide
+    fig_width: 7
+    fig_height: 6
+    toc: true
+    toc_depth: 4
+    toc_float: true
+```
 
+### PDF Output
 
-PDF Document (Chinese) {.tabset}
------------------------------
-
-### yaml
-
+You may need to attatch an additional `header.tex` and set `latex_engine` to `xelatex` for PDF documents containing multibite characters (e.g. Chinese). Read more about  [header.txt](#pdf-header).
 ```yaml
 ---
 output:
@@ -72,13 +90,15 @@ fontsize: 12pt
 ---
 ```
 
-### header.tex
+### PDF: header.tex{#pdf-header}
+
+The code below is for generating PDF documents written in (Traditional) Chinese.
+
 ```tex
 %加這個就可以設定字體
 \usepackage{fontspec}
 %使用xeCJK，其他的還有CJK或是xCJK
 \usepackage{xeCJK}
-
 
 %設定英文字型，不設的話就會使用預設的字型
 \setmainfont{Calibri}
@@ -100,36 +120,15 @@ fontsize: 12pt
 \linespread{1.2}\selectfont
 ```
 
-
-yaml Setup {.tabset}
------------------------------
-Include the code in yaml header.
-
-### Citation
-
-Include the code in yaml header.
+### Bibliography
 
 ```{yaml}
 bibliography: ./citation/neanderthals.bib
-csl: ./citation/apa-no-doi-no-issue.csl
+csl: ./citation/apa-no-doi-no-issue.csl # APA style sheet
 link-citations: yes
 ```
 
-### HTML Output Options
-
-```{yaml}
-output:
-  html_document:
-    css: ../style_sheets/style.css
-    df_print: kable
-    code_folding: hide
-    fig_width: 7
-    fig_height: 6
-    toc: true
-    toc_depth: 4
-    toc_float: true
-```
-
+For citation syntax, read the section [Bibliography & Citations](#cite).
 
 Dynamic Variables
 -----------------------------
@@ -167,7 +166,7 @@ mt <- c(1,2)
 
 #### Include Matrix in Text
 
-![](mat2tex.png){width=85% height=auto .rounded}
+![](mat2tex.png){width=100% height=auto}
 
 renders as:
 
@@ -210,16 +209,49 @@ iris_data2 %>% ggplot() +
 ```
 
 
-Citations 
+Bibliographies & Citations{#cite} 
 -----------------------------
 
-To include **Citations**, [Read this](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html){target="_blank"}.
+You can read the full documentation of [Bibliographies & Citations](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html){target="_blank"} at Rstudio.
 
-The text cited [@RN9].
+### Citation syntax
 
-@RN15 主張...
+#### Classical Citation: **Author**, **year**, and **brackets**
+- `Some text [@Bib.ID].`
+    - Some text [@RN9].
+
+#### In-text Citation: **Author (year)**
+- `@Bib.ID Some text`
+    - @RN15 Some text 
+
+- `@Bib.ID [p. 20] Some text.`
+    - @RN9 [p. 20] Some text.
+
+#### Year only: Suppress Author
+- `Some text [-@Bib.ID].`
+    - Some text [-@RN9]
+
+#### Two Citations
+- `Some text [@Bib.ID1; @Bib.ID2].`
+    -  Some text [@RN9; @RN15].
+
+5. Prefix & Suffix
+    - `Some text [see @Bib.ID1 pp.45; also, @Bib.ID2 ch. 2].`
+        -  Some text [see @RN9 pp. 45; also, @RN15 ch. 2].
 
 ### Include `.bib` file in Reference {.tabset}
+
+Rmarkdown requires specific formats of bibliographies. One of the most common one is `.bib`. A lot of people (including me) use Endnote to manage bibliographies and have no time getting used to other open source reference managers. Read  [this](https://libguides.usask.ca/c.php?g=218034&p=1458583) to see how to generate `.bib` from EndNote.
+
+Below are some syntax in Rmarkdown to control the display of reference in the document.
+
+#### Reference heading
+
+The body of cited reference in the `.bib` file will be shown under the header named Reference (it doesn't matter which **level** of heading you use).
+
+```markdown
+## Reference
+```
 
 #### Specific Refs
 Include specific references that were **not cited** in the body of text.
@@ -239,61 +271,95 @@ nocite: |
 ...
 ```
 
+
+
 Emphasis {.tabset}
 -----------------------------
 
-### Full Example
-```{html}
-<div class="success">
-| This is pragraph one. [**Red text**]{.red}, line 1. Text text text text.
-| This is [line 2]{style="color:rgba(255, 0, 0, 1)"} of paragraph one. 
+### An Example
 
-Paragraph two starts here.
-</div>
-```
-
-<div class="success">
+````markdown
+`r ''````{block2, type="success"}
 | This is line 1, pragraph one. [**Red text**]{.red}. Text text text text.
 | This is [line 2]{style="color:rgba(255, 0, 0, 1)"} of paragraph one. 
 
 Paragraph two starts here.
-</div>
+```
+````
+
+```{block2, type="success"}
+| This is line 1, pragraph one. [**Red text**]{.red}. Text text text text.
+| This is [line 2]{style="color:rgba(255, 0, 0, 1)"} of paragraph one. 
+
+Paragraph two starts here.
+```
 
 ### Colored divs
-There are 4 choices of classes, defined in my stylesheet[^css]: 
+
+#### Bootstrap Alert
+
+You can use bootstrap's default alert divs in Rmarkdown, defined with four classes:
+
+1. alert alert-success
+2. alert alert-warning
+3. alert alert-info
+4. alert alert-danger
+
+
+````markdown
+`r ''````{block, type="alert alert-success"}
+Bootstrap-defined colored region
+```
+````
+
+```{block, type="alert alert-success"}
+Bootstrap-defined colored region
+```
+
+#### Customized divs
+
+Alternative, you can define your own styled divs, as in my stylesheet[^css]:
+
+There are 4 choices of classes,  
 
 1. success
 2. warning
 3. info
 4. error
 
-```{html}
-<div class="info">
+````markdown
+`r ''````{block, type="info"}
 some text in the colored region
-</div>
+```
+````
+
+```{block, type="info"}
+some text in the colored region
 ```
 
-<div class="info">
-some text in the colored region
-</div>
+### Bootstrap Callouts
 
-#### Bootstrap Alert
+Althougt it's "Bootstrap" callouts, it's not contained in default bootstrap theme. I defined it in my stylesheet.
 
-Alternatively, you can use bootstrap's default alert divs, defined by four classes:
+There are 4 choices of classes,
 
-1. alert-success
-2. alert-warning
-3. alert-info
-4. alert-danger
-```{html}
-<div class="alert alert-success">
-some text in the colored region
-</div>
+1. bs-callout bs-callout-success
+2. bs-callout bs-callout-warning
+3. bs-callout bs-callout-info
+4. bs-callout bs-callout-error
+
+````markdown
+`r ''````{block2, type="bs-callout bs-callout-warning"}
+#### Heading in Callout
+**Calleout Text** texttexttexttexttexttext
+```
+````
+
+```{block2, type="bs-callout bs-callout-warning"}
+#### Heading in Callout
+**Calleout Text** texttexttexttexttexttext
 ```
 
-<div class="alert alert-success">
-Bootstrap-defined colored region
-</div>
 
 ### New Line
 ```{markdown}
@@ -303,23 +369,33 @@ Bootstrap-defined colored region
 New paragraph
 ```
 
-<div class="warning">
+```{block2, type="alert alert-success"}
 | Text of line 1
 | Text of line 2
 
 New paragraph
-</div>
+```
 
 ### Attach Attributes
 By using `[`text`]`, pandoc turns the text in the square brackets into the HTML `<span>` tag. HTML `class`, `id`, attributes specific to `<span>` can then be attached by using the curly braces.
 
 #### `class`
+
+Rmarkdown syntax allows attaching attributes (such as class, id, etc.) to certain elements by wrapping attributes into `{ ... }`.
+
+Elements allowed attributes to be attach (by markdown syntax directly):
+
+1. Section: Attributes are added next to **any level of heading**.
+2. Link: `[Text](LINK){attributes}`
+3. `span`: Text wrapped in `[`, `]`. e.g `[Text with class "red"]{.red}`.
+
 ```{markdown}
 [**Red Bold text**]{.red}
 ```
-<div class="warning">
+
+```{block2, type="alert alert-success"}
 [**Red Bold text**]{.red}
-</div>
+```
 
 Note[^red].
 
@@ -327,9 +403,10 @@ Note[^red].
 ```{markdown}
 Add color through [span style]{style="color:rgba(255, 0, 0, 1)"}
 ```
-<div class="warning">
+
+```{block2, type="alert alert-success"}
 Add color through [span style]{style="color:rgba(255, 0, 0, 1)"}
-</div>
+```
 
 Footnotes with Paragraphs
 -----------------------------
@@ -338,42 +415,53 @@ Check [Pandoc](http://pandoc.org/MANUAL.html#footnotes){target="_blank"} for det
 ```{markdown}
 [^longnote]: Here's one with multiple blocks.
 
-    Subsequent paragraphs are indented to show that they
-belong to the previous footnote.
+    Subsequent paragraphs are indented to show that they belong to the previous footnote. (JUST IGNORE ME, I AM Exteeeeeendiiiiiiing the text to show the effect of paragraph).
 
     In this way, multi-paragraph footnotes work like multi-paragraph list items.
 ```
-- Output[^longnote].
+- Read the output by clicking the superscript[^longnote].
 
 
 Shaped Images {.tabset}
 -----------------------------
 
 ### Rounded Edge
-```{html}
+```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .rounded}
 ```
 ![](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .rounded}
 
+#### Boostrap
+```{markdown}
+![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .img-rounded}
+```
+![Bootstrap Rounded](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-rounded}
+
+
 ### Circle Image
-```{html}
+```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .circle}
 ```
 ![This is figure Caption](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .circle}
 
+#### Boostrap
+```{markdown}
+![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .img-circle}
+```
+![Bootstrap Circle](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-circle}
 
-
-
-
-
+### Thumbnail
+```{markdown}
+![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .img-thumbnail}
+```
+![Bootstrap Thumbnail](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-thumbnail}
 
 <!-- footnotes ---------------------------- -->
 [^css]: Look at my [stylesheet](https://github.com/liao961120/local_depend/blob/master/style_sheets/style.css){target="_blank"} for syntax details.
 
 [^longnote]: Here's one with multiple blocks.
 
-    Subsequent paragraphs are indented to show that they
-belong to the previous footnote.
+    Subsequent paragraphs are indented to show that they belong to the previous footnote. (JUST IGNORE ME, I AM Exteeeeeendiiiiiiing the text to show the effect of paragraph).
 
     In this way, multi-paragraph footnotes work like multi-paragraph list items.
 
@@ -393,7 +481,6 @@ library(ggplot2)
 ggplot(iris)+
     geom_point(aes(x=Sepal.Length, y=Sepal.Width, color=Species))
 ```
-
 
 
 References
