@@ -1,15 +1,38 @@
-## Link Abbreviation to programs
-
+StartUp (My PC)
+------------------------------
 ```bash
-alias <name.the.program>='<path.to.program>'
+source ~/.bash_profile
+win
 ```
 
-```bash
-alias np='/mnt/c/Users/user/Desktop/npp.7.5.4.bin.x64/notepad++.exe'
-```
-Then I can use `np sometext.txt` to open `sometext.txt` with **notepad++.exe**.
+Link Abbreviation to programs
+----------------------------------------
+Set `alias` in `~/.bash_profile`, where `~` is the home directory of the linux/unix system (I use Ubuntu on Windows currently). `alias` gives a short name for a complicated command, which saves typing.
 
-## Navigation
+```bash
+alias name='path.to.program'
+```
+
+### Text Editor on Windows
+
+```bash
+echo "alias kate=\"/mnt/c/'Program Files'/Kate/bin/kate.exe\"" >> ~/.bash_profile
+```
+Then I can use `kate sometext.txt` to open `sometext.txt` with **kate.exe**(GUI).
+
+Note the backslashes are for escaping `"` since there are two layers of `"` in the command above. The command that prints out in `~./.bash_profile` is:
+```bash
+alias kate="/mnt/c/'Program Files'/Kate/bin/kate.exe"
+```
+
+### Commonly Used Directories
+```bash
+echo "alias win='cd /mnt/c/Users/user/'" >> ~/.bash_profile
+```
+By using the above alias, I can type `win` to navigate to `C:\Users\user` on Windows.
+
+Navigation
+-----------------------------------------------
 
 ### `ls`
 List all files & directories in current working directory.
@@ -18,7 +41,8 @@ List all files & directories in current working directory.
 - `ls -l`: Show more information
 
 
-## Files/Directories: Basic manipulation 
+Files/Directories: Basic manipulation
+-------------------------------------------
 
 Read, Print, Create, Copy, Move, Rename, Remove
 
@@ -42,12 +66,22 @@ Read, Print, Create, Copy, Move, Rename, Remove
 
 - `touch <file.name>`: Create blank file
 
+### Print Text in Console to a File
+#### To a New File
+```bash
+echo "Some Text" > NewFile.txt
+```
 
+#### Append
+In case you want to append text to an exsisting file, use `>>`:
+```bash
+echo "Appended Text" >> OldFile.txt
+```
 
 ### Moving & Renaming
 `mv` is for moving files/directories around. The syntax is:
 ```bash
-mv <target file/dir> <destin. file/dir>
+mv target_file/dir destin_file/dir
 ```
 
 By using different names of the destination file/dir, moving is equivalent to renaming or moving and renaming at the same time.
@@ -56,17 +90,18 @@ By using different names of the destination file/dir, moving is equivalent to re
 
 #### Files
 ```bash
-cp <target file> <destin. dir>
+cp target_file destin_dir
 ```
 
 #### Directories
 
 ```bash
-cp -r <target dir> <destin. dir>
+cp -r target_dir destin_dir
 ```
 
 
-## Wildcard `*`
+Wildcard `*`
+----------------------------------------
 
 [Full intro](https://bookdown.org/sean/the-unix-workbench/working-with-unix.html#get-wild), usefull for batch manipulation: manipulate many files once.
 
@@ -82,17 +117,18 @@ mv 2017-* 2017/
 
 Moves **all files with names that start with `2017-`** to the directory `2017/`
 
-## RegEx
+RegEx
+------------------------------------
 
 ### Search by Characters
 ```bash
-grep "<character.to.search>" <file.name>
+grep "character.to.search" file.name
 ```
 
 ### Search by MetaCharacters
 
 ```bash
-egrep "i.g" <file.name>
+egrep "i.g" file.name
 ```
 
 **MetaCharacters**

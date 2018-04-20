@@ -1,0 +1,126 @@
+---
+title: "Ecological Modeling HW4"
+author: Yongfu Liao
+date: April 12, 2018
+output: html_document
+css: /Users/user/local_depend/style_sheets/style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## Question 1
+
+> Please input an integer number. (output)
+>
+> 3 (or 4) ⏎ (input)
+>
+> 3 (or 4) is an odd (or even) number . (output)
+
+```c
+#include<stdio.h>
+
+int main (void) {
+    int input;
+    int i;
+    
+    printf("Please input an integer.\n");
+    scanf("%d", &input);
+    
+    if (input % 2 == 0) {
+        printf("%d is an even number\n", input);
+    } else {
+        printf("%d is an odd number\n", input);
+    }
+
+    return 0;
+}
+```
+Download [even_odd.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C5/even_odd.c){target="_blank"}
+
+
+## Question 2
+
+> Please input your height (cm) and weight (kg). (output)
+>
+> 172.3 ⏎ (input)
+>
+> 65.0 ⏎ (input)
+>
+> Your BMI is 21.890. (output)
+>
+> The standard BMI is assumed to be 24.0. (output)
+>
+> I’m afraid you are overweight (or underweight). (output)
+
+```c
+#include<stdio.h>
+
+int main (void) {
+    double height, weight, BMI;
+    double height_meter;
+    
+    printf("Please input your height (cm) and weight (kg).\n");
+    scanf("%lf", &height);
+    scanf("%lf", &weight);
+    
+    height_meter = height / 100.0;
+    
+    BMI = (weight) / (height_meter * height_meter);
+    
+    printf("Your BMI is %.2lf.\n", BMI);
+    printf("The standard BMI is assumed to be 24.0.\n");
+    
+    if (BMI > 24.0) {
+        printf("I’m afraid you are overweight.\n");
+    } else {
+        printf("I’m afraid you are underweight.\n");
+    }
+    
+    return 0;
+}
+```
+Download [BMI.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C5/BMI.c){target="_blank"}
+
+
+## Question 3
+
+> Please input an integer number (> 1). (output)
+> 
+> 7 ⏎ (input)
+> 
+> 7 is a prime number. (output)
+> 
+> Please input an integer number (> 1). (output)
+> 
+> 15 ⏎ (input)
+>
+> 15 is not a prime number. (output)
+
+```c
+#include<stdio.h>
+
+int main (void) {
+    int input;
+    int i;
+    
+    printf("Please input an integer number (> 1).\n"); 
+    scanf("%d", &input);
+    
+    for (i=2; i<=input; i++){
+        if (input % i == 0 && input != i) {
+            printf("%d is not a prime number.\n", input);
+            break;
+        }//end if
+    }//end for
+    
+    if (i == input+1){
+        printf("%d is a prime number.\n", input);
+    }//end if
+    return 0;
+}
+        
+```
+Download [prime.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C5/prime.c){target="_blank"}
