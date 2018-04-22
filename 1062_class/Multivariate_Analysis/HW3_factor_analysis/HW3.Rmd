@@ -1,0 +1,166 @@
+---
+title: "多變量分析 HW3"
+author: "劉昱維, 吳冠瑋, 廖永賦, 謝靖惟, 黃奎鈞"
+output:
+  html_document: default
+  pdf_document:
+    latex_engine: xelatex
+    includes:
+      in_header: header.tex
+css: /Users/user/local_depend/style_sheets/style.css
+always_allow_html: yes
+---
+
+```{r setup, include=FALSE}
+if (knitr::is_html_output()) {
+    knitr::opts_chunk$set(echo = FALSE,
+                          message=FALSE,
+                          warning=FALSE,
+                          comment = "",
+                          dev='svg',
+                          fig.dim=c(3.6, 3.2))
+} else {
+    knitr::opts_chunk$set(echo = FALSE,
+                          message=FALSE,
+                          warning=FALSE,
+                          comment = "",
+                          out.width = '70%',
+                          out.height = '5.5cm')
+}
+options(digits = 4)
+library(readr)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(mat2tex)
+theme <- theme(axis.text.x = element_text(size = 7, face = "plain", angle = 30),
+               axis.text.y = element_text(size = 7, face = "plain"),
+               axis.title.x = element_text(size = 9, face = "bold"),
+    axis.title.y = element_text(size = 9, face = "bold"))
+source("multivariate_fc.R")
+```
+
+Q1: 9.12
+====================================
+
+```{r Covariance_matrices}
+S <- 10^(-3)*matrix(c(11.072, 8.019, 8.160,
+                      8.019, 6.417, 6.005,
+                      8.160, 6.005, 6.773), 
+                    nrow = 3, ncol = 3)
+
+Sn <- (23/24)*S # n = 24, Convert to Sn for M.L.E.
+```
+
+
+```{r results='asis', echo=FALSE}
+"$\\mathbf{S_n} = \\frac{23}{24} \\mathbf{S} =" %_% xm(Sn ,5) %_% "$"
+```
+
+## (a) Specific Variances
+
+```{r}
+L <- c(.1022, .0752, .0765)
+LL <- matrix(L, ncol = 1) %*% matrix(L, nrow = 1)
+Psi <- diag(Sn - matrix(L, ncol = 1) %*% matrix(L, nrow = 1))
+```
+
+$\mathbf{S_n} \approx \hat{\mathbf{L}} \hat{\mathbf{L}}^T + \hat{\mathbf{\Psi}}$, where $diag(\mathbf{S_n}) = diag(\hat{\mathbf{L}} \hat{\mathbf{L}}^T) + diag(\hat{\mathbf{\Psi}})$
+
+Hence, $\hat{\mathbf{\Psi}} = diag(\hat{\mathbf{\Psi}}) = diag(\mathbf{S_n} - \hat{\mathbf{L}} \hat{\mathbf{L}}^T)$
+
+
+```{r results='asis', echo=FALSE}
+"$\\hat{\\mathbf{\\Psi}} = " %_% xm(diag(Psi), 6) %_% "$"
+```
+
+
+
+## (b) Communalities
+
+$\sigma_{ii} = \ell_{i1}^2 + \ell_{i2}^2 + ~...~ + \ell_{im}^2 + \psi_i$
+
+$h_i^2 = \ell_{i1}^2 + \ell_{i2}^2 + ~...~ + \ell_{im}^2 = `r sum(L^2)`$
+
+## (c) Proportion of variance explained by the factor
+
+```{r}
+p <-  sum(L^2) / (diag(Sn) %>% sum())
+```
+
+$\frac{s_{11} + s_{22} + ~...~ + s_{pp}}{h_i^2} = `r p`$
+
+## (d) Residual Matrix
+
+```{r}
+Residual <- Sn - LL - Psi 
+```
+
+$\mathbf{S_n} - \mathbf{\hat{L}}\mathbf{\hat{L}}^T - \mathbf{\hat{\Psi}} = 
+```{r results='asis'} 
+xm(Residual, 6) %_% "$"
+```
+
+
+Q2: 9.32
+====================================
+```{r}
+library(readr)
+library(psych)
+bulls <- read_table2("T1-10.dat", col_names = FALSE)
+colnames(bulls) <- c("Breed", "SalePr", "YrHgt", 
+                     "FtFrBody", "PrctFFB", "Frame",
+                     "BkFat", "SaleHt", "SaleWt")
+bulls <- bulls[,-c(1,9)]
+```
+
+### (a) S PC
+```{r}
+fa_3 <- fa(cov(bulls), nfactors=3, rotate="varimax", covar = T, fm="pa", scores="regression")
+#no principle component method
+```
+
+### (b) S MLE
+
+```{r}
+fa_3 <- fa(cov(bulls), nfactors=3, rotate="varimax", covar = T, fm="ml", scores="regression")
+```
+
+### (c) R PC
+
+```{r}
+fa_3 <- fa(cov(bulls), nfactors=3, rotate="varimax", covar = T, fm="pa", scores="regression")
+#no principle component method
+```
+
+
+### (d) R MLE
+```{r}
+fa_1 <- factanal(bulls, factors = 1, scores = "regression", rotation = "varimax")
+fa_2 <- factanal(bulls, factors = 2, scores = "regression", rotation = "varimax")
+fa_3 <- factanal(bulls, factors = 3, scores = "regression", rotation = "varimax")
+```
+
+### (e) Compare
+
+### (f) scatter plots of factor2 vs factor1 in (a) and (c)
+
+
+Q3
+====================================
+
+```{r}
+library(readr)
+drinks <- read_table2("drinks.DAT", col_names = FALSE, skip = 2)
+colnames(drinks) <- c("ID", "BRAND",
+                      paste("X",1:10, sep=""))
+```
+
+
+```{r}
+library(psych)
+items <- drinks[,-(1:2)]
+fa(cov(items), nfactors=3, rotate="varimax", covar = F, fm="pa", scores="regression")
+```
+
+#no principle component method

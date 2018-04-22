@@ -5,8 +5,17 @@ source ~/.bash_profile
 win
 ```
 
+## My `~/.bash_profile`
+
+```bash
+alias win='cd /mnt/c/Users/user/'
+alias kate="/mnt/c/'Program Files'/Kate/bin/kate.exe"
+alias cp_rmd_features='cp /mnt/c/Users/user/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.html /mnt/c/Users/user/GitHubPage/liao961120.github.io/notes'
+```
+
 Link Abbreviation to programs
 ----------------------------------------
+
 Set `alias` in `~/.bash_profile`, where `~` is the home directory of the linux/unix system (I use Ubuntu on Windows currently). `alias` gives a short name for a complicated command, which saves typing.
 
 ```bash
