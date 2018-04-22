@@ -67,7 +67,7 @@ bifurcation <-
 ```
 
 #### Plotting
-```{r dpi=1000, out.width="70%", out.height="70%"}
+```{r dpi=700, out.width="70%", out.height="70%"}
 library(ggplot2)
 library(latex2exp)
 ggplot(bifurcation, aes(x=r, y=N))+
