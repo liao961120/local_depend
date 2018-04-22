@@ -1,0 +1,19 @@
+body {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+.title {
+    padding: 10px;
+}
+
+.div {
+    padding: 10px;
+}
+
+button {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}

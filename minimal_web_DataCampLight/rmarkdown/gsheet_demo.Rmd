@@ -23,7 +23,7 @@ button_bs("填寫表單", data_toggle="modal", data_target="#sheet", class="prim
 
 ```{r}
 # iframe for Google Form
-iframe <- HTML('<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeE-ke7yhlU3XRDIhw7vRL-mnYLi-jTOYF8Pz4ZLINjV53z2A/viewform?embedded=true" style="position: relative; height: 300px; width: 100%;" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>')
+iframe <- HTML('<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSeE-ke7yhlU3XRDIhw7vRL-mnYLi-jTOYF8Pz4ZLINjV53z2A/viewform?embedded=true" style="position: relative; height: 360px; width: 100%;" frameborder="0" marginheight="0" marginwidth="0">載入中…</iframe>')
 
 modal(id="sheet", modal_header = "Google 表單", modal_body=iframe)
 ```
