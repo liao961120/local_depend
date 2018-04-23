@@ -82,7 +82,7 @@ collapse <- function(content, id, color="well", class="collapse") {
 ########### Modal ############
 ## size: modal-lg | modal-sm
 modal <-
-    function(modal_header, id, modal_body,
+    function(modal_header, id, modal_body, foot=T, head=T,
              modal_body2 = NULL, modal_body3= NULL,
              modal_body4= NULL, modal_body5= NULL,
              modal_body6= NULL, modal_footer =NULL, 
@@ -98,23 +98,25 @@ modal <-
                 role = "document",
                 # modal content
                 div(class = "modal-content",
-                    div(class = "modal-header",
-                        tags$button(type = "button",
-                                    class = "close",
-                                    `data-dismiss` = "modal",
-                                    HTML("&times;")
+                        div(class = "modal-header",
+                            tags$button(type = "button",
+                                        class = "close",
+                                        `data-dismiss` = "modal",
+                                        HTML("&times;")
+                            ),
+                            h4(class = "modal-title", modal_header)
                         ),
-                        h4(class = "modal-title", modal_header)
-                    ),
                     div(class = "modal-body",
                         modal_body, modal_body2,
                         modal_body3, modal_body4,
                         modal_body5, modal_body6),
-                    div(class = "modal-footer",
-                        button_bs("Close", class = "default",
-                                  data_dismiss = "modal"),
-                        modal_footer
-                    )
+                    if (foot==T){
+                        div(class = "modal-footer",
+                            button_bs("Close", class = "default",
+                                      data_dismiss = "modal"),
+                            modal_footer
+                        )
+                    }
                 )
             )
         )

@@ -6,11 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>DataCamp Light
     </title>
 </head>
 
 <body>
+
     <div data-datacamp-exercise data-lang="r">
         <code data-type="pre-exercise-code">
                     data <- readr::read_csv(url("https://docs.google.com/spreadsheets/d/e/2PACX-1vQz4zjZfhWBYYRuW2Zhhx-sXvnlrS6vpvcgP0cJPdvsQI-6eKggXmpaWbu4dgbMQgcOHv0NQxL8a_K_/pub?output=csv"))
@@ -28,7 +30,12 @@
                 </code>
     </div>
 
-
+    <button type="button" class="btn btn-default btn-xs pull-right" onclick="myFunction()">Reload</button>
+    <script>
+        function myFunction() {
+            location.reload();
+        }
+    </script>
 </body>
 
 </html>
