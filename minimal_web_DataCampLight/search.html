@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.datacamp.com/datacamp-light-latest.min.js"></script>
+    <title>DataCamp Light
+    </title>
+</head>
+
+<body>
+    <div data-datacamp-exercise data-lang="r">
+        <code data-type="pre-exercise-code">
+                    data <- readr::read_csv(url("https://docs.google.com/spreadsheets/d/e/2PACX-1vQz4zjZfhWBYYRuW2Zhhx-sXvnlrS6vpvcgP0cJPdvsQI-6eKggXmpaWbu4dgbMQgcOHv0NQxL8a_K_/pub?output=csv"))
+                    data <- as.data.frame(data)
+                    colnames(data) <- c("DateTime", "Token", "Score")
+                    data <- data[which(data$Score!=100),]
+                    score <- function(token) {
+                        i <- which(data$Token==token)
+                        data[i,]
+                    }
+                </code>
+        <code data-type="sample-code">
+                    # Put Token in "". Ex: score("abcde123")
+                    score("Enter_your_Token")
+                </code>
+    </div>
+
+
+</body>
+
+</html>
