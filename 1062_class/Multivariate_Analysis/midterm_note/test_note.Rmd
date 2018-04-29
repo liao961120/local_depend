@@ -1,0 +1,57 @@
+---
+output:
+  pdf_document:
+    latex_engine: xelatex
+    includes:
+        in_header: header.tex
+  html_document:
+   includes:
+     before_body: mathjax_bm.tex
+documentclass: article
+urlcolor: "blue"
+fontsize: 9pt
+geometry: a5paper, headheight=0pt, margin=0.4in
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+library(knitr)
+```
+
+
+
+### Multivariate Normal Distribution
+
+$N_p(\bm{\mu}, \mathbf{\Sigma}) = \frac{1}{(2 \pi)^{p/2} |\mathbf{\Sigma}|^{1/2}} 
+~e^{\frac{-(\mathbf{X} - \bm{\mu})^T \mathbf{\Sigma}^{-1} (\mathbf{X} - \bm{\mu})} {2}}$
+
+
+
+### Contour of Distance
+
+\begin{multicols}{2}
+
+```{r out.width="40%", fig.show="hold", fig.align='center'}
+include_graphics("contour.PNG",TRUE)
+```
+
+\columnbreak
+
+
+$c^2 = (\mathbf{X} - \bm{\mu})^T_{1 \times p} \mathbf{\Sigma}^{-1} (\mathbf{X} - \bm{\mu})_{p \times 1} \\ 
+= \frac{1}{\lambda_1} y_1^2 + \frac{1}{\lambda_2} y_2^2 + \cdots + \frac{1}{\lambda_p} y_p^2$
+
+
+, where $\lambda_1 = \sigma_{11} + \sigma_{12}$,  
+$~ \lambda_2 = \sigma_{11} - \sigma_{12}$
+
+\end{multicols}
+
+### Linear Combinations of Variables
+
+$\mathbf{Z} = \mathbf{CX}$
+$\bm{\mu}$
