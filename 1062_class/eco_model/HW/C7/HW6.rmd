@@ -1,0 +1,136 @@
+---
+title: "Ecological Modeling HW6"
+author: Yongfu Liao
+date: "`r Sys.Date()`"
+output: 
+    html_document:
+        code_folding: hide
+css: /Users/user/local_depend/style_sheets/style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+	)
+```
+
+
+## Question
+
+\begin{equation}
+\begin{split}
+& \frac{dx}{dt} = rx (1- \frac{x}{K}) -a \frac{xy}{1+ H_t a x} \\ \\
+& \frac{dy}{dt} = b \frac{xy}{1+ H_t a x} - my \\ \\
+& x(0) = 0.1, ~ y(0) = 0.1 \\
+\end{split}
+\end{equation}
+
+$$ r = 1.0, a = 1.0, b = 0.5, H_t = 1.0, m = 0.1$$
+
+
+#### Plot
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(readr)
+K_1.0 <- 
+    read_delim("data_h001_K10.txt", "\t",
+               escape_double = FALSE,
+               col_names = FALSE, 
+               trim_ws = TRUE)
+K_1.0 <- K_1.0[seq(1, nrow(K_1.0), 6),]
+
+K_1.2 <- 
+    read_delim("data_h001_K12.txt", "\t",
+               escape_double = FALSE,
+               col_names = FALSE, 
+               trim_ws = TRUE)
+K_1.2 <- K_1.2[seq(1, nrow(K_1.2), 6),]
+
+K_2.0 <- 
+    read_delim("data_h001_K20.txt", "\t",
+               escape_double = FALSE,
+               col_names = FALSE, 
+               trim_ws = TRUE)
+K_2.0 <- K_2.0[seq(1, nrow(K_2.0), 12),]
+```
+
+```{r dpi=400, out.width="80%", out.height="75%"}
+library(ggplot2)
+col <- scales::hue_pal()(3)
+ggplot() + 
+    geom_point(data = K_1.0,
+               aes(x = X2, y=X3,
+                   color="K = 1.0"),
+               size = 0.01) +
+    geom_point(data = K_1.2,
+               aes(x = X2, y=X3, 
+                   color="K = 1.2"),
+               size = 0.01) +
+    geom_point(data = K_2.0,
+               aes(x = X2, y=X3,
+                   color="K = 2.0"),
+               size = 0.01) +
+    guides(colour = 
+            guide_legend(override.aes =
+                             list(size=2)))+
+    scale_x_continuous(
+        breaks = seq(0,2,0.2))+
+    scale_y_continuous(
+        breaks = seq(0,2,0.2))+
+    labs(x="Prey (x)", y="Predator (y)"
+         ,color="Carrying Capacity")
+```
+
+
+### C Code
+
+```{c eval=FALSE}
+#include <stdio.h>
+#include <math.h>
+
+int main (void) {
+    
+    double h = 0.001; // interval between each calculation
+    double x = 0.1, y = 0.1; //set initial population size of prey, predator
+    double k1_x, k2_x, k3_x, k4_x;
+    double k1_y, k2_y, k3_y, k4_y;
+    double r = 1.0, a = 1.0, b = 0.5, Ht = 1.0, m = 0.1;
+    double K = 2.0; // 1.0, 1.2, 2.0
+    int i, t=600000; //determine the length of time, time = t*h
+    double time = 0;
+    
+    for (i = 0; i <= t; i++) {
+        printf("%lf\t%lf\t%lf\n", time, x, y);
+        
+        k1_x = r*x*(1 - x/K) - a*(x*y) / (1 + Ht*a*x);
+        k1_y = b*(x*y)/(1 + Ht*a*x) - m*y;
+        
+        k2_x = r*(x + (h/2)*k1_x)*(1 - (x + (h/2)*k1_x)/K) - a*((x + (h/2)*k1_x)*y) / (1 + Ht*a*(x + (h/2)*k1_x));
+        k2_y = b*(x*(y + h/2*k1_y))/(1 + Ht*a*x) - m*(y + h/2*k1_y);
+        
+        k3_x = r*(x + (h/2)*k2_x)*(1 - (x + (h/2)*k2_x)/K) - a*((x + (h/2)*k2_x)*y) / (1 + Ht*a*(x + (h/2)*k2_x));
+        k3_y = b*(x*(y + h/2*k2_y))/(1 + Ht*a*x) - m*(y + h/2*k2_y);
+        
+        k4_x = r*(x + h*k3_x)*(1 - (x + h*k3_x)/K) - a*((x + h*k3_x)*y) / (1 + Ht*a*(x + h*k3_x));
+        k4_y = b*(x*(y + h*k3_y))/(1 + Ht*a*x) - m*(y + h*k3_y);
+        
+        time = time + h;
+        x = x + h * 1/6 * (k1_x + 2*k2_x + 2*k3_x + k4_x);
+        y = y + h * 1/6 * (k1_y + 2*k2_y + 2*k3_y + k4_y);
+    }
+    
+    return 0;
+}
+```
+
+
+Download [prey-predator.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C7/prey-predator.c){target="_blank"}
+
+
+
+
+
+
+

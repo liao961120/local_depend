@@ -126,7 +126,7 @@ $(document).ready(function () {
 
 <div id="multivariate-normal-distribution" class="section level3">
 <h3>Multivariate Normal Distribution</h3>
-<p><span class="math inline">\(N_p(\bm{\mu}, \mathbf{\Sigma}) = \frac{1}{(2 \pi)^{p/2} |\mathbf{\Sigma}|^{1/2}} ~e^{\frac{-(\mathbf{X} - \bm{\mu})^T \mathbf{\Sigma}^{-1} (\mathbf{X} - bm{\mu})} {2}}\)</span></p>
+<p><span class="math inline">\(N_p(\bm{\mu}, \bm{\Sigma}) = \frac{1}{(2 \pi)^{p/2} |\bm{\Sigma}|^{1/2}} ~e^{\frac{-(\bm{X} - \bm{\mu})^T \bm{\Sigma}^{-1} (\bm{X} - \bm{\mu})} {2}}\)</span></p>
 </div>
 <div id="contour-of-distance" class="section level3">
 <h3>Contour of Distance</h3>
@@ -134,7 +134,44 @@ $(document).ready(function () {
 </div>
 <div id="linear-combinations-of-variables" class="section level3">
 <h3>Linear Combinations of Variables</h3>
-<p><span class="math inline">\(\mathbf{Z} = \mathbf{CX}\)</span> <span class="math inline">\(\bm{\mu}\)</span></p>
+<p>Let <span class="math inline">\(\bm{Z} = \bm{CX}\)</span>, then</p>
+<p><span class="math inline">\(\bm{\mu_z} = E(\bm{Z}) = E(\bm{CX}) = \bm{C \mu_x}\)</span>,<br />
+<span class="math inline">\(\bm{\Sigma_z} = Cov(\bm{Z}) = Cov(\bm{CX}) = \bm{C \Sigma_x C^T}\)</span></p>
+</div>
+<div id="assessing-normality" class="section level3">
+<h3>Assessing Normality</h3>
+<ol style="list-style-type: decimal">
+<li><strong>Univariate</strong>: Q-Q plot</li>
+<li><strong>Bivariate</strong>: Scatter plot</li>
+<li><strong>Multivarite</strong>: Chi-square plot</li>
+</ol>
+<div id="q-q-plot" class="section level4">
+<h4>Q-Q Plot</h4>
+<p>Plot <span class="math inline">\(q_{(j)}\)</span>(Z score, or standard normal quantile) against <span class="math inline">\(x_{(j)}\)</span>.</p>
+<p><span class="math inline">\(P[Z \leq q_{(j)}] = p_{(j)} = \frac{j- 0.5}{n}\)</span>, where <span class="math inline">\(x_{(1)} \leq x_{(2)}\leq \cdots \leq x_{(j)} \leq \cdots \leq x_{(n)}\)</span>.</p>
+</div>
+<div id="chi-square-plot" class="section level4">
+<h4>Chi-square Plot</h4>
+<p>Plot <span class="math inline">\(d^2_{(j)}\)</span> against <span class="math inline">\(q_{c,~p}(\frac{j-0.5}{n})\)</span>, where p is the degrees of freedom of the chi-square quantile and is also the dimension of the multivariate normal <span class="math inline">\(N_p\)</span>.</p>
+<p><span class="math inline">\(d^2_{(j)} = (\bm{x}_j - \bar{\bm{x}})^T \bm{S}^{-1} (\bm{x}_j - \bar{\bm{x}})\)</span></p>
+</div>
+</div>
+<div id="correlation-between-principle-component-y_i-and-variable-x_k" class="section level3">
+<h3>Correlation between principle component <span class="math inline">\(Y_i\)</span> and variable <span class="math inline">\(X_k\)</span></h3>
+<p><strong>Parameter</strong><br />
+<span class="math inline">\(\rho_{Y_i,~X_k} = \frac{e_{ik} \sqrt{\lambda_i}} {\sqrt{\sigma_{kk}}}\)</span></p>
+<p><strong>Estimator</strong><br />
+<span class="math inline">\(r_{\hat{Y_i},~\hat{X_k}} = \frac{\hat{e}_{ik} \sqrt{\hat{\lambda}_i}} {\sqrt{s_{kk}}}\)</span></p>
+<p>, <span class="math inline">\(i, k = 1, 2, \cdots, p\)</span></p>
+<p><span class="math display" id="eq:ref-key">\[
+\begin{split}
+y &amp;= (a-x)(b+x)(c-x)(d+x) \\
+&amp;= [ab + (a - b)x + x^2 ][cb + (c-d)x + x^2 ] \\
+&amp;= \text{more algebra... i'm lazy...}
+&amp;= 0
+\end{split}
+\tag{1}
+\]</span></p>
 </div>
 
 

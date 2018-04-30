@@ -1,13 +1,15 @@
 ---
 title: 'Q5: Food Price'
-output: html_document
+output:
+  pdf_document: default
+  html_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE,
                       message=FALSE,
                       warning=FALSE,
-                      dev='svg',
+                      #dev='svg',
                       fig.dim=c(3.6, 3.2))
 library(readr)
 library(tidyverse)
