@@ -13,19 +13,21 @@ always_allow_html: yes
 
 ```{r setup, include=FALSE}
 if (knitr::is_html_output()) {
-    knitr::opts_chunk$set(echo = FALSE,
-                          message=FALSE,
-                          warning=FALSE,
-                          comment = "",
-                          dev='svg',
-                          fig.dim=c(3.6, 3.2))
+    knitr::opts_chunk$set(
+	echo = FALSE,
+	fig.dim = c(3.6, 3.2),
+	message = FALSE,
+	warning = FALSE,
+	comment = "",
+	dev = "svg",
+	out.width = "70%"
+)
 } else {
     knitr::opts_chunk$set(echo = FALSE,
                           message=FALSE,
                           warning=FALSE,
                           comment = "",
-                          out.width = '70%',
-                          out.height = '5.5cm')
+                          out.width = '70%')
 }
 options(digits = 4)
 library(readr)
@@ -112,33 +114,48 @@ colnames(bulls) <- c("Breed", "SalePr", "YrHgt",
                      "FtFrBody", "PrctFFB", "Frame",
                      "BkFat", "SaleHt", "SaleWt")
 bulls <- bulls[,-c(1,9)]
+source("fa_functions.R") # for formating loading mt
 ```
 
 ### (a) S PC
 ```{r}
-fa_3 <- fa(cov(bulls), nfactors=3, rotate="varimax", covar = T, fm="pa", scores="regression")
-#no principle component method
+fa_S_pc <- principal(bulls, 
+              nfactors = 2, 
+              rotate = 'varimax', 
+              covar = TRUE)
+fa_S_pc[["loadings"]][,] %>% round(3) %>%
+    format_loading_matrix(criterion = 30, markdown = T) %>%
+    kable("markdown",align = 'c', escape = F)
 ```
 
-### (b) S MLE
+### (b) S ML
 
 ```{r}
-fa_3 <- fa(cov(bulls), nfactors=3, rotate="varimax", covar = T, fm="ml", scores="regression")
+fa_S_ml <- fa(bulls, nfactors=2, 
+              rotate="varimax", covar = T,
+              fm="ml", scores="regression")
+fa_S_ml[["loadings"]][,] %>% round(3) %>%
+    format_loading_matrix(criterion = 30, markdown = F) %>%
+    kable("html",align = 'c', escape = F)
 ```
 
 ### (c) R PC
 
 ```{r}
-fa_3 <- fa(cov(bulls), nfactors=3, rotate="varimax", covar = T, fm="pa", scores="regression")
-#no principle component method
+fa_R_pc <- principal(bulls, 
+              nfactors = 2, 
+              rotate = 'varimax', 
+              covar = F)
+fa_R_pc[["loadings"]][,]
 ```
 
 
-### (d) R MLE
+### (d) R ML
 ```{r}
-fa_1 <- factanal(bulls, factors = 1, scores = "regression", rotation = "varimax")
-fa_2 <- factanal(bulls, factors = 2, scores = "regression", rotation = "varimax")
-fa_3 <- factanal(bulls, factors = 3, scores = "regression", rotation = "varimax")
+fa_R_ml <- fa(bulls, nfactors=2, 
+              rotate="varimax", covar = F, 
+              fm="ml", scores="regression")
+fa_R_ml[["loadings"]][,]
 ```
 
 ### (e) Compare
@@ -160,7 +177,6 @@ colnames(drinks) <- c("ID", "BRAND",
 ```{r}
 library(psych)
 items <- drinks[,-(1:2)]
-fa(cov(items), nfactors=3, rotate="varimax", covar = F, fm="pa", scores="regression")
 ```
 
 #no principle component method

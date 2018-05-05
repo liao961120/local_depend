@@ -112,3 +112,9 @@ slides>slide:not(.nobackground):before {
   background-color: #f0f7fd;
   border-color: #d0e3f0;
 }
+
+/*  custom color class, for []{.color}*/
+
+.gray {
+    color: gray;
+}

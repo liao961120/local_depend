@@ -1,18 +1,23 @@
-# library(psych)
-# library(robustfa)
-bulls <- readr::read_table2("T1-10.dat", col_names = FALSE)
-colnames(bulls) <- c("Breed", "SalePr", "YrHgt", 
-                     "FtFrBody", "PrctFFB", "Frame",
-                     "BkFat", "SaleHt", "SaleWt")
-bulls <- as.data.frame(bulls[,-c(1,9)])
+## input factor loading matrix, output df with highlighted loadings
 
-library(robustfa)
-
-rob_cov_pfa <- factorScorePfa(bulls, factors = 3, covmat = NULL, cor = FALSE, rotation = "varimax", scoresMethod = "regression")
-
-rob_cov_pca <- factorScorePca(bulls, factors = 3, covmat = NULL, cor = FALSE, rotation = "varimax", scoresMethod = "regression")
-
-
-fa_cov_pa <- psych::fa(cov(bulls), nfactors=3, rotate="varimax", covar = T, fm="pa", scores="regression")
-
-fa_cov_mle <- psych::fa(cov(bulls), nfactors=3, rotate="varimax", covar = T, fm="mle", scores="regression")
+format_loading_matrix <- function(loading, criterion=0.5, markdown=T) {
+    df <- as.data.frame(loading)
+    df_index <- df
+    
+    library(dplyr)
+    for (j in 1:ncol(df)){ #for1
+        for (i in 1:nrow(df)){
+            if (markdown) {  # latex output
+                if (abs(df_index[i,j]) > abs(criterion)){
+                    df[i,j] <- paste("**", df[i, j], "**", sep = "")
+                }
+            } #end latex output
+            else { # HTML output
+                if (abs(df_index[i,j]) > abs(criterion)){
+                    df[i,j] <- paste('<span style="color:red">', df[i, j], '</span>', sep="")
+                }
+            }#end html output
+        }#end for2
+    }#end for1
+df
+} #end fc
