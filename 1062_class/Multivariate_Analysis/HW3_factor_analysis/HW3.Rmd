@@ -2,32 +2,37 @@
 title: "多變量分析 HW3"
 author: "劉昱維, 吳冠瑋, 廖永賦, 謝靖惟, 黃奎鈞"
 output:
-  html_document: default
   pdf_document:
     latex_engine: xelatex
     includes:
       in_header: header.tex
+  html_document: default
 css: /Users/user/local_depend/style_sheets/style.css
 always_allow_html: yes
+fontsize: 11pt
+geometry: margin=0.7in
 ---
 
 ```{r setup, include=FALSE}
+library(svglite)
 if (knitr::is_html_output()) {
     knitr::opts_chunk$set(
-	echo = TRUE,
+	echo = FALSE,
 	fig.dim = c(3.6, 3.2),
 	message = FALSE,
 	warning = FALSE,
 	comment = "",
-	dev = "svg",
+	dev='svglite',
 	out.width = "70%"
 )
 } else {
+    library(showtext)
     knitr::opts_chunk$set(echo = FALSE,
                           message=FALSE,
                           warning=FALSE,
                           comment = "",
-                          out.width = '70%')
+                          out.width = '70%',
+                          fig.showtext = T)
 }
 options(digits = 4)
 library(readr)
@@ -79,10 +84,15 @@ Hence, $\hat{\mathbf{\Psi}} = diag(\hat{\mathbf{\Psi}}) = diag(\mathbf{S_n} - \h
 
 
 ## (b) Communalities
+```{r}
+h2 <- diag(Sn) - Psi
+```
 
 $\sigma_{ii} = \ell_{i1}^2 + \ell_{i2}^2 + ~...~ + \ell_{im}^2 + \psi_i$
 
-$h_i^2 = \ell_{i1}^2 + \ell_{i2}^2 + ~...~ + \ell_{im}^2 = `r sum(L^2)`$
+$h_i^2 = \ell_{i1}^2 + \ell_{i2}^2 + ~...~ + \ell_{im}^2 = \ell_{i1}^2$
+
+$h_1^2 = `r h2[1]`, ~ h_2^2 = `r h2[2]`, ~ h_3^2 = `r h2[3]`$
 
 ## (c) Proportion of variance explained by the factor
 
@@ -124,9 +134,11 @@ fa_S_pc <- principal(bulls,
               rotate = 'varimax', 
               covar = TRUE)
 fa_S_pc[["loadings"]][,] %>% round(3) %>%
-    format_loading_matrix(criterion = 30, markdown = T) %>%
-    kable("markdown",align = 'c', escape = F)
+    format_loading_matrix(criterion = 10, markdown = T) %>%
+    kable("markdown",align = 'l', escape = F)
 ```
+
+\newpage
 
 ## (b) S ML
 
@@ -135,8 +147,8 @@ fa_S_ml <- fa(bulls, nfactors=3,
               rotate="varimax", covar = T,
               fm="ml", scores="regression")
 fa_S_ml[["loadings"]][,] %>% round(3) %>%
-    format_loading_matrix(criterion = 30, markdown = T) %>%
-    kable("markdown",align = 'c', escape = F)
+    format_loading_matrix(criterion = 10, markdown = T) %>%
+    kable("markdown",align = 'l', escape = F)
 ```
 
 ## (c) R PC
@@ -148,7 +160,7 @@ fa_R_pc <- principal(bulls,
               covar = F)
 fa_R_pc[["loadings"]][,] %>% round(3) %>%
     format_loading_matrix(criterion = 0.65, markdown = T) %>%
-    kable("markdown",align = 'c', escape = F)
+    kable("markdown",align = 'l', escape = F)
 ```
 
 
@@ -158,33 +170,52 @@ fa_R_ml <- fa(bulls, nfactors=3,
               rotate="varimax", covar = F, 
               fm="ml", scores="regression")
 fa_R_ml[["loadings"]][,] %>% round(3) %>%
-    format_loading_matrix(criterion = 0.6, markdown = T) %>%
-    kable("markdown",align = 'c', escape = F)
+    format_loading_matrix(criterion = 0.5, markdown = T) %>%
+    kable("markdown",align = 'l', escape = F)
 ```
 
 ## (e) Compare **S** & **R**
 
+The results obtained using covariance matrices are hard to interpret here. Since there are three kinds of units used: **pound**, **inch**, and **self-defined scales(1-8)**, the factor loadings on some variables are very large and others small.
+
+Interpretation of the factors is straightforward using results obtained from the covariance matrix.  
+By (c) and (d), 
+1. factor 1 has larger loadings on **YrHgt**, **Frame**, and **SaleHt**, which are all related to the **height**s of the bulls.
+2. Factor 2 has large loadings on **FtFrBody** and **PrctFFB** and is negatively related to **BkFat** in both methods(PC & ML) of factor analysis. It might be called a **lean** factor.
+3. In both PC & ML method of factor analysis, the loadings of factor 3 is large on **SaleWt**. The loading is also large on **BkFat** from the PC method, and the loading is medium on **FtFrBody** from the ML method. Factor 3 might be related to the **weight**s of the bulls.
+
+\newpage
+
 ## (f) scatter plots of factor2 vs factor1 in (a) and (c)
 
-### (a) 
-```{r out.width="40%"}
+The point, **51**, in the scatter plot on the left and the point, **16**, in the scatter plot on the right seem to be outliers.
+
+```{r}
 library(ggplot2)
-fa_S_pc[["scores"]] %>% as.data.frame() %>%
-    ggplot()+
-    geom_point(aes(x=RC1, y=RC2), size=1)+
-    labs(x="Factor 1", y="Factor 2", title="FA with S",
-         caption="Principle component method")
+data <- fa_S_pc[["scores"]] %>% as.data.frame()
+p_S <- ggplot(data, aes(x=RC1, y=RC2))+
+    geom_point(size=1) +
+    geom_text(aes(label=rownames(data)),
+              hjust=0.5, vjust=-0.4, size = 2.5) +
+    theme(legend.position = 'none')+
+    labs(x="Factor 1", y="Factor 2", title="FA with S")
 ```
 
-### (c) 
-```{r out.width="40%"}
-library(ggplot2)
-fa_R_pc[["scores"]] %>% as.data.frame() %>%
-    ggplot()+
-        geom_point(aes(x=RC1, y=RC2), size=1)+
-        labs(x="Factor 1", y="Factor 2", title="FA with R",
-             caption="Principle component method")
+```{r}
+data <- fa_R_pc[["scores"]] %>% as.data.frame()
+p_R <- ggplot(data, aes(x=RC1, y=RC2))+
+    geom_point(size=1) +
+    geom_text(aes(label=rownames(data)),
+          hjust=0.5, vjust=-0.4, size = 2.5) +
+    theme(legend.position = 'none')+
+    labs(x="Factor 1", y="Factor 2", title="FA with R")
 ```
+
+```{r out.width="50%", fig.show='hold'}
+p_S
+p_R
+```
+
 
 Q3
 ====================================
@@ -220,13 +251,24 @@ By the unity criterion we use 4 factors[^fact].
 source("fa_functions.R")
 fa_R_pc2[["loadings"]][,] %>% round(3) %>%
     format_loading_matrix(criterion = 0.5, markdown = T) %>%
-    kable("markdown",align = 'c', escape = F)
+    kable("markdown",align = 'l', escape = F)
 ```
 
 [^fact]: Although **factor 4** is less than 1, it's eigenvalue is very close to **factor 3**, hence we retain **factor 4**.
 
 ## (b) Label the Factors
 
+- RC4: 有利成分  
+此因素在第 2, 5, 9 題有較高的因素負荷量。這些題目似乎皆與健康有關。飲料能提供營養或避免添加不健康的物質，似與此因素有關。
+
+- RC1: 有效解渴
+此因素在第 3, 7, 10 題有較高的因素負荷量，這些題目皆與飲料是否**解渴**有關。
+
+- RC2: 獨特風味  
+此因素在第 1, 4, 8 題有較高的因素負荷量，這些題目皆強調飲料的**口感**。
+
+- RC3: 綠能包裝  
+此因素僅在第 6 題有較高的因素負荷量。第 6 題是一獨特的題目，所有題目中僅其強調**環境因素**。因此一個因素僅在第 6 題有較高的因素負荷量顯得相當合理。
 
 ## (c) Average factor scores of each brand
 
@@ -240,7 +282,7 @@ br6 <- which(drinks$BRAND == "6")
 ```
 
 
-```{r Pepsi}
+```{r}
 fs1 <- fa_R_pc2[["scores"]][br1,] %>% colMeans() %>% t() %>%
     as.data.frame()
 fs2 <- fa_R_pc2[["scores"]][br2,] %>% colMeans() %>% t() %>%
@@ -258,67 +300,90 @@ avg_fs <- rbind(fs1, fs2, fs3, fs4, fs5, fs6) %>%
     as.data.frame()
 rownames(avg_fs) <-  c("Pepsi", "Coke", "Gatorade",
                     "Allsport", "Lipton tea", "Nestea")
+
+colnames(avg_fs) <- c("有利成分", "有效解渴", "獨特風味", "綠能包裝")
 ```
 
 ### Average factor scores
 ```{r factor-score-table}
-kable(avg_fs, "markdown", align = 'c',
+kable(avg_fs, "markdown", align = 'l',
       digits = 3,
-      col.names= c("F1", "F2", "F3", "F4"),
       row.names = T, 
       caption = "Average Factor Scores of each brand")
 ```
 
-## (d)
+\newpage
 
+## (d) Interpret the positions of the six brands
 
 ```{r out.width="50%", fig.show='hold'}
 avg_fs <- cbind(avg_fs, rownames(avg_fs))
-colnames(avg_fs) <- c("F1", "F2", "F3", "F4", "Brand")
+colnames(avg_fs) <- c("有利成分", "有效解渴", "獨特風味", "綠能包裝", "Brand")
 
 ### F1, F2
-ggplot(avg_fs[,c(1,2, 5)],aes(x=F1, y=F2, color=Brand)) +
+showtext::showtext.begin()
+ggplot(avg_fs[,c(1,2, 5)],aes(x=`有利成分`, y=`有效解渴`, color=Brand)) +
     geom_point() +
     geom_text(aes(label=Brand),
               hjust=0.5, vjust=-0.4, size = 3) +
-    theme(legend.position = 'none')
+    theme(legend.position = 'none') +
+    labs(x="有利成分", y="有效解渴")
 
 ### F1, F3
-ggplot(avg_fs[,c(1,3, 5)],aes(x=F1, y=F3, color=Brand)) +
+ggplot(avg_fs[,c(1,3, 5)],aes(x=`有利成分`, y=`獨特風味`, color=Brand)) +
     geom_point() +
     geom_text(aes(label=Brand),
               hjust=0.5, vjust=-0.4, size = 3) +
-    theme(legend.position = 'none')
+    theme(legend.position = 'none') +
+    labs(x="有利成分", y="獨特風味")
+showtext::showtext.end()
 ```
 
 ```{r out.width="50%", fig.show='hold'}
 ### F1, F4
-ggplot(avg_fs[,c(1,4, 5)],aes(x=F1, y=F4, color=Brand)) +
+showtext::showtext.begin()
+ggplot(avg_fs[,c(1,4, 5)],aes(x=`有利成分`, y=`綠能包裝`, color=Brand)) +
     geom_point() +
     geom_text(aes(label=Brand),
               hjust=0.5, vjust=-0.4, size = 3) +
-    theme(legend.position = 'none')
+    theme(legend.position = 'none') +
+    labs(x="有利成分", y="綠能包裝")
 
 ### F2, F3
-ggplot(avg_fs[,c(2,3, 5)], aes(x=F2, y=F3, color=Brand)) +
+ggplot(avg_fs[,c(2,3, 5)], aes(x=`有效解渴`, y=`獨特風味`, color=Brand)) +
     geom_point() +
     geom_text(aes(label=Brand),
               hjust=0.5, vjust=-0.4, size = 3) +
-    theme(legend.position = 'none')
+    theme(legend.position = 'none') +
+    labs(x="有效解渴", y="獨特風味")
+showtext::showtext.end()
 ```
 
 ```{r out.width="50%", fig.show='hold'}
 ### F2, F4
-ggplot(avg_fs[,c(2,4, 5)],aes(x=F2, y=F4, color=Brand)) +
+showtext::showtext.begin()
+ggplot(avg_fs[,c(2,4, 5)],aes(x=`有效解渴`, y=`綠能包裝`, color=Brand)) +
     geom_point() +
     geom_text(aes(label=Brand),
               hjust=0.5, vjust=-0.4, size = 3) +
-    theme(legend.position = 'none')
+    theme(legend.position = 'none') +
+    labs(x="有效解渴", y="綠能包裝")
 
 ### F3, F4
-ggplot(avg_fs[,c(3,4, 5)], aes(x=F3, y=F4, color=Brand)) +
+ggplot(avg_fs[,c(3,4, 5)], aes(x=`獨特風味`, y=`綠能包裝`, color=Brand)) +
     geom_point() +
     geom_text(aes(label=Brand),
               hjust=0.5, vjust=-0.4, size = 3) +
-    theme(legend.position = 'none')
+    theme(legend.position = 'none') +
+    labs(x="獨特風味", y="綠能包裝")
+showtext::showtext.end()
 ```
+
+
+在不考慮**綠能包裝**下，可以從各散布圖中看出 3 種飲料類型：
+
+1. Pepsi, Coke: 碳酸飲料
+2. Gatorade, Allsport: 運動飲料
+3. Lipton tea, Nestea: 茶飲
+
+相同類型的飲料在散布圖中，通常位置會較為接近。例如，茶飲較為健康且有獨特風味，因此出現在出現在右上圖的右上方；碳酸飲料含糖量高，既不健康又不解渴，因此在左上圖中，出現在左下方；運動飲料則在**有效解渴**上，出現在類似的位置。
