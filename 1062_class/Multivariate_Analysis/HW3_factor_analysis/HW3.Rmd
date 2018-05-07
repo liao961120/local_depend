@@ -117,7 +117,7 @@ bulls <- bulls[,-c(1,9)]
 source("fa_functions.R") # for formating loading mt
 ```
 
-### (a) S PC
+## (a) S PC
 ```{r}
 fa_S_pc <- principal(bulls, 
               nfactors = 2, 
@@ -128,55 +128,186 @@ fa_S_pc[["loadings"]][,] %>% round(3) %>%
     kable("markdown",align = 'c', escape = F)
 ```
 
-### (b) S ML
+## (b) S ML
 
 ```{r}
 fa_S_ml <- fa(bulls, nfactors=2, 
               rotate="varimax", covar = T,
               fm="ml", scores="regression")
 fa_S_ml[["loadings"]][,] %>% round(3) %>%
-    format_loading_matrix(criterion = 30, markdown = F) %>%
-    kable("html",align = 'c', escape = F)
+    format_loading_matrix(criterion = 30, markdown = T) %>%
+    kable("markdown",align = 'c', escape = F)
 ```
 
-### (c) R PC
+## (c) R PC
 
 ```{r}
 fa_R_pc <- principal(bulls, 
               nfactors = 2, 
               rotate = 'varimax', 
               covar = F)
-fa_R_pc[["loadings"]][,]
+fa_R_pc[["loadings"]][,] %>% round(3) %>%
+    format_loading_matrix(criterion = 0.65, markdown = T) %>%
+    kable("markdown",align = 'c', escape = F)
 ```
 
 
-### (d) R ML
+## (d) R ML
 ```{r}
 fa_R_ml <- fa(bulls, nfactors=2, 
               rotate="varimax", covar = F, 
               fm="ml", scores="regression")
-fa_R_ml[["loadings"]][,]
+fa_R_ml[["loadings"]][,] %>% round(3) %>%
+    format_loading_matrix(criterion = 0.6, markdown = T) %>%
+    kable("markdown",align = 'c', escape = F)
 ```
 
-### (e) Compare
+## (e) Compare **S** & **R**
 
-### (f) scatter plots of factor2 vs factor1 in (a) and (c)
+## (f) scatter plots of factor2 vs factor1 in (a) and (c)
 
+### (a) 
+```{r out.width="40%"}
+library(ggplot2)
+fa_S_pc[["scores"]] %>% as.data.frame() %>%
+    ggplot()+
+    geom_point(aes(x=RC1, y=RC2), size=1)+
+    labs(x="Factor 1", y="Factor 2", title="FA with S",
+         caption="Principle component method")
+```
+
+### (c) 
+```{r out.width="40%"}
+library(ggplot2)
+fa_R_pc[["scores"]] %>% as.data.frame() %>%
+    ggplot()+
+        geom_point(aes(x=RC1, y=RC2), size=1)+
+        labs(x="Factor 1", y="Factor 2", title="FA with R",
+             caption="Principle component method")
+```
 
 Q3
 ====================================
 
+## (a) Appropriate number of factors 
 ```{r}
 library(readr)
 drinks <- read_table2("drinks.DAT", col_names = FALSE, skip = 2)
 colnames(drinks) <- c("ID", "BRAND",
                       paste("X",1:10, sep=""))
+drinks <- drinks[-nrow(drinks),]
 ```
 
+
+```{r out.width="40%"}
+library(psych)
+fa_R_pc2 <- principal(drinks[,3:12], 
+              nfactors = 4, 
+              rotate = 'varimax', 
+              covar = F)
+fa_R_pc2[["values"]] %>% 
+    cbind(X=1:10) %>% as.data.frame() %>%
+    ggplot()+
+        geom_point(aes(x=X, y=.), size=2) +
+        scale_x_continuous(breaks = 1:10)+
+        labs(x="i", y="eigenvalue",
+             title="Scree Plot")
+```
+
+By the unity criterion we use 4 factors[^fact].
 
 ```{r}
-library(psych)
-items <- drinks[,-(1:2)]
+fa_R_pc2[["loadings"]][,] %>% round(3) %>%
+    format_loading_matrix(criterion = 0.5, markdown = T) %>%
+    kable("markdown",align = 'c', escape = F)
 ```
 
-#no principle component method
+[^fact]: Although **factor 4** is less than 1, it's eigenvalue is very close to **factor 3**, hence we retain **factor 4**.
+
+## (b) Label the Factors
+
+
+## (c) Average factor scores of each brand
+
+```{r index}
+br1 <- which(drinks$BRAND == "1") #index for brand 1
+br2 <- which(drinks$BRAND == "2")
+br3 <- which(drinks$BRAND == "3")
+br4 <- which(drinks$BRAND == "4")
+br5 <- which(drinks$BRAND == "5")
+br6 <- which(drinks$BRAND == "6")
+```
+
+
+```{r Pepsi}
+fs1 <- fa_R_pc2[["scores"]][br1,] %>% colMeans() %>% t() %>%
+    as.data.frame()
+fs2 <- fa_R_pc2[["scores"]][br2,] %>% colMeans() %>% t() %>%
+    as.data.frame()
+fs3 <- fa_R_pc2[["scores"]][br3,] %>% colMeans() %>% t() %>%
+    as.data.frame() 
+fs4 <- fa_R_pc2[["scores"]][br4,] %>% colMeans() %>% t() %>%
+    as.data.frame()
+fs5 <- fa_R_pc2[["scores"]][br5,] %>% colMeans() %>% t() %>%
+    as.data.frame()
+fs6 <- fa_R_pc2[["scores"]][br6,] %>% colMeans() %>% t() %>%
+    as.data.frame()
+
+avg_fs <- rbind(fs1, fs2, fs3, fs4, fs5, fs6) %>% as.data.frame()
+rownames(avg_fs) <-  c("Pepsi", "Coke", "Gatorade",
+                    "Allsport", "Lipton tea", "Nestea")
+```
+
+### Average factor scores
+```{r factor-score-table}
+kable(avg_fs, "markdown", align = 'c',
+      digits = 3,
+      col.names= c("F1", "F2", "F3", "F4"),
+      row.names = T, 
+      caption = "Average Factor Scores of each brand")
+```
+
+## (d)
+
+```{r}
+data <- cbind(fa_R_pc2[["scores"]], as.factor(drinks$BRAND)) %>%
+    as.data.frame()
+colnames(data) <- c("F1", "F2", "F3", "F4", "Brand")
+
+data[data$Brand =="1", "Brand"] <- "Pepsi"
+data[data$Brand =="2", "Brand"] <- "Coke"
+data[data$Brand =="3", "Brand"] <- "Gatorade"
+data[data$Brand =="4", "Brand"] <- "Allsport"
+data[data$Brand =="5", "Brand"] <- "Lipton tea"
+data[data$Brand =="6", "Brand"] <- "Nestea"
+```
+
+```{r out.width="50%", fig.show='hold'}
+### F1, F2
+ggplot(data[,c(1,2, 5)]) +
+    geom_point(aes(x=F1, y=F2, color=Brand))
+
+### F1, F3
+ggplot(data[,c(1,3, 5)]) +
+    geom_point(aes(x=F1, y=F3, color=Brand))
+```
+
+```{r out.width="50%", fig.show='hold'}
+### F1, F4
+ggplot(data[,c(1,4, 5)]) +
+    geom_point(aes(x=F1, y=F4, color=Brand))
+
+### F2, F3
+ggplot(data[,c(2,3, 5)]) +
+    geom_point(aes(x=F2, y=F3, color=Brand))
+```
+
+```{r out.width="50%", fig.show='hold'}
+### F2, F4
+ggplot(data[,c(2,4, 5)]) +
+    geom_point(aes(x=F2, y=F4, color=Brand))
+
+### F3, F4
+ggplot(data[,c(3,4, 5)]) +
+    geom_point(aes(x=F3, y=F4, color=Brand))
+```
