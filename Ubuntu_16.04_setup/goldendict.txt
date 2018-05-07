@@ -1,0 +1,3 @@
+sudo apt-get install goldendict
+
+# https://drive.google.com/open?id=16Tvzytj2sjnND76sfjo2skne140TDM4L
