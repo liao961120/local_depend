@@ -1,0 +1,23 @@
+# https://www.howtoforge.com/tutorial/how-to-install-and-use-7zip-file-archiver-on-ubuntu-linux/
+# https://www.phpini.com/linux/linux-install-7zip
+
+sudo apt-get install p7zip-full p7zip-rar
+
+
+## Usage
+
+## extract(unzip)
+
+7z e file_name.zip
+
+
+## zip files 7z a [zipfile-name] [files-to-be-zipped]
+#cd ./target
+
+# zip all files in the working dir to zipped.7z
+7z a zipped.7z *
+
+# zip one.txt
+7z a one.zip one.txt
+
+
