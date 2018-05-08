@@ -1,0 +1,5 @@
+
+## save username & password, so no need to key in for every push
+git config credential.helper store
+
+git pull url master
