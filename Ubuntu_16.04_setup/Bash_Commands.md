@@ -13,6 +13,17 @@ alias kate="/mnt/c/'Program Files'/Kate/bin/kate.exe"
 alias cp_rmd_features='cp /mnt/c/Users/user/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.html /mnt/c/Users/user/GitHubPage/liao961120.github.io/notes'
 ```
 
+
+Search for App cmd name
+--------------------------------
+
+```bash
+dpkg -l | grep "part_of_app_name"
+```
+
+Then check the second column in the output.
+
+
 Link Abbreviation to programs
 ----------------------------------------
 
