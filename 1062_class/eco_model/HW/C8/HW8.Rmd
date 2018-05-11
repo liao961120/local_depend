@@ -5,7 +5,7 @@ date: "`r Sys.Date()`"
 output: 
     html_document:
         code_folding: hide
-css: ~/local_depend/style_sheets/style.css
+css: /home/liao/local_depend/style_sheets/style.css
 ---
 
 ```{r setup, include=FALSE}

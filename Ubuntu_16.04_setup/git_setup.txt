@@ -3,3 +3,8 @@
 git config credential.helper store
 
 git pull url master
+
+
+## change default git commit editor to gedit
+
+git config --global core.editor "gedit"
