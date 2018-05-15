@@ -1,0 +1,14 @@
+Split windows
+	Ctrl + Super + left/right
+
+Show dektop
+	Ctrl + Super + D
+
+Open Terminal
+	Ctrl + Alt + T
+
+Print current window
+	Alt + printScreen
+
+
+
