@@ -10,5 +10,18 @@ Open Terminal
 Print current window
 	Alt + printScreen
 
+Terminal
+Copy:
+	Ctrl + Shift + C
 
+Paste:
+	Ctrl  + Shift + V
 
+Wine Usage
+/opt/wine-staging/bin/wine xxx.exe
+
+Open folder in Terminal
+	xdg-open <folder.path>
+
+Okular
+	F6: annotation
