@@ -1,11 +1,6 @@
 ---
-title: "Ecological Modeling HW8"
-author: Yongfu Liao
-date: "`r Sys.Date()`"
-output: 
-    html_document:
-        code_folding: hide
-css: /home/liao/local_depend/style_sheets/style.css
+title: "Ecological Modeling HW7"
+layout: page
 ---
 
 ```{r setup, include=FALSE}
