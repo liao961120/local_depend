@@ -1,0 +1,110 @@
+---
+output:
+  html_document:
+    toc: yes
+    toc_depth: 4
+    toc_float: yes
+---
+
+## 1) Clone Repo from GitHub
+
+### Set Working Directory
+Set current directory, so your repo can be dowload to this directory: cd \<where to clone>.
+```
+cd ~/GitHubPage
+```
+
+### Clone repo from GitHub
+git clone \<URL>
+```
+git clone https://github.com/liao961120/liao961120.github.io
+```
+
+---------
+## 2) Working Locally
+
+### Set directory to (cloned) local repo
+cd \<REPOSITORY-NAME>
+```
+cd ~/GitHubPage/liao961120.github.io
+```
+
+### (Optional) Create a new branch locally
+You can create a branch other than `master` branch locally to work with.
+
+git branch \<BRANCH-NAME>
+```
+git branch local
+```
+
+### Change working branch
+After you create a new branch, you could change to that branch (or back), by:
+
+git checkout \<BRANCH-NAME>
+```
+git checkout master
+```
+
+### Sync with Remote
+git pull \<remote> \<local branch name>
+
+`git pull` = `git fetch` + `git merge`
+```
+git pull https://github.com/liao961120/liao961120.github.io master
+```
+
+### Edit files locally
+You can edit your files in your cloned repo just like you edit other files on your computer.
+
+#### Update changes locally
+After editing your files, you need to update changes. Use the git command:
+
+git add \<FILE-NAME>
+
+to update changes you have done to your file.
+```
+git add ~/GitHubPage/liao961120.github.io/_posts/2017-11-18-markdown-output.md
+```
+
+#### Creating new file
+If you didn't edit, but want to create a brand new file, create the file with the usual way you do on your computer and use the git command:
+
+git add -f \<FILE-NAME>
+```
+git add -f ~/GitHubPage/liao961120.github.io/_posts/2017-11-18-markdown-output.md
+```
+
+#### Commit change locally
+After typing in all the `git add` and/or `git add -f`, type
+```
+git commit
+```
+so you can commit locally.
+
+---------
+
+## 3) Update Changes to GitHub
+
+### Upload changes to your GitHub repo
+After committing locally, you can update your changes to GitHub.
+
+Use:
+
+git push -u origin \<BRANCH-NAME>
+
+and set \<BRANCH-NAME> to the branch you worked locally.
+```
+git push -u origin master
+```
+
+Now your branch is uploaded to GitHub.
+
+You need to go to GitHub (webpage) to merge your branch to master **only if** you had created and worked on another branch (other than `master`) locally. *See below*.
+
+### (Optional) Merging branch on GitHub 
+
+Beware: 
+
+* check that you are merging branches under your account
+
+* `base: master` `compare: local`.

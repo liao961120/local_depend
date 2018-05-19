@@ -1,0 +1,46 @@
+---
+title: "Basic Graphics"
+output:
+  html_document:
+    toc: true
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.path = "Advanced Graphics/")
+```
+##plot()
+abbreviation for scatterplot
+    
+### common arguments
+1. main = "主標題"
+2. sub = "副標題"
+3. xlab = "x軸標題"
+4. x = : 指定x軸變項
+5. col = :顏色, 填入數字(需查表)
+6. xlim = c(a, b): 限制x軸範圍
+        
+## boxplot(formula, data = )
+例如: boxplot(y~x, data = data_name)
+y~x: 固定x, 沿y軸畫出box plot
+```{r code.example, echo=TRUE}
+data(mtcars)
+boxplot(mpg~cyl, data = mtcars)
+```
+
+## hist()
+直方圖, 單變數
+```{r ex: CLT, echo=TRUE}
+z <- 1:1000
+for(i in 1:1000) {
+    x0 <- runif(30, -100, 100)
+    y0 <- mean(x0)
+    z[i] <- y0
+}
+Title <- "n=30 from U(-100,100) repeated 1000 times" 
+hist(z, breaks = 15, xlim = c(-40,40), main = Title)
+# breaks 15 cells for histogram
+```
+
+## points(x, y, ...): 在plot中加入點
+e.g. points(c(1, 2, 3), c(3, 2, 1))
+
+在原本的plot多加入(1,3), (2,2), (3,1)三個點

@@ -1,0 +1,88 @@
+---
+title: "ggplot quick guide"
+author: "Yongfu, Liao"
+date: "`r Sys.Date()`"
+output: 
+    html_document:
+        code_folding: show
+css: /Users/user/local_depend/style_sheets/style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	comment = "",
+	dev = 'svg'
+)
+```
+
+
+ggplot color theme
+--------------------------------
+```{r}
+scales::hue_pal()(3)
+```
+
+
+Data 
+----------------------------------
+```{r}
+library(ellipse)
+library(dplyr)
+
+All_contours <- c(NA, NA, NA) ## Set empty start for appending ##
+
+ell_data <- ellipse(0.8, c(1, 1), centre = c(1, 3), level = 0.5, npoints = 800) ## npoints: bigger contours with more points ##
+
+ell_data <- as.data.frame(ell_data) %>%
+    mutate(class = "50% contour")
+
+## Change to data.frame BEFORE cbind, or coersion happens ##
+
+All_contours <- rbind(All_contours, ell_data)[-1,]
+```
+
+
+Adding Lines & Curves to a plot
+-------------------------------------
+
+```{r}
+library(latex2exp)
+library(ggplot2)
+
+sum_xy <- All_contours %>%
+    mutate(sum=x+y) %>% select(sum)
+    
+max <- which(sum_xy == max(sum_xy))[1]
+min <- which(sum_xy == min(sum_xy))[1]
+
+p <- ggplot(data = All_contours) +
+    geom_point(aes(x = x, y = y, color = class),
+               size = 0.1,
+               color="black")+
+    labs(color = "Contours", 
+         title = "Contour Plot",
+         x = TeX("$x_1$"), y = TeX("$x_2$")
+    )
+
+p + geom_segment(aes(x=All_contours$x[max], 
+                     y=All_contours$y[max], 
+                     xend =All_contours$x[min], 
+                     yend = All_contours$y[min], 
+                     color = "Major Axis")) +
+    geom_segment(aes(x=0.6342645, 
+                     y=3.378911, 
+                     xend =1.370133, 
+                     yend = 2.625475, 
+                     color = "Minor Axis")) +
+    annotate("text", x = 1.5, y = 3.7, 
+             label =TeX("$c\\sqrt{\\lambda_1}$"),
+             alpha =0.7,
+             size = 2.8,
+             color = "red")+
+    coord_fixed() # fix x-axis/y-axis to 1
+```
+
+

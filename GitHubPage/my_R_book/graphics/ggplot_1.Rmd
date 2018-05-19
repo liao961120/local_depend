@@ -1,0 +1,103 @@
+---
+title: "Advanced Graphics"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(fig.path = "Advanced Graphics/")
+```
+```{r, include=FALSE}
+library(ggplot2)
+library(dplyr)
+```
+
+## Six Principles of Graphing
+1. Comparison
+
+2. Mechanism
+
+3. Multivariate Data
+
+4. Integrating evidence: <br/>Different forms of expressions
+
+5. Credibility: <br/>Describing and documenting the evidence with sources       appropriate labels, and scales.
+
+6. Content is King: <br/>Garbage in, garbage out.
+
+## Exploratory Graphs 
+1. DON'T use exploratory graphs to communicate results.
+
+2. Initial step in an investigation:<br/>Used to point the data scientist in a fruitful direction.
+
+## ggplot2
+### Grammar(template) of ggplot2
+```{r, eval=FALSE}
+ggplot(data = <DATA>) + 
+  <GEOM_FUNCTION>(
+     mapping = aes(<MAPPINGS>),
+     stat = <STAT>, 
+     position = <POSITION>
+  ) +
+  <COORDINATE_FUNCTION> +
+  <FACET_FUNCTION>
+```
+
+### Aestheics
+An aesthetic is a **visual property** of the objects in the plot. Aesthetics include things like the size, the shape, the color, and transparency of the points.
+
+Each `geom_` function has its suitable aesthetics, which can be found by typing `?geom_name` in the console.
+
+`alpha` sets transparency.
+
+`color` adds color to points and lines, color boarder to bars.
+
+`fill` fills color in histogram or bar chart.
+
+### Coordinate Functions
+```r
+coord_cartesian(xlim=c(x_min,x_max), ylim=c(y_min,y_max))
+```
+sets the range of x and y-axis.
+
+### Example: box plot
+```{r, echo=TRUE}
+ggplot(data = mpg) +
+    geom_boxplot(
+      mapping = aes(x = reorder(class, hwy, FUN = median), 
+                    y = hwy)) +
+    coord_flip()  # 將x, y軸對調
+```
+
+### Example: geom_smooth
+```{r}
+ggplot(diamonds, 
+aes(x=carat, 
+    y=price, 
+    color=clarity)) +
+geom_smooth(method="lm", formula=y~poly(x, 2))
+
+ggplot(diamonds, 
+aes(x=carat, 
+    y=price, 
+    color=clarity)) +
+geom_smooth(method="lm", formula=y~poly(x, 5))
+```
+
+### Example: lable on grapgh
+```{r}
+ggplot(mtcars, aes(x=wt, y=mpg)) +  geom_label(label=rownames(mtcars), nudge_y=0.5) + geom_point()
+```
+`nudge_y = `, `nudge_x = ` adjust the position of the lable.
+
+
+## Interactive Graphic
+
+```{r}
+library(plotly)
+gp=ggplot(mtcars, aes(x=wt, y=mpg)) +
+  geom_point(aes(text=rownames(mtcars)))
+ggplotly(gp)
+```
+**plotly** is compatible with **ggplot2**.

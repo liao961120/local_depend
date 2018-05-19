@@ -1,0 +1,20 @@
+# Clould Service
+
+
+
+Read data from github
+------------------------------
+
+```r
+data <- read_csv(url("https://docs.google.com/spreadsheets/d/e/2PACX-1vSUQc1wnAkv7U5WYWmBwiyOz3S-LswsA36W5S_cby47Plb9GWz72fnP59Al4cBoQgvM4mU7jUflgUUU/pub?output=csv"))
+```
+
+
+googlesheets package
+-----------------------------
+
+```r
+data <- gs_key("1JmXen4lH9T5GX6nNhW257ze6nFr4jabphVICSKLyDyQ", lookup = FALSE) %>% 
+    gs_read()
+```
+

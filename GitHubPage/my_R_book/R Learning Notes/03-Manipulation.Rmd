@@ -1,0 +1,79 @@
+# Data Manipulation {#Manipulate}
+
+## Explore Data
+### View()
+View data in new window, `sleep` is a built-in data in R.
+```{r, echo=TRUE}
+View(sleep)
+```
+*Note the capital 'V' in `View`.*
+
+### with()
+The two lines of code below are equvalent.
+```{r with, echo=TRUE}
+x1 <- with(airquality,cor(Temp, Wind))
+x2 <- cor(airquality$Temp, airquality$Wind)
+print(c(x1, x2))
+```
+
+
+### aggragate(y~x, data, function)
+
+Split Temp by Month in data(airquality), then compute mean of Temp split by Month.
+```{r aggregate, echo=TRUE}
+aggregate(Temp~Month, airquality, mean)
+```
+
+### names()
+A function to get & change names of an object.
+```{r names, echo=TRUE}
+x <- c(1, 2, 3)
+y1 <- names(x)  # evaluates to NULL
+names(x) <- c('a', 'b', 'c')
+y2 <- names(x)
+print(list(y1=y1, y2=y2))
+```
+
+## Handle with missing values
+### is<span>.na()
+The function returns logical: "TRUE" or "FALSE", indicating whether each element in the data is an 'NA'.
+*NA(Not Available) is not a value, but a placeholder for a quantity not available. Hence, **No logical operations with NAs !!!***
+
+R represents 'TRUE' as the number 1 and 'FALSE' as the number 0. Hence, for example, `sum(is.na(sleep))` returns an integer indicating the number of 'NA'. 
+
+#### Example: Removing NAs
+```{r remove NA1, echo=TRUE}
+x <- c(1, 2, NA, 4, NA, 5)
+bad <- is.na(x)
+x.NA_removed <- x[!bad]
+print(list(bad=bad, NA_removed=x.NA_removed))
+```
+
+### complete.cases()
+The function returns TRUE if the row(in data.frame sense) of the data has no NA.
+```{r remove NA2}
+# Vector example
+x <- c(1, NA, 2)
+y <- c("a", "b", NA)
+good <- complete.cases(x, y)
+good
+```
+
+#### Example: Remove rows which contains NAs in data frames
+```{r airquality head, echo=FALSE}
+head(airquality)
+```
+```{r remove NA3, echo=TRUE}
+good <- complete.cases(airquality)
+head(airquality[good,])
+```
+*Note: `good` is a logical vector containing 153 entries(153 rows from airquality)*
+
+## strings
+
+### regular expressions
+| Code   | Meaning   |
+| :---:  | --------- |
+| \\     | excape    |
+| \\w    | a-e & 0-9 |
+| \\.    | .         |

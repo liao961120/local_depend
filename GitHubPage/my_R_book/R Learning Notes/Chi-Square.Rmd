@@ -1,0 +1,70 @@
+---
+title: "Chi-square"
+author: "Yongfu, Liao"
+date: "2018年5月3日"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE
+)
+```
+
+## chi-square
+
+
+### test of goodness-of-fit
+
+Let there be 3 types of flower A, B, C, and we want to know whether the 3 types of flower follow a specific distribution, let it be P(A) = 1/6, P(B) = 1/3, P(C) = 1/2.
+
+To test my hypothesis, 60 flowers were collected, and their types recorded, with 12, 18, 30 of each types (A, B, C), respectively.
+
+```{r}
+# chisq.test(x, p)
+chisq.test(c(12, 18, 30), p = c(1/6, 1/3, 1/2))
+```
+
+
+### test of independence
+
+```{r}
+library(dplyr)
+contin_table <- tibble(
+    male = c(50, 78),
+    female = c(65, 56)) %>% 
+    as.data.frame()
+
+rownames(contin_table) <- c("pizza", "cake")
+```
+
+```{r}
+# chisq.test(contingency_table)
+chisq.test(contin_table)
+```
+
+#### `table`
+
+```{r}
+fct <- c("A", "A", "B", "B","A", "C", "B")
+table(fct)
+```
+
+```{r}
+fq <- table(fct) %>% as.vector()
+fq
+```
+
+```{r}
+fct_name <- table(fct) %>% names()
+fct_name
+```
+
+```{r}
+fq_table <- as.data.frame(fq) %>%
+    cbind(fct_name)
+fq_table
+```
+

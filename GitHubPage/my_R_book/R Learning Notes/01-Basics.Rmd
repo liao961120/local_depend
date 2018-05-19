@@ -1,0 +1,101 @@
+# Some Basics {#Basic}
+
+## Subsetting Vectors
+### vector_name[index vector]
+**index vector** can be:
+
+1. logical vectors
+2. vectors of positive integers
+3. vectors of negative integers
+4. vectors of character strings
+
+
+```{r index_vector1}
+#Logical
+y <- c(1, -1, 1, 2, 3)
+x <- c(NA, 1, 0, -1, 0.5)
+sub.y <-  y[y > 0]
+sub.x1 <- x[x > 0]
+sub.x2 <- x[!is.na(x) & x > 0]
+print(list(sub.y=sub.y, sub.x1=sub.x1, sub.x2=sub.x2))
+```
+*Note: 'NA' is not a value, it's a placeholder for an unknown quantity, the expression NA > 0 evaluates to NA*
+
+
+```{r index_vector1.2}
+#Logical_2: subset with quantile function
+x <- runif(100, 0, 1)
+df <- as.data.frame(cbind(1:100, x))
+names(df) <- c("obs", "value")
+df[df$value >= quantile(df$value, 0.95),]
+```
+-----
+
+
+
+```{r index vector2}
+# Negative Integer
+x <- c("a","b","c","d")
+x1 <- x[c(-2, -4)]
+x2 <- x[-c(2, 4)]
+print(list(x1=x1, x2=x2))
+```
+*Negative integers give all elements of  x EXCEPT for the 2nd and 10th elements*
+
+-----
+
+```{r index vector3, echo=TRUE}
+# Character String
+z <- c(foo = 11, bar = 12, norf = NA)
+z1 <- z["bar"]
+z2 <- z[2]
+print(list(z1, z2))
+```
+
+
+
+## Subsetting Lists
+```{r lists, echo=TRUE}
+# Return a sublist
+ll <- list(id=1:3, height="fdklj", weight=1)
+x1 <- ll[1]
+x2 <- ll["id"]
+print(c(x1, x2))
+```
+`ll[1]` & `ll["id"]` are equivalent.
+
+------
+
+```{r lists2, echo=TRUE}
+# Return a vector(contents in the sublist)
+ll <- list(id=1:3, height="fdklj", weight=1)
+x1 <- ll[[1]]
+x2 <- ll[["id"]]
+x3 <- ll$id
+print(c(x1,x2,x3))
+```
+`ll[[1]]`, `ll[["id"]]` *&* `ll$id` *are equivalent.*
+
+*Note:* `[[ ]]` *&* `$` *must go with strings(names).*
+
+Manipulating data with Lists is often difficult. Using `[[ ]]` & `$` lets you manipulate the elements in the List(i.e. vectors).
+
+## Concatinating & Printing
+### paste()
+The `paste` function combines different vectors(more than 2 vectors as input) into **one** character string. The value of the argument `sep` is used to seperate the inputs.
+```{r paste 1, echo=TRUE}
+symbol <- "A B C"
+num <- 1                           # a numeric vector
+x <- paste(symbol, num, sep="\n")  # \n: new line in regex
+cat(x)                             # cat is similar to print
+```
+
+When the input vector(s) contains multiple elements, and given the `collapse` argument, `paste` collapses the input vector into a single string, seperated by the value of `collapse`. **Beware the element-wise operation(recycle rule)**.
+```{r paste 2, echo=TRUE}
+x <- 1:3
+y <- c("x","y","z")
+paste(x,y, sep=":",collapse = ", ")
+```
+The result of `paste` follows the pattern: `"x[1]:y[1], x[2]:y[2], x[3]:y[3]"`
+
+### cat()
