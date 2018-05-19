@@ -3,3 +3,6 @@
 
 ## Ubuntu fonts
 # https://design.ubuntu.com/font/
+
+
+# If you need the fonts to be available system-wide, you'll need to copy them to /usr/local/share/fonts
