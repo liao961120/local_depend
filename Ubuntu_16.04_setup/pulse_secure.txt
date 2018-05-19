@@ -1,0 +1,18 @@
+https://gist.github.com/tafarij/e92755c7b5d853241c3f0790e2786c65
+
+/usr/local/pulse/PulseClient.sh -h sslvpn2.ntu.edu.tw -u NTU SSL VPN -p PulseSecure -r users
+
+
+
+/usr/local/pulse/PulseClient.sh -h <PCS appliance IP/hostname> -u <vpn username> -p
+<vpn password> -r <realm>
+
+
+
+/usr/local/pulse/PulseClient_x86_64.sh -u b04207003 -p liao654321 -r NTU EMail Account -U https://sslvpn1.ntu.edu.tw
+
+-U
+
+
+
+
