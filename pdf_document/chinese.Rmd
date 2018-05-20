@@ -1,0 +1,25 @@
+---
+title: "Untitled"
+output: 
+  pdf_document:
+    latex_engine: xelatex    
+    includes:
+        in_header: header.tex
+documentclass: article
+urlcolor: "blue"
+fontsize: 12pt
+geometry: a5paper, headheight=0pt, margin=0.4in
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+中文
+（中文）
+
+、，、。**一些文字**？
+
+*一些文字*
