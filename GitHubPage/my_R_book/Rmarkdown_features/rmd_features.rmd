@@ -3,13 +3,13 @@ title: "Rmarkdown Features"
 subtitle: "This is subtitle"
 author: Yongfu Liao
 date: "`r Sys.Date()`"
-bibliography: /Users/user/local_depend/citation/neanderthals.bib
-csl: /Users/user/local_depend/style_sheets/apa-no-doi-no-issue.csl
+bibliography: /home/liao/local_depend/citation/neanderthals.bib
+csl: /home/liao/local_depend/style_sheets/apa-no-doi-no-issue.csl
 link-citations: yes
 output:
   html_document:
     code_folding: show
-    css: /Users/user/local_depend/style_sheets/style.css
+    css: /home/liao/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
     toc_depth: 3
@@ -44,13 +44,13 @@ title: "Rmarkdown Features"
 subtitle: "This is subtitle"
 author: Yongfu Liao
 date: March 18, 2018
-bibliography: /Users/user/local_depend/citation/neanderthals.bib
-csl: /Users/user/local_depend/style_sheets/apa-no-doi-no-issue.csl
+bibliography: /home/liao/local_depend/citation/neanderthals.bib
+csl: /home/liao/local_depend/style_sheets/apa-no-doi-no-issue.csl
 link-citations: yes
 output:
   html_document:
     code_folding: show
-    css: /Users/user/local_depend/style_sheets/style.css
+    css: /home/liao/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
     toc_depth: 3
@@ -88,10 +88,12 @@ output:
         in_header: header.tex
 documentclass: article
 urlcolor: "blue"
-fontsize: 12pt
+fontsize: 12pt 
 geometry: a5paper, headheight=0pt, margin=0.4in
 ---
 ```
+
+Note that Latex only accepts fontsize of 10pt, 11pt, or 12pt. See [this](https://github.com/rstudio/rmarkdown/issues/878) for more detail.
 
 ### PDF: header.tex{#pdf-header}
 
@@ -103,15 +105,17 @@ The code below is for generating PDF documents written in (Traditional) Chinese.
 %使用xeCJK，其他的還有CJK或是xCJK
 \usepackage{xeCJK}
 
-\usepackage{multicol}
-\usepackage{bm}
+\usepackage[fontsize=13pt]{scrextend}
 
 %設定英文字型，不設的話就會使用預設的字型
 \setmainfont{Calibri}
 
 %設定中英文的字型
 %字型的設定可以使用系統內的字型，而不用像以前一樣另外安裝
-\setCJKmainfont{蘋方-繁}
+% AR PL KaitiM Big5 標楷體
+% .PingFang TC
+% Noto Sans CJK TC
+\setCJKmainfont{AR PL KaitiM Big5}
 
 %中文自動換行
 \XeTeXlinebreaklocale "zh"
@@ -494,32 +498,32 @@ Shaped Images {.tabset}
 ```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .rounded}
 ```
-![](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .rounded}
+![](/home/liao/local_depend/icons/libreoffice.ico){width=auto height="30%" .rounded}
 
 #### Boostrap
 ```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .img-rounded}
 ```
-![Bootstrap Rounded](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-rounded}
+![Bootstrap Rounded](/home/liao/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-rounded}
 
 
 ### Circle Image
 ```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .circle}
 ```
-![This is figure Caption](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .circle}
+![This is figure Caption](/home/liao/local_depend/icons/libreoffice.ico){width=auto height="30%" .circle}
 
 #### Boostrap
 ```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .img-circle}
 ```
-![Bootstrap Circle](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-circle}
+![Bootstrap Circle](/home/liao/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-circle}
 
 ### Thumbnail
 ```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .img-thumbnail}
 ```
-![Bootstrap Thumbnail](/Users/user/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-thumbnail}
+![Bootstrap Thumbnail](/home/liao/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-thumbnail}
 
 <!-- footnotes ---------------------------- -->
 [^css]: Look at my [stylesheet](https://github.com/liao961120/local_depend/blob/master/style_sheets/style.css){target="_blank"} for syntax details.
