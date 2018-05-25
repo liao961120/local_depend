@@ -43,7 +43,7 @@ This is the complete yaml header of this document.
 title: "Rmarkdown Features"
 subtitle: "This is subtitle"
 author: Yongfu Liao
-date: March 18, 2018
+date: "`r Sys.Date()`"
 bibliography: /home/liao/local_depend/citation/neanderthals.bib
 csl: /home/liao/local_depend/style_sheets/apa-no-doi-no-issue.csl
 link-citations: yes
