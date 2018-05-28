@@ -17,6 +17,94 @@ bibliography: lang_social.bib
 urlcolor: blue
 ---
 
+```{r setup, include=FALSE}
+library(svglite) 
+knitr::opts_chunk$set(
+    echo = FALSE, # No display code chunks
+    message = FALSE,
+    warning = FALSE,
+    dev='svglite', # or 'svglite' for multibite characters
+    comment="",
+    fig.dim = c(6, 4)  # (width, height)
+)
+options(digits = 4) # auto round to 2 decimals when printed
+library(dplyr)
+```
+
+## 3
+### (A)
+黃宣範老師對於人口結構的推論幾乎著重在估計外省人口數。關於外省人口數的推論，我認為黃老師做足了功課，包含參考許多人口學者的估計，甚至也考慮到更改成外省籍的臺灣婦女。然而，比較另我困惑的是要如何處理通婚人口所生之子女？黃老師避過了此問題，而以獨立的方式處理人口結構：每個族群依照各自的族群成長率成長。當然，要處理通婚人口所生之子女會使事情便得非常複雜，因為需假定各族群的通婚情況。總體而言，我認為黃老師已在其能夠取得的資料下，做出最詳細的推論。
+
+### (B)
+根據內政部 1993 至 2017 的人口統計資料（人口總數、自然增加率）[@neizhengbuhuzhengsi]，並假設
+
+1. 各族群間自由通婚（假設通婚為隨機的）
+2. 各族群自然增加率相同（依據內政部資料，每年自然增加率逐年下降）
+
+則使用 1993 年內政部統計之總人口數 20995416 為起始，並以「閩南人：73.3%；外省人：13%；客家人：12%；原住民： 1.7%」的比例計算出該年各族群人口做為開始。接著以內政部統計之每年自然增加率計算，可得 2017 人口比例如下表：
+```{r}
+pop <- readr::read_csv("pop.csv") %>% 
+    mutate(growth = growth/1000,
+           tw_pop = pop_size*0.733,
+           ch_pop = pop_size*0.13,
+           hk_pop = pop_size*0.12,
+           abroi_pop = pop_size*0.017)
+
+
+pop_size <- pop$pop_size[1]
+growth <- pop$growth
+tw_pop <- pop$tw_pop[1]
+ch_pop <- pop$ch_pop[1]
+abroi_pop <- pop$abroi_pop[1]
+hk_pop <- pop$hk_pop[1]
+
+for (i in 2:26){
+
+    tw_pop[i] <- (1+growth[i-1])*pop_size[i-1]*((tw_pop[i-1]/pop_size[i-1])^2 +
+        (tw_pop[i-1]/pop_size[i-1])*(hk_pop[i-1]/pop_size[i-1]) +
+        (tw_pop[i-1]/pop_size[i-1])*(ch_pop[i-1]/pop_size[i-1]) +
+        (tw_pop[i-1]/pop_size[i-1])*(abroi_pop[i-1]/pop_size[i-1]))
+    
+    hk_pop[i] <- (1+growth[i-1])*pop_size[i-1]*((hk_pop[i-1]/pop_size[i-1])^2 +
+        (hk_pop[i-1]/pop_size[i-1])*(tw_pop[i-1]/pop_size[i-1]) +
+        (hk_pop[i-1]/pop_size[i-1])*(ch_pop[i-1]/pop_size[i-1]) +
+        (hk_pop[i-1]/pop_size[i-1])*(abroi_pop[i-1]/pop_size[i-1]))
+    
+    ch_pop[i] <- (1+growth[i-1])*pop_size[i-1]*((ch_pop[i-1]/pop_size[i-1])^2 +
+        (ch_pop[i-1]/pop_size[i-1])*(hk_pop[i-1]/pop_size[i-1]) +
+        (ch_pop[i-1]/pop_size[i-1])*(tw_pop[i-1]/pop_size[i-1]) +
+        (ch_pop[i-1]/pop_size[i-1])*(abroi_pop[i-1]/pop_size[i-1]))
+
+    abroi_pop[i] <- (1+growth[i-1])*pop_size[i-1]*((abroi_pop[i-1]/pop_size[i-1])^2 +
+        (abroi_pop[i-1]/pop_size[i-1])*(ch_pop[i-1]/pop_size[i-1]) +
+        (abroi_pop[i-1]/pop_size[i-1])*(tw_pop[i-1]/pop_size[i-1]) +
+        (abroi_pop[i-1]/pop_size[i-1])*(abroi_pop[i-1]/pop_size[i-1]))
+    
+    pop_size[i] <- sum(tw_pop[i], hk_pop[i], ch_pop[i], abroi_pop[i])
+}
+df <- cbind(1993:2018, tw_pop, hk_pop, ch_pop, abroi_pop) %>% as_data_frame()
+
+table <- df[25, 2:5]/sum(df[25,])*100
+knitr::kable(paste(table %>% round(3),"%", sep = "") %>% t(),
+             "markdown", align = "c", 
+             col.names = c("閩南","客家","外省","原住民"),
+             caption = "總人口數：`r sum(df[25,])`"
+             )
+```
+
+對照原委會資料[@yuanzhuminzuweiyuanhui2018]，2018 年 4 月原住民人數為 561,327，與這裡的`r df$abroi_pop[25] %>% as.integer` 有相當大的差距。這顯示原住民在保存自己文化上的動力比起預設（隨機通婚）還強上許多，或許是個值得高興的現象。
+
+
+## 4
+
+> 事件一（1988.10.9）：影片「舊情綿綿」因台語使用過多，片商無法爭取到普通級，只能以輔導級映演……新聞局怕他們（十三歲以下學童）會忘記國語，或拒絕使用國語。
+
+此事件只是縱多類似事件的翻版：政府因為抱持著許多荒謬的信念，而做出許多滑稽可笑的規定。跳脫此事件，如果歷史上的政策規定，有這麼多是依據這些毫無根據的信念所制定，那真的對臺灣帶來很大的傷害。國語政策的背後，抱持著（國民政府心中的）漢文化是最「好」的、上下齊心（透過統一文化及語言）的國家是最強大的概念。結果就是造成臺灣多元的文化快速流失，逐步朝向單一化。臺灣是一個小國，不具備大國那種人海資源，因而小國的生存之道僅能仰賴創新。多元是創新的根本[@leung2008; @leung2010]，逐漸失去多元性的臺灣如同在扼殺自己的生存空間。
+
+> 事件二（1988.10.27）：僑選立委簡漢聲呼籲政府推展閩南語、客語、國語並進之雙語、三語教學，以使外省子弟能夠有學習本地方言的機會，使省級歧見消弭於無形……外省子定更因沒有機會學習方言，而在就業等方面受到限制與歧視。
+
+此事件讓我記憶特別深的原因是它以我平常比較少接觸到的角度顯示國語政策帶來的影響。根據既往成見，總是會認為只有臺灣方言使用者是國語政策下的受害者，然而這裡以外省第二代的角度說明了國語政策的影響，外省子弟也是遭受歧視的一群人。這位僑選立委的發言，更隱含了一個非常有遠見的想法：消弭族群隔閡的方式並非只有將其同化成單一族群，讓每個族群互相學習可能會是種更好的方法。
+
 ## 5
 我覺得到了我們這一代 (1990 年後出生)應已達成階段 6「不再遭受歧視性的行為」的同化。其實對於臺灣的社會，從階段 4 過渡到階段 6 之間應該非常快速，這應與種族間的體質特徵（如膚色）差異程度有關。由於臺灣的各族群之間，外觀差異相當小，唯一能辨識族群差異的特徵大概只剩語言以及（相同語言下）發音的差異。當無法辨識出族群的差異，歧視性的態度或行為就沒有立基處，因而也就不會發生。
 
