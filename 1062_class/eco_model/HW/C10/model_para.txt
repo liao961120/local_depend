@@ -1,0 +1,40 @@
+Coexist
+
+int j_x = 1, j_y = 2, j_p = 3; //index for x, y, p
+double a1=0.7, a2=0.7, b1=1.0, b2=1.0; 		  // model parameter
+double r1=0.8, r2=0.8, K1=1.2, K2=1.2, m=0.8; // model parameter
+double t=0.0; //time
+double deltat=0.01; //time step for rk4
+double *N; // initialize array for population size
+double *dfdt;
+
+
+// Main function
+int main(void){
+	
+	dfdt = d_vector(3); //set vector for 'differential' output
+	N = d_vector(3);
+	N[j_x] = 1.0; //set initial population size
+	N[j_y] = 1.0; //set initial population size
+	N[j_p] = 1.0; //set initial population size
+
+
+R1(x) win
+
+int j_x = 1, j_y = 2, j_p = 3; //index for x, y, p
+double a1=0.5, a2=0.5, b1=1.5, b2=1.0; 		  // model parameter
+double r1=1.0, r2=0.7, K1=1.2, K2=1.2, m=0.5; // model parameter
+double t=0.0; //time
+double deltat=0.01; //time step for rk4
+double *N; // initialize array for population size
+double *dfdt;
+
+
+R2(y) win
+int j_x = 1, j_y = 2, j_p = 3; //index for x, y, p
+double a1=0.5, a2=0.3, b1=0.7, b2=1.1; 		  // model parameter
+double r1=0.7, r2=0.7, K1=1.2, K2=1.2, m=0.5; // model parameter
+double t=0.0; //time
+double deltat=0.01; //time step for rk4
+double *N; // initialize array for population size
+double *dfdt;

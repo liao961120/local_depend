@@ -15,7 +15,11 @@
 % AR PL KaitiM Big5 標楷體
 % .PingFang TC
 % Noto Sans CJK TC
-\setCJKmainfont{Noto Sans CJK TC}
+% HanWangHeiLight
+% HanWangHeiHeavy
+\setCJKmainfont[
+	BoldFont={HanWangHeiHeavy}  % 粗體字使用華康粗明體
+    ]{HanWangHeiLight}    % 一般字型則使用華康細明體
 
 %中文自動換行
 \XeTeXlinebreaklocale "zh"
