@@ -12,5 +12,9 @@ R: Graphics (ggplot2)
 Communicate: Rmarkdown
 --------------------
 
+### Latex
+
+### Citation Zotero
+
 Build on Travis
 --------------------

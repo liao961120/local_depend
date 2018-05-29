@@ -53,9 +53,69 @@ R2_win <- read_delim("data_R2_exclude_R1.txt",
 \end{equation}
 
 
+## R~1~, R~2~ Coexist
+```c
+double a1=0.7, a2=0.7, b1=1.0, b2=1.0;
+double r1=0.8, r2=0.85, K1=1.2, K2=1.2, m=0.8;
+```
+
+```{r}
+library(ggplot2)
+ggplot(coexi)+
+    geom_point(aes(x=time, y=R1, color="R1"), size=0.01)+
+    geom_point(aes(x=time, y=R2, color="R2"), size=0.01)+
+    geom_point(aes(x=time, y=Predator, color="Predator"), size=0.01)+
+    guides(colour = 
+            guide_legend(override.aes =
+                             list(size=2)))+
+    scale_x_continuous(
+        breaks = seq(0,300,50))+
+    labs(x="Time", y="Abundance",color="",
+         title=expression('R'[1]*' R'[2]*' Coexist'))
+```
+
+
+## R~1~ Exclude R~2~
+```c
+double a1=0.5, a2=0.5, b1=1.5, b2=1.0;
+double r1=1.0, r2=0.7, K1=1.2, K2=1.2, m=0.5;
+```
+```{r}
+ggplot(R1_win)+
+    geom_point(aes(x=time, y=R1, color="R1"), size=0.01)+
+    geom_point(aes(x=time, y=R2, color="R2"), size=0.01)+
+    geom_point(aes(x=time, y=Predator, color="Predator"), size=0.01)+
+    guides(colour = 
+            guide_legend(override.aes =
+                             list(size=2)))+
+    scale_x_continuous(
+        breaks = seq(0,300,50))+
+    labs(x="Time", y="Abundance",color="",
+         title=expression('R'[1]*' Exclude'*' R'[2]))
+```
+
+## R~2~ Exclude R~1~
+```c
+double a1=0.5, a2=0.3, b1=0.7, b2=1.1;
+double r1=0.7, r2=0.7, K1=1.2, K2=1.2, m=0.5;
+```
+```{r}
+ggplot(R2_win)+
+    geom_point(aes(x=time, y=R1, color="R1"), size=0.01)+
+    geom_point(aes(x=time, y=R2, color="R2"), size=0.01)+
+    geom_point(aes(x=time, y=Predator, color="Predator"), size=0.01)+
+    guides(colour = 
+            guide_legend(override.aes =
+                             list(size=2)))+
+    scale_x_continuous(
+        breaks = seq(0,300,50))+
+    labs(x="Time", y="Abundance",color="",
+         title=expression('R'[2]*' Exclude'*' R'[1]))
+```
+
 ## C code
 
-Download [rk4.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C10/rk4.c){target="_blank"}
+**Download [rk4.c](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/1062_class/eco_model/HW/C10/rk4.c){target="_blank"}**
 
 ```c
 #include <stdio.h>
@@ -194,65 +254,4 @@ void free_d_vector(double *x)
 {
     free(x);
 };
-```
-
-
-### R~1~ R~2~ Coexist
-```c
-double a1=0.7, a2=0.7, b1=1.0, b2=1.0;
-double r1=0.8, r2=0.85, K1=1.2, K2=1.2, m=0.8;
-```
-
-```{r}
-library(ggplot2)
-ggplot(coexi)+
-    geom_point(aes(x=time, y=R1, color="R1"), size=0.01)+
-    geom_point(aes(x=time, y=R2, color="R2"), size=0.01)+
-    geom_point(aes(x=time, y=Predator, color="Predator"), size=0.01)+
-    guides(colour = 
-            guide_legend(override.aes =
-                             list(size=2)))+
-    scale_x_continuous(
-        breaks = seq(0,300,50))+
-    labs(x="Time", y="Abundance",color="",
-         title=expression('R'[1]*' R'[2]*' Coexist'))
-```
-
-
-### R~1~ Exclude R~2~
-```c
-double a1=0.5, a2=0.5, b1=1.5, b2=1.0;
-double r1=1.0, r2=0.7, K1=1.2, K2=1.2, m=0.5;
-```
-```{r}
-ggplot(R1_win)+
-    geom_point(aes(x=time, y=R1, color="R1"), size=0.01)+
-    geom_point(aes(x=time, y=R2, color="R2"), size=0.01)+
-    geom_point(aes(x=time, y=Predator, color="Predator"), size=0.01)+
-    guides(colour = 
-            guide_legend(override.aes =
-                             list(size=2)))+
-    scale_x_continuous(
-        breaks = seq(0,300,50))+
-    labs(x="Time", y="Abundance",color="",
-         title=expression('R'[1]*' Exclude'*' R'[2]))
-```
-
-### R~2~ Exclude R~1~
-```c
-double a1=0.5, a2=0.3, b1=0.7, b2=1.1;
-double r1=0.7, r2=0.7, K1=1.2, K2=1.2, m=0.5;
-```
-```{r}
-ggplot(R2_win)+
-    geom_point(aes(x=time, y=R1, color="R1"), size=0.01)+
-    geom_point(aes(x=time, y=R2, color="R2"), size=0.01)+
-    geom_point(aes(x=time, y=Predator, color="Predator"), size=0.01)+
-    guides(colour = 
-            guide_legend(override.aes =
-                             list(size=2)))+
-    scale_x_continuous(
-        breaks = seq(0,300,50))+
-    labs(x="Time", y="Abundance",color="",
-         title=expression('R'[1]*' Exclude'*' R'[2]))
 ```
