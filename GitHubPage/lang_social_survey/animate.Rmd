@@ -29,3 +29,7 @@ animation::saveGIF(for (i in colnames(sp)[c(2,3)]) plot(sp[i]),
 knitr::include_graphics("plot.gif")
 ```
 
+```{r}
+knitr::include_graphics("age_pyramid.gif")
+```
+
