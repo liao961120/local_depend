@@ -18,8 +18,8 @@ knitr::opts_chunk$set(
 	message = FALSE,
 	warning = FALSE,
 	comment = "",
-	dev = "png", dpi = 600,
-	out.width = "100%"
+	dev = "png", dpi = 300,
+	out.width = "90%"
 )
 library(ggplot2)
 library(tidyr)
@@ -97,7 +97,6 @@ int main(int argc, char *argv[])
 	//if(seed==0)seed= 1;
 	dsfmt_init_gen_rand(&dsfmt,seed);
 
-
 	mat = d_matrix(NUM_R, NUM_C);
 	n_Sp_gene = d_vector(NUM_R); //number of species with a particular gene
 	rand_commu = d_matrix(replicate, NUM_C); //value = # of genes, col= # of species in the community
@@ -145,21 +144,17 @@ int main(int argc, char *argv[])
 	free_d_vector(n_Sp_gene);
 
 
-
 // random community
 	for (k=2; k<=50; k++){
 		for (i=1; i<=replicate; i++) rand_commu[i][k] = random_k_species(k, mat);
 	}
 	
-
-
 	// community with 1 species
 	for (j=1; j<=NUM_C; j++){
 		for (i=1; i<=NUM_R; i++) if (mat[i][j] > 0.01) num_gene2 += 1;
 		rand_commu[j][1] = num_gene2;
 		num_gene2 = 0;
 	}
-
 
 	// community with 51 species
 	for (k=1; k<=NUM_C; k++)
@@ -183,12 +178,11 @@ int main(int argc, char *argv[])
 		num_gene2 = 0;
 	}
 
-
 	// community with 52 species(all)
 	rand_commu[1][NUM_C] = random_k_species(NUM_C, mat);
 
 
-// write file
+    // write file
 	fp_commu = fopen("random_community.txt", "w");
 	if (fp_commu == NULL) message_error("File cannot be opened\n");
 	for (i = 1; i <= replicate; i++) 
@@ -196,7 +190,6 @@ int main(int argc, char *argv[])
 		for (j=1; j<=NUM_C; j++) fprintf(fp_commu, "%lf\t", rand_commu[i][j]);
 		fprintf(fp_commu, "\n");
 	}
-
 	fclose(fp_commu);
 
 	free_d_matrix(rand_commu);
@@ -205,7 +198,7 @@ int main(int argc, char *argv[])
 }
 
 
-/////////// Function Definitions //////////
+//////// Function Definitions ////////
 /* 
 randomly select k species
 return the number of functional genes 
@@ -236,14 +229,12 @@ int random_k_species(int k, double **mat)
 	return num_gene;
 }
 
-
 /*
 Take an array and its (size-1)(skipping index '0') as input,
 shuffle the array.
 */
 void shuffle(int *array, int n)
 {
-
     double rand; //random number from uniform [0,1)
 
     if (n > 1) 
