@@ -1,0 +1,51 @@
+---
+title: "多變量分析 HW4"
+author: "劉昱維, 吳冠瑋, 廖永賦, 謝靖惟"
+css: /home/liao/local_depend/style_sheets/style.css
+output:
+  bookdown::pdf_document2:
+    number_sections: no
+    includes:
+      in_header: /home/liao/local_depend/pdf_document/header.tex
+    latex_engine: xelatex
+  bookdown::html_document2:
+    includes:
+      before_body: mathjax_bm.tex
+    number_sections: no
+geometry: margin=0.7in
+fontsize: 11pt
+always_allow_html: yes
+---
+
+```{r setup, include=FALSE}
+library(svglite)
+if (knitr::is_html_output()) {
+    knitr::opts_chunk$set(
+	echo = FALSE,
+	fig.dim = c(7, 4),
+	message = FALSE,
+	warning = FALSE,
+	comment = "",
+	dev='svg',
+	out.width = "100%"
+)
+} else {
+    library(showtext)
+    knitr::opts_chunk$set(echo = FALSE,
+                          message=FALSE,
+                          warning=FALSE,
+                          comment = "",
+                          out.width = '70%',
+                          fig.showtext = T)
+}
+library(readr)
+library(tidyverse)
+library(knitr)
+library(kableExtra)
+library(mat2tex)
+theme <- theme_light() +
+    theme(axis.text.x = element_text(size = 7, face = "plain", angle = 30),
+               axis.text.y = element_text(size = 7, face = "plain"),
+               axis.title.x = element_text(size = 9, face = "bold"),
+    axis.title.y = element_text(size = 9, face = "bold"))
+```
