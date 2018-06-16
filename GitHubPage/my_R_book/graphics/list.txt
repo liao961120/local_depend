@@ -1,0 +1,6 @@
+ggplot
+
+Modify legend point size. See [https://stackoverflow.com/questions/20415963/how-to-increase-the-size-of-points-in-legend-of-ggplot2]
+
+pl+ 
+	guides(colour = guide_legend(override.aes = list(size=10)))
