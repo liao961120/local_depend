@@ -95,6 +95,29 @@ geometry: a5paper, headheight=0pt, margin=0.4in
 
 Note that Latex only accepts fontsize of 10pt, 11pt, or 12pt. See [this](https://github.com/rstudio/rmarkdown/issues/878) for more detail.
 
+### PDF Output2
+This is the yaml header for `bookdown::pdf_document2` output. Using `bookdown` extensions have several advantages. Search 'bookdown' for details.
+```{yaml}
+---
+output:
+  bookdown::pdf_document2:
+    number_sections: FALSE
+    toc: False
+    includes:
+      in_header: header.tex
+    latex_engine: xelatex
+  bookdown::html_document2:
+    number_sections: FALSE
+    includes:
+      before_body: mathjax_bm.tex
+urlcolor: blue
+always_allow_html: yes
+---
+```
+
+
+
+
 ### PDF: header.tex{#pdf-header}
 
 The code below is for generating PDF documents written in (Traditional) Chinese.
@@ -127,7 +150,10 @@ The code below is for generating PDF documents written in (Traditional) Chinese.
 \setlength{\parskip}{0.15cm}
 
 %設定行距
-\linespread{1.2}\selectfont
+\linespread{1.2}
+
+%suppress page number
+%\pagenumbering{gobble}
 ```
 
 ### Bibliography

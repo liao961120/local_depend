@@ -1,0 +1,355 @@
+---
+documentclass: article
+fontsize: 9pt
+geometry: a4paper, headheight=0pt, margin=0.4in
+output:
+  bookdown::pdf_document2:
+    number_sections: FALSE
+    toc: False
+    includes:
+      in_header: header.tex
+    latex_engine: xelatex
+  bookdown::html_document2:
+    number_sections: FALSE
+    includes:
+      before_body: mathjax_bm.tex
+urlcolor: blue
+always_allow_html: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+library(knitr)
+```
+
+$N_p(\bm{\mu}, \bm{\Sigma}) = \frac{1}{(2 \pi)^{p/2} |\bm{\Sigma}|^{1/2}} 
+~e^{\frac{-(\bm{X} - \bm{\mu})^T \bm{\Sigma}^{-1} (\bm{X} - \bm{\mu})} {2}}$
+
+
+General Classification Rules
+--------------------------------
+
+### Expected Cost of Misclassification (ECM)
+
+\begin{equation}
+\begin{split}
+ECM &= c(2|1) ~ p_1 ~ \int_{R_2} f_1(\bm{x}) d \bm{x} ~ + ~ c(1|2) ~ p_2 ~ \int_{R_1} f_2(\bm{x}) d \bm{x} \\
+&= c(2|1) ~ p_1 ~ p(2|1) + c(1|2) ~ p_2 ~ p(1|2)
+\end{split}
+\end{equation}
+
+#### Total Probability of Misclassifiaction (TPM)
+TPM is equivalent to ECM with equal costs.
+
+\begin{equation}
+\begin{split}
+TPM = p_1~p(2|1) + p_2~p(1|2)
+\end{split}
+\end{equation}
+
+#### ECM Minimization Rule (general)
+
+Classify observation $\bm{x}$ as $\pi_1$ if: 
+$\frac{f_1(\bm{x})}{f_2(\bm{x})} > \frac{c(1|2)~p_2}{c(2|1)~p_1}$
+
+#### Allocation by Posterior Probabilities
+
+Allocate observation $\bm{x}$ to population ($\pi_1$ or $\pi_2$) with the largest $p(\pi_i|\bm{x})$
+
+Classify observation $\bm{x}$ as $\pi_1$ if:
+
+\begin{equation}
+\begin{split}
+p(\pi_1|\bm{x}) > p(\pi_2|\bm{x}), 
+~~~where ~~  p(\pi_i|\bm{x}) = \frac{p_i ~ f_i(\bm{x})}{p_1 ~ f_1(\bm{x}) + p_2 ~ f_2(\bm{x})}
+\end{split}
+\end{equation}
+
+is equivalent to TPM.
+
+Classification with MV Normal Populations ($\bm{\Sigma}_1 = \bm{\Sigma}_2 = \bm{\Sigma}$. Linear)
+-------------------------------------
+
+\begin{equation}
+\begin{split}
+\frac{f_1(\bm{x})}{f_2(\bm{x})} = exp[(\bm{\mu}_1 - \bm{\mu}_2)^T \bm{\Sigma}^{-1} \bm{x} - \frac{1}{2} (\bm{\mu}_1 - \bm{\mu}_2)^T \bm{\Sigma}^{-1} (\bm{\mu}_1 + \bm{\mu}_2)]
+\end{split}
+\end{equation}
+
+By taking natural logarithm, we get the ECM minimization rule.
+
+Classify observation $\bm{x}$ as $\pi_1$ if:
+
+\begin{equation}
+\begin{split}
+(\bm{\mu}_1 - \bm{\mu}_2)^T \bm{\Sigma}^{-1} \bm{x} - \frac{1}{2} (\bm{\mu}_1 - \bm{\mu}_2)^T \bm{\Sigma}^{-1} (\bm{\mu}_1 + \bm{\mu}_2) \geq
+ln (\frac{c(1|2)~p_2}{c(2|1)~p_1})
+\end{split}
+(\#eq:ecm-normal)
+\end{equation}
+
+The sample version is obtained by replacing $\bm{\mu_i}$, $\bm{\Sigma}$ with $\bm{\bar{\bm{x}}_i}$, $\bm{S}_{pool} = \frac{n_1 - 1}{n_1 + n_2 - 2} \bm{S}_1 + \frac{n_2 - 1}{n_1 + n_2 - 2} \bm{S}_2$, respectively.
+
+### Fisher's Discriminant Function
+
+Maximize $\frac{(\bar{y}_1 - \bar{y}_2)^2}{S_y^2}$ by choosing the linear combination $\bar{y}_i = a^T \bar{\bm{x}}_i$,  
+where $a^T = (\bar{\bm{x}}_1 - \bar{\bm{x}}_2)^T \bm{S}_{pool}^{-1}$.
+
+Classify observation $\bm{x}_0$ as $\pi_1$ if:
+\begin{equation}
+\begin{split}
+\hat{y}_0 = (\bar{\bm{x}}_1 - \bar{\bm{x}}_2)^T \bm{S}_{pool}^{-1} \bm{x}_0
+&> \frac{1}{2} [a^T \bar{\bm{x}}_1 + a^T \bar{\bm{x}}_2]
+= \frac{1}{2} a^T (\bar{\bm{x}}_1 + \bar{\bm{x}}_2)  \\
+&= \frac{1}{2} (\bar{\bm{x}}_1 - \bar{\bm{x}}_2)^T \bm{S}_{pool}^{-1} (\bar{\bm{x}}_1 + \bar{\bm{x}}_2)
+\end{split}
+\end{equation}
+
+equivalent to Equation \@ref(eq:ecm-normal) with $ln (\frac{c(1|2)~p_2}{c(2|1)~p_1}) = 0$ (equal costs, equal priors).
+
+
+Classification with MV Normal Populations ($\bm{\Sigma}_1 \neq \bm{\Sigma}_2$. Quadratic)
+-------------------------------------
+
+Classify observation $\bm{x}$ as $\pi_1$ if:
+
+\begin{equation}
+\begin{split}
+&\frac{-1}{2} \bm{x}^T (\bm{\Sigma}_1^{-1} - \bm{\Sigma}_2^{-1}) \bm{x} + (\bm{\mu}_1^T \bm{\Sigma}_1^{-1} - \bm{\mu}_2^T \bm{\Sigma}_2^{-1}) \bm{x} - k > ln (\frac{c(1|2)~p_2}{c(2|1)~p_1}), \\
+&where ~~ k = \frac{1}{2} ln (\frac{|\bm{\Sigma}_1|}{|\bm{\Sigma}_2|}) + \frac{1}{2} (\bm{\mu}_1^T \bm{\Sigma}_1^{-1} \bm{\mu}_1 - \bm{\mu}_2^T \bm{\Sigma}_2^{-1} \bm{\mu}_2)
+\end{split}
+\end{equation}
+
+Evaluate Classification Functions
+--------------------------------
+
+### Actual Error Rate (AER)
+\begin{equation}
+\begin{split}
+&AER = p_1 ~ \int_{\hat{R}_2} f_1(\bm{x}) d \bm{x} + p_2 ~ \int_{\hat{R}_1} f_2(\bm{x}) d \bm{x}, \\
+&where ~~~ \hat{R}_1 : (\bar{\bm{x}}_1 - \bar{\bm{x}}_2)^T \bm{S}_{pool} \bm{x} - \frac{1}{2} (\bar{\bm{x}}_1 - \bar{\bm{x}}_2)^T \bm{S}_{pool} (\bar{\bm{x}}_1 + \bar{\bm{x}}_2) > ln (\frac{c(1|2)~p_2}{c(2|1)~p_1})
+\end{split}
+\end{equation}
+
+Apparent error rate (APER) is just the misclassification rate in the training set. 
+$APER = \frac{n_{1M} + n_{2M}}{n_1 + n_2}$
+
+### Lachenbruch's Holdout Procedure
+
+Lachenbruch's Holdout Procedure gives a nearly unbiased estimate of $E(ARE)$ for moderate sample size. The procedure is as follow:
+
+1. Start with $\pi_1$ group. Omit 1 obs.(holdout) and then construct a classification function based on the remaining $n_1 - 1$ obs.
+2. Classify the omitted obs. with the function constructed in step 1.
+3. Repeat 1. and 2. untill all obs. in $\pi_1$ are classified. ($n_{1M}^{(H)}$: number of holdout obs. misclassified in $\pi_1$)
+4. Repeat 1. to 3. for $\pi_2$ obs.
+
+\begin{equation}
+\hat{P}(2|1) = \frac{n_{1M}^{(H)}}{n_1}, ~~~~ \hat{P}(1|2) = \frac{n_{2M}^{(H)}}{n_2}, ~~~~
+\hat{E}(AER) = \frac{n_{1M}^{(H)} + n_{2M}^{(H)}}{n_1 + n_2}
+\end{equation}
+
+Clustering
+-------------------------------
+
+### Similarity Coefficients
+
+|           |  **k = 1** | **k = 0** |           |
+|:---------:|:----------:|:---------:|:---------:|
+| **i = 1** |      a     |     b     |   a + b   |
+| **i = 0** |      c     |     d     |   c + d   |
+|           |    a + c   |   b + d   | p (or n)  |
+
+Item i, k measured by **p binary variables**. **Similarity between item i and item k** can be defined as $\frac{a+d}{p}$, $\frac{2(a+d)}{2(a+d) + b + c}$, $\frac{a}{p}$, etc.
+
+Variable i, k with **n items**. **Similarity between variable i and variable k** can be defined as the **correlation** between the two variables:  
+$r = \frac{ad -bc}{\sqrt{(a+b)(c+d)(a+c)(b+d)}}$
+
+### Linkage Method (Hierarchical Clustering)
+
+Clustering N objects with agglomerative hierachical clustering algorithm:
+
+1. Start with N clusters and an $N \times N$ symmetric matrix of distances $\bm{D} = {d_{ik}}$.
+2. Search for the nearest (most similar) pair of clusters in the distance matrix. Let the distance between these two clusters (U and V) be $d_{UV}$.
+3. Merge cluster U and V into cluster (UV). Update the distance matrix by removing rows and columns corresponding to U and V, and add a row and a column giving the distances between (UV) and the remaining clusters.
+4. Record the identity of the merged clusters and the distance at which the clusters merged. Repeat until all objects merged into 1 cluster.
+
+**Single Linkage**  
+$d_{(UV)W} = min\{d_{UW}, d_{VW}\}$
+
+**Complete Linkage**  
+$d_{(UV)W} = max\{d_{UW}, d_{VW}\}$
+
+**Average Linkage**  
+$d_{(UV)W} = \frac{\sum_{i} \sum_{k} d_{ik}}{N_{(UV)} N_W}$
+
+**Ward's Method**  
+For a given k, $ESS_k$ is the sum of squared deviations of every item from the mean (centroid) in cluster k. $ESS = \sum_{k = 1}^{K} ESS_k$. For every step, the two clusters whose combination results in the smallest increase in ESS are joined.
+
+### K-means Method (Nonhierarchical Clustering)
+K-means Method can **only be used to group items**.
+
+Algorithm:
+
+1. Partition items into K initial clusters (randomly).
+2. Proceed through the list of items. Assign an item to the cluster whose mean (centroid) is nearest. Recalculate the centroids for **the cluster receiving the item** and the **cluster losing the item**.
+3. Repeat step 2 until ni more reassignment takes place.
+
+Formulas for updating cluster centroids:
+
+For the ith coordinate, i = 1, 2, ..., p,
+\begin{equation}
+\begin{split}
+&\bar{x}_{i, new} = \frac{n \bar{x}_i + x_{ji}}{n + 1} ~~~~~~~~~ if~~the~~jth~~item~~is~~added~~to~~this~~group\\
+&\bar{x}_{i, new} = \frac{n \bar{x}_i - x_{ji}}{n - 1} ~~~~~~~~~ if~~the~~jth~~item~~is~~removed~~from~~this~~group
+\end{split}
+\end{equation}
+
+Comapare 1 Population with a constant vector
+---------------------------------------------
+
+### Hotelling's T^2^
+Let $\bm{X}_1$, $\bm{X}_2$, ..., $\bm{X}_n$ be i.i.d. from $N_p(\bm{\mu}, \bm{\Sigma})$.
+\begin{equation}
+\begin{split}
+T^2 &= (\bm{\bar{X}} - \bm{\mu})^T (\frac{\bm{S}}{n})^{-1} (\bm{\bar{X}} - \bm{\mu}) \\
+&= n (\bm{\bar{X}} - \bm{\mu})^T \bm{S} (\bm{\bar{X}} - \bm{\mu}) ~~~~ \sim ~~~
+\frac{(n-1)p}{n-p} F_{p, n-p}
+\end{split}
+\end{equation}
+
+, regardless of the true value of $\bm{\mu}$ and $\bm{\Sigma}$.  
+$\bm{\bar{x}} = \frac{1}{n} \sum_{j=1}^{n} \bm{x}_j$, $\bm{S} = \frac{1}{n-1} \sum_{j=1}^{n} (\bm{x}_j - \bm{\bar{x}}) (\bm{x}_j - \bm{\bar{x}})^T$.
+
+#### Testing H~0~: $\bm{\mu} = \bm{\mu_0}$
+
+Calculate T^2^ = $n (\bm{\bar{x}} - \bm{\mu}_0)^T \bm{S} (\bm{\bar{x}} - \bm{\mu}_0)$. Reject H~0~ if T^2^ > $\frac{(n-1)p}{n-p} F_{p, n-p}(\alpha)$.
+
+
+#### Confidence Region (ellipsoid)
+\begin{equation}
+\begin{split}
+n (\bm{\bar{x}} - \bm{\mu})^T \bm{S} (\bm{\bar{x}} - \bm{\mu}) \leq \frac{(n-1)p}{n-p} F_{p, n-p}(\alpha)
+\end{split}
+\end{equation}
+
+**Axes of confidence ellipsoid**  
+\begin{equation}
+\begin{split}
+\pm \sqrt{\lambda_i} \sqrt{\frac{(n-1)p}{(n-p)n} F_{p, n-p}(\alpha)} ~~ \bm{e}_i 
+~~~~~~ \bm{S} \bm{e}_i = \lambda_i \bm{e}_i, ~~ i = 1, 2, ..., p
+\end{split}
+\end{equation}
+
+#### Simultaneous Confidence Intervals
+Let $\bm{X}_1$, $\bm{X}_2$, ..., $\bm{X}_n$ be i.i.d. from $N_p(\bm{\mu}, \bm{\Sigma})$, then **for all $\bm{a}$ simultaneously**, the interval between the values
+$\bm{a}^T \pm \sqrt{\frac{(n-1)p}{n-p} F_{p, n-p}(\alpha) \bm{a}^T \frac{\bm{S}}{n} \bm{a}}$
+will contain $\bm{a}^T \bm{\mu}$ with probability $1 - \alpha$. e.g., for $\bm{a}^T = [1 ~~ 0 ~~ 0 ~~\cdots ~~ 0]$, 
+
+\begin{equation}
+\begin{split}
+\bar{x}_1 - \sqrt{\frac{(n-1)p}{n-p} F_{p, n-p}(\alpha) \frac{S_{11}}{n} } < ~ \mu_1 ~ < 
+\bar{x}_1 + \sqrt{\frac{(n-1)p}{n-p} F_{p, n-p}(\alpha) \frac{S_{11}}{n} }
+\end{split}
+(\#eq:simultaneous)
+\end{equation}
+
+#### Bonferroni Method
+\begin{equation}
+\begin{split}
+\bar{x}_i - t_{n-1}(\frac{\alpha}{2m}) \sqrt{\frac{S_{ii}}{n}} < ~ \mu_i ~ < 
+\bar{x}_i + t_{n-1}(\frac{\alpha}{2m}) \sqrt{\frac{S_{ii}}{n}}  ~~~~~~~~~~ 
+i = 1,~2,~...,~m
+\end{split}
+(\#eq:bonferroni)
+\end{equation}
+
+Compare 2 Population Means
+---------------------------------
+
+### Paired Comaprisons (Multivariate paired t-test)
+
+Let $\bm{D}_j = \begin{pmatrix} D_{j1} \\ D_{j2} \\ \vdots  \\ D_{jp} \end{pmatrix} = \begin{pmatrix} X_{1j1} - X_{2j1} \\ X_{1j2} - X_{2j2} \\ \vdots  \\ X_{1j3} - X_{2j3} \end{pmatrix}$.
+$j$ means the jth subject,
+$X_{2j3}$ is the response of the **jth subject** on **varable 3** in the **2nd treatment**.
+$D_{j2}$ is the **difference in the response** on the **2nd variable** between the 2 treatments.
+
+Let $E(\bm{D_j}) = \bm{\delta}$, $Cov(\bm{D_j}) = \bm{\Sigma}_d$, 
+and $\bm{D_1}$, $\bm{D_2}$, ..., $\bm{D_n}$ be i.i.d. from $N_p(\bm{\delta}, \bm{\Sigma}_d)$, then
+\begin{equation}
+\begin{split}
+T^2 &= (\bm{\bar{D}} - \bm{\delta})^T (\frac{\bm{S_d}}{n})^{-1} (\bm{\bar{D}} - \bm{\delta}) \\
+&= n (\bm{\bar{D}} - \bm{\delta})^T \bm{S_d} (\bm{\bar{D}} - \bm{\delta}) 
+~~~~ \sim ~~~ \frac{(n-1)p}{n-p} F_{p, n-p}
+\end{split}
+\end{equation}
+
+If n, n-p are large, $T^2 \xrightarrow{} \chi_p^2$
+
+Simultaneous C.I. and Bonferroni intervals follows directly from Equation \@ref(eq:simultaneous) & \@ref(eq:bonferroni) by replacing $\bm{x}_i$ with $\bm{D}_i$.
+
+### Two Independent Populations ($\bm{\Sigma}_1 = \bm{\Sigma}_2 = \bm{\Sigma}$)
+
+Let $\bm{\bar{x}}_1 = \frac{1}{n_1} \sum_{j=1}^{n_1} \bm{x}_{1j}$, 
+$\bm{S}_1 = \frac{1}{n_1-1} \sum_{j=1}^{n_1} (\bm{x}_{1j} - \bm{\bar{x}}_1) (\bm{x}_{1j} - \bm{\bar{x}}_1)^T$, 
+where $\bm{x}_{11}$, $\bm{x}_{12}$, ... , $\bm{x}_{1n_1}$ 
+$\sim N_p(\bm{\mu}_1, \Sigma)$.
+Then, $\bm{S}_{pool}$ estimates $\bm{\Sigma}$
+(see formulas for $\bm{S}_{pool}$ under eq \@ref(eq:ecm-normal)).
+
+#### Test H~0~: $\bm{\mu}_1 - \bm{\mu}_2 = \bm{\delta}_0$
+
+\begin{equation}
+\begin{split}
+T^2 &= (\bm{\bar{X}}_1 - \bm{\bar{X}}_2 - \bm{\delta})^T [(\frac{1}{n_1} + \frac{1}{n_2}) \bm{S}_{pool})]^{-1} (\bm{\bar{X}}_1 - \bm{\bar{X}}_2 - \bm{\delta}) 
+~~~~ \sim ~~~ \frac{(n_1+n_2-2)p}{n_1+n_2-p-1} F_{p, n_1+n_2-p-1}
+\end{split}
+\end{equation}
+
+#### Simultaneous Intervals
+
+Let $c^2 = \frac{(n_1 + n_2 - 2)p}{n_1 + n_2 - p - 1} F_{p,n_1+n_2-p-1}(\alpha)$.
+
+\begin{equation}
+\begin{split}
+\bm{a}^T (\bm{\bar{X}}_1 - \bm{\bar{X}}_2) \pm c \sqrt{\bm{a}^T (\frac{1}{n_1} + \frac{1}{n_2} )\bm{S}_{pool} \bm{a}} ~~~~~~ or ~~~~~~
+(\bar{X}_{1i} - \bar{X}_{2i}) \pm c \sqrt{(\frac{1}{n_1} + \frac{1}{n_2}) S_{ii, pool}}  ~~~~ i = 1,2,...,p
+\end{split}
+\end{equation}
+
+The Bonferroni method is done by replacing $c$ with $t_{n_1 + n_2 - 2}(\frac{\alpha}{2p})$ in the second part of the equation above.
+
+
+One-way MANOVA
+-------------------
+\begin{equation}
+\begin{split}
+\bm{X}_{{\ell}j} - \bm{\mu} &= \bm{\tau}_{\ell} + \bm{e}_{{\ell}j}, ~~~~~~~ j=1,2,...,n ~~~~~ {\ell}=1,2,...,g \\
+\sum_{{\ell}=1}^g \sum_{j=1}^{n_{\ell}} (\bm{x}_{{\ell}j} - \bm{\bar{x}}) (\bm{x}_{{\ell}j} - \bm{\bar{x}})^T &= 
+\sum_{{\ell}=1}^g n_{\ell} (\bm{\bar{x}}_{\ell} - \bm{\bar{x}})(\bm{\bar{x}}_{\ell} - \bm{\bar{x}})^T +
+\sum_{{\ell}=1}^g \sum_{j=1}^{n_{\ell}} (\bm{x}_{{\ell}j} - \bm{\bar{x}}_{\ell}) (\bm{x}_{{\ell}j} - \bm{\bar{x}}_{\ell})^T
+\end{split}
+(\#eq:manova-model)
+\end{equation}
+
+|     Source    |  **SSP** (matrix) |         **d.f.**        |
+|:-------------:|:-----------------:|:-----------------------:|
+| **Treatment** |         B         |          g - 1          |
+|  **Residual** |         W         | $$\sum_{\ell=1}^{g} n_{\ell} - g$$ |
+|   **Total**   |       B + W       | $$\sum_{\ell=1}^{g} n_{\ell} - 1$$ |
+
+$\Lambda^* = \frac{|W|}{|B+W|}$
+
+#### Simultaneous C.I. (Bonferroni)
+Test $\tau_{ki} - \tau_{\ell i}$ (treatment $k$, $\ell$ on response variable $i$)
+
+\begin{equation}
+\begin{split}
+C.I.: ~~
+\bar{x}_{ki} - \bar{x}_{\ell i} \pm t_{n-g}(\frac{\alpha}{pg(g-1)}) \sqrt{\frac{w_{ii}}{n-g} (\frac{1}{n_k} + \frac{1}{n_{\ell}})}, ~~~~~
+i = 1,2,...,p ~~~~ w_{ii}: ith~diagonal~element~of~W
+\end{split}
+\end{equation}

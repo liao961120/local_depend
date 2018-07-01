@@ -1,0 +1,21 @@
+---
+output:
+  bookdown::pdf_document2:
+    number_sections: FALSE
+    toc: False
+    includes:
+      in_header: header.tex
+    latex_engine: xelatex
+urlcolor: blue
+always_allow_html: yes
+---
+
+## 緒論
+
+## 歷史背景
+
+## 開源社群的運作
+
+### 個人動機
+
+### 禮物交換
