@@ -1,0 +1,155 @@
+\documentclass[]{tufte-handout}
+
+% ams
+\usepackage{amssymb,amsmath}
+
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \makeatletter
+  \@ifpackageloaded{fontspec}{}{\usepackage{fontspec}}
+  \makeatother
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
+  \makeatletter
+  \@ifpackageloaded{soul}{
+     \renewcommand\allcapsspacing[1]{{\addfontfeature{LetterSpace=15}#1}}
+     \renewcommand\smallcapsspacing[1]{{\addfontfeature{LetterSpace=10}#1}}
+   }{}
+  \makeatother
+
+\fi
+
+% graphix
+\usepackage{graphicx}
+\setkeys{Gin}{width=\linewidth,totalheight=\textheight,keepaspectratio}
+
+% booktabs
+\usepackage{booktabs}
+
+% url
+\usepackage{url}
+
+% hyperref
+\usepackage{hyperref}
+
+% units.
+\usepackage{units}
+
+
+\setcounter{secnumdepth}{-1}
+
+% citations
+
+% pandoc syntax highlighting
+
+% longtable
+\usepackage{longtable,booktabs}
+
+% multiplecol
+\usepackage{multicol}
+
+% strikeout
+\usepackage[normalem]{ulem}
+
+% morefloats
+\usepackage{morefloats}
+
+
+% tightlist macro required by pandoc >= 1.14
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+% title / author / date
+\title{開源社群：}
+\author{廖永賦}
+\date{2018-07-01}
+
+%加這個就可以設定字體
+\usepackage{fontspec}
+%使用xeCJK，其他的還有CJK或是xCJK
+\usepackage{xeCJK}
+\usepackage{bm}
+
+% Pandoc 只能設置 10, 11, 12 pt 超出此範圍需用此指令
+\usepackage[fontsize=12pt]{scrextend}
+
+%設定英文字型，不設的話就會使用預設的字型
+\setmainfont{Calibri}
+
+%設定中英文的字型
+%字型的設定可以使用系統內的字型，而不用像以前一樣另外安裝
+% AR PL KaitiM Big5 標楷體
+% .PingFang TC
+% Noto Sans CJK TC
+% HanWangHeiLight
+% HanWangHeiHeavy
+\setCJKmainfont[
+	BoldFont={HanWangHeiHeavy}  % 粗體字使用華康粗明體
+    ]{AR PL KaitiM Big5}    % 一般字型則使用華康細明體
+
+%中文自動換行
+\XeTeXlinebreaklocale "zh"
+
+%文字的彈性間距
+\XeTeXlinebreakskip = 0pt plus 1pt
+
+%設定段落之間的距離
+\setlength{\parskip}{0.15cm}
+
+%設定行距
+\linespread{1.1}
+
+\begin{document}
+
+\maketitle
+
+
+
+
+\subsection{摘要}
+
+\subsection{緒論}
+
+自由與開源軟體（``Free and open-source software,''
+\protect\hyperlink{ref-2018h}{2018}）不同於版權軟體（如微軟的
+Office、Google 的 Gmail 等），是開放原始碼\footnote{軟體的原始碼是由高階的程式語言所撰寫，如常見的
+  C++ 語言、Java
+  等，這些語言是人類能夠「看懂」的語言。一個軟體要能在電腦上運行，需要將高階的程式語言轉換成低階的機械碼。機械碼是電腦「看的懂」的語言（全部由
+  0 或 1
+  組成），但人類很難讀懂的語言，且機械碼也無法被轉換回高階語言。因此，私有的版權軟體為保護自己的智慧財產，通常僅以機械碼的形式將軟體發布給使用者。開源軟體則會公開其原始碼，讓使用者能夠修改該軟體。}的軟體。開放原始碼意味使用者能自由的使用軟體，例如，根據自己的喜好修改軟體以符合使用的需求或偏好，並且也能向軟體開發者提供修改軟體的建議或程式碼。開源軟體因而能吸收來自網路上眾多「駭客」\footnote{駭客（hacker）並非大眾媒體上所指「破解電腦以竊取資料」的電腦高手，其正確的詞彙應為
+  `cracker'（Raymond,
+  n.d.）。駭客在開源社群或更廣泛的駭客社群中，是帶有正面意義與認同的詞彙。}的貢獻，增加其修改軟體缺陷的速度與能力（Raymond,
+\protect\hyperlink{ref-raymond1999}{1999}），而產生許多優秀的開源軟體。
+
+一般的版權軟體不會
+
+\subsection{歷史背景}
+
+\subsection{開源社群的運作}
+
+\subsubsection{個人動機}
+
+\subsubsection{禮物交換}
+
+\subsection*{參考資料}\label{reference}
+\addcontentsline{toc}{subsection}{參考資料}
+
+\hypertarget{refs}{}
+\hypertarget{ref-2018h}{}
+Free and open-source software. (2018). \emph{Wikipedia}.
+
+\hypertarget{ref-raymond1999}{}
+Raymond, E. (1999). The cathedral and the bazaar. \emph{Knowledge,
+Technology \& Policy}, \emph{12}(3), 23--49.
+\url{https://doi.org/10.1007/s12130-999-1026-0}
+
+\hypertarget{ref-raymond}{}
+Raymond, E. (n.d.). The Jargon File: Hacker.
+http://www.catb.org/jargon/html/H/hacker.html.
+
+
+
+\end{document}
