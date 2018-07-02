@@ -1,0 +1,23 @@
+  digraph G {
+    a -> c;
+    a -> b;
+    b -> c [constraint=false];
+  }
+
+subgraph one
+S("修正提交者")
+L("管理者")
+end
+
+
+subgraph three
+C("開源社群")
+end
+
+L -- "審查" --> S
+S -- "提交" --> L
+C -- "認可" --> S
+
+
+L -- "發布" --> C
+C -- "認可" --> L
