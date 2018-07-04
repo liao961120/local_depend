@@ -13,7 +13,7 @@ df <- data_extinct %>%
 ggplot(df, aes(x=time, y=i, z = N))+
     stat_contour(geom = "polygon", 
                  aes(fill = ..level..),
-                 bins = 4000) +
+                 bins = 900) +
     scale_fill_distiller(palette="Spectral", 
                          trans="log10")+
     geom_contour(aes(colour = ..level..), 

@@ -65,9 +65,9 @@ r &< \frac{D \pi^2}{L^2} = \frac{1 \pi^2}{10^2} = 0.098696
 \end{equation}
 
 
-## Case 1: Population Extinct
+## Case 1: Population Extinction
 
-$r=0.09, ~ N_{50}(t=0) = 100$
+$r=0.09, ~ N_{50}(0) = 100$
 
 ```{r}
 library(ggplot2)
@@ -85,7 +85,7 @@ df <- data_extinct %>%
 ggplot(df, aes(x=time, y=i, z = N))+
     stat_contour(geom = "polygon", 
                  aes(fill = ..level..),
-                 bins = 4000) +
+                 bins = 6000) +
     scale_fill_distiller(palette="Spectral", 
                          trans="log10")+
     geom_contour(aes(colour = ..level..), 
@@ -102,7 +102,7 @@ ggplot(df, aes(x=time, y=i, z = N))+
 
 ## Case 2: Population Growth
 
-$r=0.12, ~ N_{50}(t=0) = 100$
+$r=0.12, ~ N_{50}(0) = 100$
 
 ```{r}
 data_growth <- readr::read_delim("data_0.12.txt", "\t", escape_double = FALSE, col_names = FALSE, trim_ws = TRUE) %>%

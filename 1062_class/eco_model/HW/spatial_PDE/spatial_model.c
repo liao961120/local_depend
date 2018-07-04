@@ -35,7 +35,7 @@ int main(void){
 	N[50] = 100.0; //set initial condition
 
 	int i; //for loop index
-	double T=100.2; // T: time of simulation
+	double T=200.2; // T: time of simulation
 
 	for (i=0; i < T/deltat; i++){
 		
