@@ -1,12 +1,15 @@
 ######### Install R + RStudio on Ubuntu 16.04 ###############
 
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
+#sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys E084DAB9
 
 # Ubuntu 12.04: precise
 # Ubuntu 14.04: trusty
 # Ubuntu 16.04: xenial
+
+# /etc/apt/sources.list
 # Basic format of next line deb https://<my.favorite.cran.mirror>/bin/linux/ubuntu <enter your ubuntu version>/
 # Use Rstudio mirror
+
 sudo add-apt-repository 'deb https://cloud.r-project.org/bin/linux/ubuntu xenial/'
 
 
