@@ -1,4 +1,0 @@
-## install tar.gz ubuntu 
-##https://askubuntu.com/questions/191390/how-to-use-sudo-command-to-install-tar-gz/191391
-
-https://github.com/brrd/Abricotine/releases/
