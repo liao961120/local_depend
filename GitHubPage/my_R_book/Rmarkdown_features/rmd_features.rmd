@@ -1,18 +1,18 @@
 ---
 title: "Rmarkdown Features"
-subtitle: "This is subtitle"
-author: Yongfu Liao
+subtitle: "A Compact Reference"
+author: "[Yongfu Liao](https://liao961120.github.io/)"
 date: "`r Sys.Date()`"
 bibliography: /home/liao/local_depend/citation/neanderthals.bib
-csl: /home/liao/local_depend/style_sheets/apa-no-doi-no-issue.csl
+csl: /home/liao/local_depend/style_sheets/apa.csl
 link-citations: yes
 output:
-  html_document:
+  bookdown::html_document2:
     code_folding: show
     css: /home/liao/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
-    toc_depth: 3
+    toc_depth: 2
     toc_float:
         collapsed: false
 ---
@@ -27,39 +27,39 @@ knitr::opts_chunk$set(
 	dev='svg',
 	fig.dim = c(5.5, 3.5)  # (width, height)
 )
+str_date <- "`r Sys.Date()`"
 ```
 
-yaml Setup {.tabset}
------------------------------
+# yaml Setup {.tabset}
 
 yaml metadata determines the output file format, looking, and any other additional customizing features of Rmarkdown files.  
 
-### yaml of this Doc
+## yaml of this Doc {-}
 
 This is the complete yaml header of this document.
 
 ```yaml
 ---
 title: "Rmarkdown Features"
-subtitle: "This is subtitle"
-author: Yongfu Liao
-date: "`r Sys.Date()`"
+subtitle: "A Compact Reference"
+author: "[Yongfu Liao](https://liao961120.github.io/)"
+date: "`r str_date`"
 bibliography: /home/liao/local_depend/citation/neanderthals.bib
-csl: /home/liao/local_depend/style_sheets/apa-no-doi-no-issue.csl
+csl: /home/liao/local_depend/style_sheets/apa.csl
 link-citations: yes
 output:
-  html_document:
+  bookdown::html_document2:
     code_folding: show
     css: /home/liao/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
-    toc_depth: 3
+    toc_depth: 2
     toc_float:
         collapsed: false
 ---
 ```
 
-### HTML Output
+## HTML Output {-}
 
 ```{yaml}
 output:
@@ -76,7 +76,7 @@ output:
     toc_float: true
 ```
 
-### PDF Output
+## PDF Output {-}
 
 You may need to attatch an additional `header.tex` and set `latex_engine` to `xelatex` for PDF documents containing multibite characters (e.g. Chinese). Read more about  [header.txt](#pdf-header).
 ```{yaml}
@@ -95,7 +95,7 @@ geometry: a5paper, headheight=0pt, margin=0.4in
 
 Note that Latex only accepts fontsize of 10pt, 11pt, or 12pt. See [this](https://github.com/rstudio/rmarkdown/issues/878) for more detail.
 
-### PDF Output2
+## PDF Output2 {-}
 This is the yaml header for `bookdown::pdf_document2` output. Using `bookdown` extensions have several advantages. Search 'bookdown' for details.
 ```{yaml}
 ---
@@ -116,9 +116,7 @@ always_allow_html: yes
 ```
 
 
-
-
-### PDF: header.tex{#pdf-header}
+## PDF: header.tex{- #pdf-header}
 
 The code below is for generating PDF documents written in (Traditional) Chinese.
 
@@ -156,7 +154,7 @@ The code below is for generating PDF documents written in (Traditional) Chinese.
 %\pagenumbering{gobble}
 ```
 
-### Bibliography
+## Bibliography {-}
 
 ```{yaml}
 bibliography: ./citation/neanderthals.bib
@@ -166,16 +164,15 @@ link-citations: yes
 
 For citation syntax, read the section [Bibliography & Citations](#cite).
 
-knitr Parameters
---------------------------------
+# knitr Parameters
 
-### Root
+## Root
 ```r
 knitr::opts_knit$set(root.dir='..')
 ```
-The root directory of the `.rmd` file you want to knit is set to the directory where the `.rmd` file is located by default. In the case above, I changed it to  the **directory that is parent to the default directory**.
+The root directory of the `.rmd` file you want to knit is set to the directory where the `.rmd` file is located by default. In the case above, I changed it to  the **directory that is parent to the default directory**. This is useful if you build websites with [R Markdown Websites](https://rmarkdown.rstudio.com/rmarkdown_websites.htm), since **R Markdown Websites** doesn't allow hierarchical website structure. By changing the root directory, you can more easly organize your project directory structure without violating the requirement of **R Markdown Websites**. This is especially true when you source a lot of Rscripts in the `.Rmd` files.
 
-### Code Chunk & Figure Options
+## Code Chunk & Figure Options
 ```r
 library(svglite) 
 knitr::opts_chunk$set(
@@ -190,8 +187,7 @@ options(digits = 2) # auto round to 2 decimals when printed
 ```
 
 
-Dynamic Variables
------------------------------
+# Dynamic Variables
 
 Include **R Code Chunks' Variables** in the body of text.
 
@@ -211,11 +207,42 @@ text <- c("a", "b")
     # The string variable $text =$ `r text[1]`.
     ```
 
-$\LaTeX$ Math Rendering {.tabset}
------------------------------
-### Passing Matrix Object
+# Some $\LaTeX$ for PDF output
 
-#### Setup
+- `\pagenumbering{gobble}`
+This LaTeX code suppress the page number.
+
+- `\pagenumbering{arabic}`
+'Turn on' page number closed by `\pagenumbering{gobble}`.
+
+- `\newpage`: Start a new page
+
+The 3 type of code can be useful in the situation below:
+
+```tex
+---
+title: "A Title"
+author: "Someone"
+date: "`r str_date`"
+---
+
+... Some content in the first page (title page) ...
+
+\pagenumbering{gobble} % Suppress page number on the title page
+\newpage               % Start a new page
+
+... Some content in the second page ...
+
+\pagenumbering{arabic} % Revert suppression of page number
+                       % Now, the page num starts with '2'
+```
+
+
+# $\LaTeX$ Math {.tabset}
+
+## Passing Matrix Object {-}
+
+### Setup {-}
 
 Add `results='asis'` to r code chunk option.
 
@@ -233,7 +260,7 @@ mt <- c(1,2)
 "$A =" %_% xm(mt,0) %_%"_{2 \\times 1}$"
 ```
 
-#### Include Matrix in Text
+### Include Matrix in Text {-}
 
 ````r
 This is the variable `mt`,
@@ -259,7 +286,7 @@ mt <- matrix(1:4, 2,2)
 
 Check [here](http://markheckmann.github.io/mat2tex/){target=_blank""} for more information.
 
-### kable
+## kable {-}
 ```{r}
 library(knitr)
 library(dplyr)
@@ -270,7 +297,7 @@ colnames(iris_data) <- c("$\\alpha$", "$\\frac{a}{b}$")
 kable(iris_data, format = "markdown", align = "c")
 ```
 
-### Plotting Expression
+## Plotting Expression {-}
 ```{r fig.height=3}
 library(latex2exp)
 library(ggplot2)
@@ -285,8 +312,7 @@ iris_data2 %>% ggplot() +
          y = TeX("\\frac{a}{b}"))
 ```
 
-Display Code Chunk with Code Chunk
---------------------------------------------
+# Display Code Chunk with Code Chunk
 
 ```{r include=F}
 code <- htmltools::HTML("<code>`r ''`</code>")
@@ -304,43 +330,42 @@ Some R Code
 
 The code `r code` is for suppressing the execution of the r code chunk after it.
 
-Bibliographies & Citations{#cite} 
------------------------------------------
+# Bibliographies & Citations{#cite} 
 
 You can read the full documentation of [Bibliographies & Citations](https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html){target="_blank"} at Rstudio.
 
-### Citation syntax
+## Citation syntax
 
-#### Classical Citation: **Author**, **year**, and **brackets**
+### Classical Citation: **Author**, **year**, and **brackets** {-}
 - `Some text [@Bib.ID].`
     - Some text [@RN9].
 
-#### In-text Citation: **Author (year)**
+### In-text Citation: **Author (year)** {-}
 - `@Bib.ID Some text`
     - @RN15 Some text 
 
 - `@Bib.ID [p. 20] Some text.`
     - @RN9 [p. 20] Some text.
 
-#### Year only: Suppress Author
+### Year only: Suppress Author {-}
 - `Some text [-@Bib.ID].`
     - Some text [-@RN9]
 
-#### Two Citations
+### Two Citations {-}
 - `Some text [@Bib.ID1; @Bib.ID2].`
     -  Some text [@RN9; @RN15].
 
-5. Prefix & Suffix
+- Prefix & Suffix
     - `Some text [see @Bib.ID1 pp.45; also, @Bib.ID2 ch. 2].`
-        -  Some text [see @RN9 pp. 45; also, @RN15 ch. 2].
+    -  Some text [see @RN9 pp. 45; also, @RN15 ch. 2].
 
-### Include `.bib` file in Reference {.tabset}
+## Include `.bib` file in Reference {.tabset}
 
 Rmarkdown requires specific formats of bibliographies. One of the most common one is `.bib`. A lot of people (including me) use Endnote to manage bibliographies and have no time getting used to other open source reference managers. Read  [this](https://libguides.usask.ca/c.php?g=218034&p=1458583) to see how to generate `.bib` from EndNote.
 
 Below are some syntax in Rmarkdown to control the display of reference in the document.
 
-#### Reference heading
+### Reference heading {-}
 
 The body of cited reference in the `.bib` file will be shown under the header named Reference (it doesn't matter which **level** of heading you use).
 
@@ -348,7 +373,7 @@ The body of cited reference in the `.bib` file will be shown under the header na
 ## Reference
 ```
 
-#### Specific Refs
+### Specific Refs {-}
 Include specific references that were **not cited** in the body of text.
 ```{pandoc}
 ---
@@ -357,7 +382,7 @@ nocite: |
 ...
 ```
 
-#### All Refs
+### All Refs {-}
 Include **All references** in the body of text.
 ```{pandoc}
 ---
@@ -368,10 +393,9 @@ nocite: |
 
 
 
-Emphasis {.tabset}
------------------------------
+# Emphasis {.tabset}
 
-### An Example
+## An Example {-}
 
 ````markdown
 `r ''````{block2, type="success"}
@@ -389,9 +413,9 @@ Paragraph two starts here.
 Paragraph two starts here.
 ```
 
-### Colored divs
+## Colored divs {-}
 
-#### Bootstrap Alert
+### Bootstrap Alert {-}
 
 You can use bootstrap's default alert divs in Rmarkdown, defined with four classes:
 
@@ -411,7 +435,7 @@ Bootstrap-defined colored region
 Bootstrap-defined colored region
 ```
 
-#### Customized divs
+### Customized divs {-}
 
 Alternative, you can define your own styled divs, as in my stylesheet[^css]:
 
@@ -432,7 +456,7 @@ some text in the colored region
 some text in the colored region
 ```
 
-### Bootstrap Callouts
+## Bootstrap Callouts {-}
 
 Althougt it's "Bootstrap" callouts, it's not contained in default bootstrap theme. I defined it in my stylesheet.
 
@@ -445,18 +469,18 @@ There are 4 choices of classes,
 
 ````markdown
 `r ''````{block2, type="bs-callout bs-callout-warning"}
-#### Heading in Callout
+### Heading in Callout
 **Calleout Text** texttexttexttexttexttext
 ```
 ````
 
 ```{block2, type="bs-callout bs-callout-warning"}
-#### Heading in Callout
+### Heading in Callout
 **Calleout Text** texttexttexttexttexttext
 ```
 
 
-### New Line
+## New Line {-}
 ```{markdown}
 | Text of line 1
 | Text of line 2
@@ -471,10 +495,10 @@ New paragraph
 New paragraph
 ```
 
-### Attach Attributes
+## Attach Attributes {-}
 By using `[`text`]`, pandoc turns the text in the square brackets into the HTML `<span>` tag. HTML `class`, `id`, attributes specific to `<span>` can then be attached by using the curly braces.
 
-#### `class`
+### `class` {-}
 
 Rmarkdown syntax allows attaching attributes (such as class, id, etc.) to certain elements by wrapping attributes into `{ ... }`.
 
@@ -494,7 +518,7 @@ Elements allowed attributes to be attach (by markdown syntax directly):
 
 Note[^red].
 
-#### Other Attributes
+### Other Attributes {-}
 ```{markdown}
 Add color through [span style]{style="color:rgba(255, 0, 0, 1)"}
 ```
@@ -503,8 +527,8 @@ Add color through [span style]{style="color:rgba(255, 0, 0, 1)"}
 Add color through [span style]{style="color:rgba(255, 0, 0, 1)"}
 ```
 
-Footnotes with Paragraphs
------------------------------
+# Footnotes with Paragraphs
+
 Check [Pandoc](http://pandoc.org/MANUAL.html#footnotes){target="_blank"} for details.
 
 ```{markdown}
@@ -517,35 +541,34 @@ Check [Pandoc](http://pandoc.org/MANUAL.html#footnotes){target="_blank"} for det
 - Read the output by clicking the superscript[^longnote].
 
 
-Shaped Images {.tabset}
------------------------------
+# Shaped Images {.tabset}
 
-### Rounded Edge
+## Rounded Edge {-}
 ```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .rounded}
 ```
 ![](/home/liao/local_depend/icons/libreoffice.ico){width=auto height="30%" .rounded}
 
-#### Boostrap
+### Boostrap {-}
 ```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .img-rounded}
 ```
 ![Bootstrap Rounded](/home/liao/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-rounded}
 
 
-### Circle Image
+## Circle Image {-}
 ```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .circle}
 ```
 ![This is figure Caption](/home/liao/local_depend/icons/libreoffice.ico){width=auto height="30%" .circle}
 
-#### Boostrap
+### Boostrap {-}
 ```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .img-circle}
 ```
 ![Bootstrap Circle](/home/liao/local_depend/icons/libreoffice.ico){width=auto height="30%" .img-circle}
 
-### Thumbnail
+## Thumbnail {-}
 ```{markdown}
 ![](../../local_depend/icons/libreoffice.ico){width=auto height="30%" .img-thumbnail}
 ```
@@ -566,17 +589,26 @@ Shaped Images {.tabset}
 
 <!-- syntax for Reference section --> 
 
-Figures
------------------------------
+# Figures
 
-### Captions
+## Captions
+
 Include `fig.cap='An Caption of the Plot'` in the code chunk option gives:
-```{r fig.cap='An Caption of the Plot'}
+````r
+`r ''````{r fig.cap='An Caption of the Plot'}
+library(ggplot2)
+ggplot(iris) +
+    geom_point(aes(x = Sepal.Length,
+                   y = Sepal.Width,
+                   color = Species)
+               )
+```
+````
+
+```{r echo=FALSE, fig.cap='An Caption of the Plot'}
 library(ggplot2)
 ggplot(iris)+
     geom_point(aes(x=Sepal.Length, y=Sepal.Width, color=Species))
 ```
 
-
-References
------------------------------
+# References

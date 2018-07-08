@@ -1,5 +1,6 @@
 ## save username & password, so no need to key in for every push 
 
+# https://stackoverflow.com/questions/35942754/how-to-save-username-and-password-in-git
 git config credential.helper store
 
 git pull url master
@@ -8,3 +9,6 @@ git pull url master
 ## change default git commit editor to gedit
 
 git config --global core.editor "gedit"
+
+
+
