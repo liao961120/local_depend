@@ -1,5 +1,5 @@
 ---
-title: "Rmarkdown Features"
+title: "R Markdown Features"
 subtitle: "A Compact Reference"
 author: "[Yongfu Liao](https://liao961120.github.io/)"
 date: "`r Sys.Date()`"
@@ -17,8 +17,6 @@ output:
         collapsed: false
 ---
 
-
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(
 	echo = TRUE,
@@ -27,7 +25,7 @@ knitr::opts_chunk$set(
 	dev='svg',
 	fig.dim = c(5.5, 3.5)  # (width, height)
 )
-str_date <- "`r Sys.Date()`"
+str_date <- "`r format(Sys.Date(), '%B %d, %Y')`"
 ```
 
 # yaml Setup {.tabset}
@@ -541,7 +539,7 @@ Check [Pandoc](http://pandoc.org/MANUAL.html#footnotes){target="_blank"} for det
 - Read the output by clicking the superscript[^longnote].
 
 
-# Shaped Images {.tabset}
+# Shaped Images (HTML) {.tabset}
 
 ## Rounded Edge {-}
 ```{markdown}
@@ -610,5 +608,11 @@ library(ggplot2)
 ggplot(iris)+
     geom_point(aes(x=Sepal.Length, y=Sepal.Width, color=Species))
 ```
+
+# Beamer Slide (PDF)
+
+<iframe src="https://www.slideshare.net/slideshow/embed_code/key/1xBpPrD61JbE0w" width="550" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:0px solid #FFFFFF; border-width:0px; margin-bottom:5px; max-width: 100%;" allowfullscreen></iframe>
+
+[Download](https://github.com/liao961120/local_depend/blob/master/GitHubPage/my_R_book/Rmarkdown_features/beamer/beamer.pdf)
 
 # References

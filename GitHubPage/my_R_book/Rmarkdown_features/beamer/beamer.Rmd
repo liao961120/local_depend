@@ -10,7 +10,7 @@ output:
     theme: "Madrid"
     colortheme: "beaver"
     fonttheme: "structurebold"
-    incremental: true
+    incremental: false
     latex_engine: xelatex
     includes:
         in_header: header_beamer.tex
@@ -18,7 +18,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-date_text <- "format(Sys.Date(), '%B %d, %Y')"
+date_text <- "`r format(Sys.Date(), '%B %d, %Y')`"
 ```
 
 
@@ -41,16 +41,17 @@ output:
     theme: "Madrid"
     colortheme: "beaver"
     fonttheme: "structurebold"
-    incremental: true
+    incremental: false
     latex_engine: xelatex
     includes:
         in_header: header_beamer.tex
 ---
 ```
 
-> - Links  
-[header_beamer.tex](https://github.com/liao961120/local_depend/blob/master/style_sheets/header_beamer.tex)  
-[Source Dir](https://github.com/liao961120/local_depend/tree/master/GitHubPage/my_R_book/Rmarkdown_features/beamer)
+- Links
+    - [header_beamer.tex](https://github.com/liao961120/local_depend/blob/master/style_sheets/header_beamer.tex)
+    - [Source Directory](https://github.com/liao961120/local_depend/tree/master/GitHubPage/my_R_book/Rmarkdown_features/beamer) of this Presentation
+    - [More](https://liao961120.github.io/notes/rmd_features.html) about R Markdown
 
 
 ## Two-Column Layout
@@ -65,7 +66,9 @@ ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
 ```
 
 \column{0.25\textwidth}
-Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text.
+R is a collaborative project with many contributors.
+Type `contributors()` for more information and
+`citation()` on how to cite R or R packages in publications.
 \end{columns}
 
 ## Two-Column Layout: Code
@@ -83,7 +86,9 @@ Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text 
     ```
 ```tex
 \column{0.25\textwidth}
-Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text.
+R is a collaborative project with many contributors.
+Type `contributors()` for more information and
+`citation()` on how to cite R or R packages in publications.
 \end{columns}
 ```
 
@@ -131,10 +136,22 @@ Paragraph 2: Blahblahblah
 
 ## Incremental Bullets
 
-Remember to set `incremental: true` in the yaml header if you want this feature.
+> 1. Item 1
 
-1. Item 1
+> 2. Item 2
 
-2. Item 2
+> 3. Item 3
 
-3. Item 3
+## Contact
+
+```{r out.width="10%"}
+knitr::include_graphics("tux.png")
+```
+
+\ 
+
+Where You can find me:
+
+- [GitHub](https://github.com/liao961120)
+
+- [Personal Page](https://liao961120.github.io/)
