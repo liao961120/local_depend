@@ -1,0 +1,140 @@
+---
+title: "Create Beamer Slide with R Markdown"
+subtitle: "A Reproducible Example"
+author: "Yongfu, Liao"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+institute: "National Taiwan University"
+fontsize: 9pt
+output:
+  beamer_presentation:
+    theme: "Madrid"
+    colortheme: "beaver"
+    fonttheme: "structurebold"
+    incremental: true
+    latex_engine: xelatex
+    includes:
+        in_header: header_beamer.tex
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+date_text <- "format(Sys.Date(), '%B %d, %Y')"
+```
+
+
+## Reproduce This slide: yaml Header
+
+```yaml
+---
+title: "Create Beamer Slide with R Markdown"
+subtitle: "A Reproducible Example"
+author: "Yongfu, Liao"
+date: "`r date_text`"
+institute: "National Taiwan University"
+```
+
+## Reproduce This slide: yaml Header (Cont.)
+```yaml
+fontsize: 9pt
+output:
+  beamer_presentation:
+    theme: "Madrid"
+    colortheme: "beaver"
+    fonttheme: "structurebold"
+    incremental: true
+    latex_engine: xelatex
+    includes:
+        in_header: header_beamer.tex
+---
+```
+
+> - Links  
+[header_beamer.tex](https://github.com/liao961120/local_depend/blob/master/style_sheets/header_beamer.tex)  
+[Source Dir](https://github.com/liao961120/local_depend/tree/master/GitHubPage/my_R_book/Rmarkdown_features/beamer)
+
+
+## Two-Column Layout
+
+\begin{columns}
+\column{0.75\textwidth}
+
+```{r out.width="75%"}
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Width, y = Sepal.Length)) +
+    geom_point(aes(color=Species), show.legend = F)
+```
+
+\column{0.25\textwidth}
+Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text.
+\end{columns}
+
+## Two-Column Layout: Code
+
+```tex
+\begin{columns}
+\column{0.75\textwidth}
+```
+    `r ''````{r out.width="75%"}
+    library(ggplot2)
+    ggplot(iris, aes(x = Sepal.Width,
+                     y = Sepal.Length)) +
+        geom_point(aes(color = Species),
+                   show.legend = F)
+    ```
+```tex
+\column{0.25\textwidth}
+Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text Some Text.
+\end{columns}
+```
+
+## Various Blocks
+ 
+\begin{alertblock}{Red Block}
+$\frac{\int_{-\infty}^{\infty} f(x)dx}{b}$
+\end{alertblock}
+ 
+\begin{examples}
+Example Blocks are green.
+\end{examples}
+
+### Blue Block
+Paragraph 1
+
+Paragraph 2
+
+## Various Blocks: Code
+
+**Red Block**: Can set titles
+```tex
+\begin{alertblock}{Red Block}
+$\frac{\int_{-\infty}^{\infty} f(x)dx}{b}$
+\end{alertblock}
+```
+
+**Examples**: Can't change title
+```tex
+\begin{examples}
+Example Blocks are green.
+\end{examples}
+```
+
+**Blue Block**: h3 level Headings[^h3]
+```markdown
+### Blue Block
+Paragraph 1: Text In Box
+
+Paragraph 2: Blahblahblah
+```
+
+[^h3]: Note this only works in 'Madrid' theme in R markdown.
+
+
+## Incremental Bullets
+
+Remember to set `incremental: true` in the yaml header if you want this feature.
+
+1. Item 1
+
+2. Item 2
+
+3. Item 3
