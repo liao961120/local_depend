@@ -2,7 +2,7 @@
 title: "R Markdown Features"
 subtitle: "A Compact Reference"
 author: "[Yongfu Liao](https://liao961120.github.io/)"
-date: "`r Sys.Date()`"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
 bibliography: /home/liao/local_depend/citation/neanderthals.bib
 csl: /home/liao/local_depend/style_sheets/apa.csl
 link-citations: yes
@@ -354,8 +354,8 @@ You can read the full documentation of [Bibliographies & Citations](https://rmar
     -  Some text [@RN9; @RN15].
 
 - Prefix & Suffix
-    - `Some text [see @Bib.ID1 pp.45; also, @Bib.ID2 ch. 2].`
-    -  Some text [see @RN9 pp. 45; also, @RN15 ch. 2].
+    - `Text [see @Bib.ID1 pp.45; also, @Bib.ID2 ch. 2].`
+    -  Text [see @RN9 pp. 45; also, @RN15 ch. 2].
 
 ## Include `.bib` file in Reference {.tabset}
 
@@ -611,8 +611,11 @@ ggplot(iris)+
 
 # Beamer Slide (PDF)
 
-<iframe src="https://www.slideshare.net/slideshow/embed_code/key/1xBpPrD61JbE0w" width="550" height="500" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:0px solid #FFFFFF; border-width:0px; margin-bottom:5px; max-width: 100%;" allowfullscreen></iframe>
+<iframe src="https://www.slideshare.net/slideshow/embed_code/key/1xBpPrD61JbE0w" width=90%" height="440" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:0px solid #FFFFFF; border-width:0px; margin-bottom:0px; max-width: 100%;" allowfullscreen></iframe>
 
-[Download](https://github.com/liao961120/local_depend/blob/master/GitHubPage/my_R_book/Rmarkdown_features/beamer/beamer.pdf)
+Note: In full screen mode (on PC), you can use arrow keys to navigate through the slides.
+
+
+[Download Beamer Slide](https://github.com/liao961120/local_depend/blob/master/GitHubPage/my_R_book/Rmarkdown_features/beamer/beamer.pdf)
 
 # References

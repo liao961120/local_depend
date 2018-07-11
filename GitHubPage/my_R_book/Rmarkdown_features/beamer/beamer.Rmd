@@ -103,35 +103,31 @@ Example Blocks are green.
 \end{examples}
 
 ### Blue Block
-Paragraph 1
+Text In Blue Box
 
-Paragraph 2
 
 ## Various Blocks: Code
 
-**Red Block**: Can set titles
+**Red Block**: Can set titles  
 ```tex
 \begin{alertblock}{Red Block}
 $\frac{\int_{-\infty}^{\infty} f(x)dx}{b}$
 \end{alertblock}
 ```
 
-**Examples**: Can't change title
+**Examples**: Can't change title  
 ```tex
 \begin{examples}
 Example Blocks are green.
 \end{examples}
 ```
 
-**Blue Block**: h3 level Headings[^h3]
+**Blue Block**: h3 level Headings (Works only for 'Madrid' theme)  
 ```markdown
 ### Blue Block
-Paragraph 1: Text In Box
-
-Paragraph 2: Blahblahblah
+Text In Blue Box
 ```
 
-[^h3]: Note this only works in 'Madrid' theme in R markdown.
 
 
 ## Incremental Bullets
