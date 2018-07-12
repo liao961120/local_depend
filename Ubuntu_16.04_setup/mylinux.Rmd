@@ -1,0 +1,88 @@
+---
+title: "My Linux Notes"
+subtitle: "A Quick Reference"
+author: "[Yongfu Liao](https://liao961120.github.io/)"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+link-citations: yes
+output:
+  bookdown::html_document2:
+    css: /home/liao/local_depend/style_sheets/style.css
+    df_print: kable
+    toc: true
+    toc_depth: 2
+    toc_float:
+        collapsed: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	dev='svg',
+	fig.dim = c(5.5, 3.5)  # (width, height)
+)
+```
+
+
+Navigation
+=====
+
+## Soft Link
+
+Syntax: `ln -s <target> <link-name>`
+
+e.g.
+```bash
+ln -s $(pwd)/blah.txt ~/Desktop/blah-sym
+```
+
+
+
+Network
+=====
+
+## SSH
+
+### Server Setup{-}
+Install SSH Server (so be connected by a remote client):
+```bash
+sudo apt-get install openssh-server
+```
+
+Configure:
+```bash
+sudo gedit /etc/ssh/sshd_config
+```
+
+> Port 22
+> PasswordAuthentication yes
+> PermitRootLogin yes
+
+
+
+Findout IP address locally:
+```bash
+hostname -I | awk '{print $1}'
+```
+
+### Client Setup{-}
+
+Access from remote via SSH:
+
+Syntax: `ssh <server-user-account>@<ip>`
+
+e.g.
+```bash
+ssh liao961120@192.168.2.110
+```
+
+
+Remote Control Via SSH
+=====
+
+1. Fix floating IP
+2. configurate prompt
+3. Auto Turn on
+
+
