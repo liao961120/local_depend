@@ -621,11 +621,10 @@ ggplot(iris)+
 
 # Beamer Slide (PDF)
 
-<iframe src="https://www.slideshare.net/slideshow/embed_code/key/1xBpPrD61JbE0w" height="400px" width="100%" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" style="border:0px solid #FFFFFF; border-width:0px; margin-bottom:0px; max-width: 100%;" allowfullscreen></iframe>
+<embed src="beamer.pdf" type="application/pdf" width="90%" height="420px">
 
-Note: In full screen mode (on PC), you can use arrow keys to navigate through the slides.
+Note: You can use (left & right) arrow keys to navigate through the slides page-by-page.
 
-
-[Download Beamer Slide](https://github.com/liao961120/local_depend/blob/master/GitHubPage/my_R_book/Rmarkdown_features/beamer/beamer.pdf)
+[Download This Slide](https://minhaskamal.github.io/DownGit/#/home?url=https://github.com/liao961120/local_depend/blob/master/GitHubPage/my_R_book/Rmarkdown_features/beamer/beamer.pdf)
 
 # References
