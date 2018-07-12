@@ -1,17 +1,11 @@
 StartUp (My PC)
 ------------------------------
-```bash
-source ~/.bash_profile
-win
-```
 
-## My `~/.bash_profile`
+## My `~/.bashrc`
 
 ```bash
-alias eco='cd /mnt/c/Users/user/local_depend/1062_class/eco_model'
-alias win='cd /mnt/c/Users/user/'
-alias kate="/mnt/c/'Program Files'/Kate/bin/kate.exe"
-alias cp_rmd_features='cp /mnt/c/Users/user/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.html /mnt/c/Users/user/GitHubPage/liao961120.github.io/notes'
+PS1="\e[01;32mliao:\[\033[01;34m\]\w\[\033[00m\]\$ \e[m"
+alias cp_rmd='cp ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.html ~/liao961120.github.io/notes/rmd_features.html'
 ```
 
 
