@@ -59,12 +59,8 @@ sudo gedit /etc/ssh/sshd_config
 > PasswordAuthentication yes
 > PermitRootLogin yes
 
+Findout IP address locally: `hostname -I`
 
-
-Findout IP address locally:
-```bash
-hostname -I | awk '{print $1}'
-```
 
 ### Client Setup{-}
 
