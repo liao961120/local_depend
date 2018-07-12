@@ -78,7 +78,11 @@ Remote Control Via SSH
 =====
 
 1. Fix floating IP
-2. configurate prompt
-3. Auto Turn on
+(Alternative: auto push IP address when turned on
+https://superuser.com/questions/471253/ubuntu-how-to-run-a-terminal-command-on-boot)
+2. Auto Turn-on Computer at 
+	- Enter `BIOS` > `Power Management Setup` > Enable `Power on by RTC Alarm` > Set `Date & Time`[^utc]
+
+[^utc]: Note the date time is in [Coordinated Universal Time (UTC) Standard](https://en.wikipedia.org/wiki/Coordinated_Universal_Time), so it's -8 hrs from the time in Taiwan.
 
 
