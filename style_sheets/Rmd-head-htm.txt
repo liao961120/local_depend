@@ -1,0 +1,33 @@
+---
+title: 
+subtitle: 
+author: "[Yongfu Liao](https://liao961120.github.io/)"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+bibliography: /home/liao/local_depend/apa.csl 
+csl: /home/liao/local_depend/style_sheets/apa.csl #apa_ch.csl
+link-citations: yes
+output:
+  bookdown::html_document2:
+    includes:
+        before_body: /home/liao/local_depend/style_sheets/mathjax_bm.tex
+    number_sections: no
+    code_folding: show
+    css: /home/liao/local_depend/style_sheets/style.css
+    df_print: kable
+    toc: true
+    toc_depth: 2
+    toc_float:
+        collapsed: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	fig.dim = c(7, 4),
+	message = FALSE,
+	warning = FALSE,
+	comment = "",
+	dev = "png", dpi = 350, #dev='svglite'
+	out.width = "100%"
+)
+```
