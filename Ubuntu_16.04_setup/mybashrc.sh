@@ -4,6 +4,7 @@ alias cp_rmd='cp ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/rmd_feat
 alias timecal='bash ~/sh_program/time_cal.sh'
 alias dict='goldendict'
 alias mylinux='vim ~/local_depend/Ubuntu_16.04_setup/mylinux.Rmd'
+alias r='Rscript -e' #Note capital 'R' is for running R in bash
 export RSTUDIO_PANDOC=/usr/lib/rstudio/bin/pandoc
 PS1="\[\033[1;32m\]\u@nb:\[\033[1;34m\]\w\[\033[00m\]$ "
 export PS1
