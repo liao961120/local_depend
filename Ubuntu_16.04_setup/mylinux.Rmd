@@ -26,7 +26,7 @@ knitr::opts_chunk$set(
 
 
 Navigation
-=====
+========
 
 ## Soft Link
 
@@ -40,7 +40,7 @@ ln -s $(pwd)/blah.txt ~/Desktop/blah-sym
 
 
 Network
-=====
+========
 
 
 ## Setup SSH
@@ -76,7 +76,7 @@ ssh liao961120@192.168.2.110
 
 
 Remote Control Via SSH
-=====
+========
 
 ## Hardware Configuration
 
