@@ -83,9 +83,13 @@ Remote Control Via SSH
 1. Fix floating IP
 (Alternative: auto push IP address when turned on
 https://superuser.com/questions/471253/ubuntu-how-to-run-a-terminal-command-on-boot)
-2. Enable Auto Turn-on Computer at 
-	- Enter `BIOS` > `Power Management Setup` > Enable `Power on by RTC Alarm` > Set `Date & Time`[^utc]
+2. Enable WakeOnLane(WOL) at BIOS: 
+	1. `Power Management Setup` > `WOL: enabled`[^wol]
+	2. `Power Management Setup` > `deep power off mode: disabled`[^poff]
 
+
+[^wol]: There may be different names for WOL, such as 'Wake Up on Lan', 'Automatic Power Up', 'Resume by LAN', 'Power Up On PCI Device', 'PME Event Wake Up', etc.
+[^poff]: This keeps the power for NIS to turn on the computer when receiving a signal from web.
 [^utc]: Note the date time is in [Coordinated Universal Time (UTC) Standard](https://en.wikipedia.org/wiki/Coordinated_Universal_Time), so it's -8 hrs from the time in Taiwan.
 
 ## wakeonlan
@@ -108,13 +112,12 @@ ssh $ssh_pc
 
 ## SSH logout & suspend computer
 
-1. `sudo bash -c "sleep 15s; pm-suspend" &`: Set buffer time for suspend
-2. `Ctrl+D`: Use the 15 sec to logout
+Use `sudo shutdown 0` to leave. Remember to enable `Power of Mode` in BIOS, so you can WOL to open the computer again.
 
 ## Variable Definition (in `~/.bashrc`)
 ```bash
 rm_MAC="44:87:fc:a1:0b:cc"
 rm_ip="192.168.2.110"
-rm_ip_b=`bash ~/ip2ipb.sh 196.168.2.110`
+rm_ip_b=`bash ~/ip2ipb.sh $rm_ip`
 ssh_pc="liao961120@$rm_ip"
 ```
