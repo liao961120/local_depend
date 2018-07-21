@@ -1,12 +1,11 @@
 alias app_link='xdg-open /usr/share/applications/'
-alias screen_shot='xdg-open ~/Pictures/'
-alias cp_rmd='cp ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.html ~/liao961120.github.io/notes/rmd_features.html; cp ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/beamer/beamer.pdf ~/liao961120.github.io/notes/beamer.pdf'
 alias timecal='bash ~/sh_program/time_cal.sh'
 alias dict='goldendict'
 alias mylinux='vim ~/local_depend/Ubuntu_16.04_setup/mylinux.Rmd'
 alias render_mylinux='bash ~/sh_program/render_mylinux.sh'
 alias r='Rscript -e' #Note capital 'R' is for running R in bash
-alias rbook='cd /home/liao/local_depend/GitHubPage/my_R_book/Rmarkdown_features'
+alias render_rmdbk='bash ~/sh_program/render_rmarkdown_book.sh'
+alias rmdbk='vim ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.rmd'
 alias new_rmd='bash ~/sh_program/append_head_rmd.sh'
 
 export RSTUDIO_PANDOC=/usr/lib/rstudio/bin/pandoc
@@ -25,3 +24,6 @@ ssh_pc="liao961120@$rm_ip"  #used as 'ssh $ssh_pc'
 # Backup self-defined cmd in git repo (prt lines after 'line 120')
 tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_16.04_setup/mybashrc.sh
 alias bak_rc='tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_16.04_setup/mybashrc_man.sh; echo -e "\n\n\n#### Backup Time\t$(date) ####" >> ~/local_depend/Ubuntu_16.04_setup/mybashrc_man.sh'
+# Backup ~/sh_program
+cp -r ~/sh_program ~/local_depend/Ubuntu_16.04_setup/sh_program_bak
+
