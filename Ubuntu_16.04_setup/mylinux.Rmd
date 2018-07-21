@@ -25,8 +25,68 @@ knitr::opts_chunk$set(
 ```
 
 
+Common Techniques
+========
+
+## Copy Previous Command to file
+
+```bash
+cat ~/foo.txt >> doc.Rmd
+echo "!!" >> file.txt
+```
+
+Then the command appends literal `cat ~/foo.txt >> doc.Rmd
+echo "!!" >> file.txt` to the end of `file.txt`.
+
+
+## Expansion with text
+
+Download all web pages starting from `www.millionbook.net/wx/j/jingyong/sdxl/001.htm` to `www.millionbook.net/wx/j/jingyong/sdxl/041.htm`:
+
+```bash
+url=http://www.millionbook.net/wx/j/jingyong/sdxl/
+wget "$url"{001..041}".htm"
+```
+
+
 Navigation
 ========
+
+## File Manipulation
+
+### Recursive Rename
+
+Systematically rename multiple files by `for` loop.
+
+Original files in the working dir:
+```
+dir2/
+01-file.txt
+02-file.txt
+.
+.
+41-file.txt
+README.md
+```
+
+```bash
+for i in {01..41}
+do 
+	mv $(echo $i'*') $(echo $i'.txt')
+done
+```
+
+After executing the code above:
+```
+dir2/
+01.txt
+02.txt
+.
+.
+41.txt
+README.md
+```
+
 
 ## Soft Link
 
@@ -36,7 +96,6 @@ e.g.
 ```bash
 ln -s $(pwd)/blah.txt ~/Desktop/blah-sym
 ```
-
 
 
 Network
