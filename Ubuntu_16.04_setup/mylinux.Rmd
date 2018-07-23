@@ -6,6 +6,7 @@ date: "`r format(Sys.Date(), '%B %d, %Y')`"
 link-citations: yes
 output:
   bookdown::html_document2:
+    highlight: haddock
     css: /home/liao/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
@@ -19,11 +20,11 @@ knitr::opts_chunk$set(
 	echo = TRUE,
 	message = FALSE,
 	warning = FALSE,
+	comment = ">",
 	dev='svg',
 	fig.dim = c(5.5, 3.5)  # (width, height)
 )
 ```
-
 
 Common Techniques
 ========
@@ -31,12 +32,11 @@ Common Techniques
 ## Copy Previous Command to file
 
 ```bash
-cat ~/foo.txt >> doc.Rmd
-echo "!!" >> file.txt
+cat ~/bash_pract/rmd-head.txt >> ~/bash_pract/doc.Rmd
+echo "!!" >> ~/bash_pract/cmd_hist
 ```
 
-Then the command appends literal `cat ~/foo.txt >> doc.Rmd
-echo "!!" >> file.txt` to the end of `file.txt`.
+Then the command appends literal `cat ~/bash_pract/rmd-head.txt >> ~/bash_pract/doc.Rmd` to the end of `cmd_hist`. Note that this **works only on the command line**, not shell scripts.
 
 
 ## Expansion with text
@@ -48,7 +48,6 @@ url=http://www.millionbook.net/wx/j/jingyong/sdxl/
 wget "$url"{001..041}".htm"
 ```
 
-
 Navigation
 ========
 
@@ -58,43 +57,48 @@ Navigation
 
 Systematically rename multiple files by `for` loop.
 
-Original files in the working dir:
-```
-dir2/
-01-file.txt
-02-file.txt
-.
-.
-41-file.txt
-README.md
+```{bash, preprocess-dir, include=FALSE}
+cd ~/bash_pract && rm -r dir
+mkdir dir dir/dir2
+touch dir/{01..03}-file.txt dir/README
 ```
 
-```bash
-for i in {01..41}
-do 
+
+Original files in the working dir:
+```{bash}
+ls ~/bash_pract/dir
+```
+
+Then, running the code below:
+```{bash}
+cd ~/bash_pract/dir
+
+for i in {01..03}; do 
 	mv $(echo $i'*') $(echo $i'.txt')
 done
-```
 
-After executing the code above:
+ls
 ```
-dir2/
-01.txt
-02.txt
-.
-.
-41.txt
-README.md
-```
-
 
 ## Soft Link
 
 Syntax: `ln -s <target> <link-name>`
 
 e.g.
-```bash
-ln -s $(pwd)/blah.txt ~/Desktop/blah-sym
+```{bash}
+cd ~/bash_pract
+echo "Before:
+$(ls -l)"
+
+ln -s $(pwd)/dir/foo.txt $(pwd)/foo-sym
+
+echo "
+After:
+$(ls -l)"
+```
+
+```{bash include=FALSE}
+rm ~/bash_pract/foo-sym
 ```
 
 
@@ -116,7 +120,9 @@ sudo gedit /etc/ssh/sshd_config
 ```
 
 > Port 22
+>
 > PasswordAuthentication yes
+>
 > PermitRootLogin yes
 
 Findout IP address locally: `hostname -I`

@@ -1,0 +1,11 @@
+#!/bin/bash
+
+mylinux=~/local_depend/Ubuntu_16.04_setup/mylinux.Rmd
+
+
+if [[ $1 =~ (rstudio|Rstudio|r) ]]; then
+    rstudio $mylinux &
+else
+    vim $mylinux
+fi
+
