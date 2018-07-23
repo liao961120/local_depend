@@ -79,6 +79,7 @@ output:
 You may need to attatch an additional `header.tex` and set `latex_engine` to `xelatex` for PDF documents containing multibite characters (e.g. Chinese). Read more about  [header.txt](#pdf-header).
 ```{yaml}
 ---
+author: "廖永賦\\thanks{組別：3 ~~ 系級：心理三 ~~ 學號：B00000000}"
 output:
   pdf_document:
     latex_engine: xelatex    
@@ -97,6 +98,7 @@ Note that Latex only accepts fontsize of 10pt, 11pt, or 12pt. See [this](https:/
 This is the yaml header for `bookdown::pdf_document2` output. Using `bookdown` extensions have several advantages. Search 'bookdown' for details.
 ```{yaml}
 ---
+author: "廖永賦\\thanks{組別：3 ~~ 系級：心理三 ~~ 學號：B00000000}"
 output:
   bookdown::pdf_document2:
     number_sections: FALSE
@@ -619,7 +621,7 @@ ggplot(iris)+
     geom_point(aes(x=Sepal.Length, y=Sepal.Width, color=Species))
 ```
 
-# Beamer Slide (PDF)
+# Beamer Slide
 
 <embed src="beamer.pdf" type="application/pdf" width="90%" height="420px">
 
