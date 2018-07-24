@@ -21,7 +21,7 @@ ssh_pc="liao961120@$rm_ip"  #used as 'ssh $ssh_pc'
 
 
 # Backup ~/bin (Custom shell programs)
-cp -r ~/bin ~/local_depend/Ubuntu_16.04_setup/sh_program_bak
+cp -r ~/bin/* ~/local_depend/Ubuntu_16.04_setup/sh_program_bak/
 
 # Backup self-defined cmd in git repo (prt lines after 'line 120')
 tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_16.04_setup/mybashrc.sh
