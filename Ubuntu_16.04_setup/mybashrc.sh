@@ -4,6 +4,7 @@ alias r='Rscript -e' #Note capital 'R' is for running R in bash
 alias render_rmdbk='~/bin/render_rmarkdown_book'
 alias rmdbk='vim ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.rmd'
 alias new_rmd='~/bin/append_head_rmd'
+alias R='R --no-save -q'
 
 export RSTUDIO_PANDOC=/usr/lib/rstudio/bin/pandoc
 PS1="\[\033[1;32m\]\u@nb:\[\033[1;34m\]\w\[\033[00m\]$ "

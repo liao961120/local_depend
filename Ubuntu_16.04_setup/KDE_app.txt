@@ -1,5 +1,0 @@
-sudo apt-get install okular
-
-sudo add-apt-repository universe
-sudo apt update
-sudo apt install kate
