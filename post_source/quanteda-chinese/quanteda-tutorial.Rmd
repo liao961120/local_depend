@@ -36,7 +36,7 @@ library(knitr)
 中文 Text Mining 的前處理比起其它以拉丁字母為主的文本困難許多，參考資源也相對龐雜不全。
 這裡以較晚近出現的[`quanteda`](https://quanteda.io/)套件為根據，依其需求進行中文文本前處理<!--more-->。
 
-選擇 `quanteda`而非其它較流行的套件如`tm`的原因是因為其[多語言支持](https://github.com/quanteda/stopwords)較佳，譬如其內建的 tokenizer 能直接對中文進行斷詞。然而，由於 [`jieba`](https://github.com/fxsjy/jieba)的社群資源以及斷詞效果較佳，此文還是以[`jiebaR`](https://github.com/qinwf/jiebaR)進行斷詞。
+選擇`quanteda`而非其它較流行的套件如`tm`的原因是因為其[多語言支持](https://github.com/quanteda/stopwords)較佳，譬如其內建的 tokenizer 能[直接對中文進行斷詞](https://koheiw.net/?p=339)。然而，由於 [`jieba`](https://github.com/fxsjy/jieba)的社群資源以及斷詞效果較佳，此文還是以[`jiebaR`](https://github.com/qinwf/jiebaR)進行斷詞。
 
 此外，因為使用的語料是簡體字，這裡也提到簡體、繁體轉換處理的相關資源。
 我希望這篇文章能整理出一套中文文本前處理的架構，試圖減輕未來可能遇到的問題。

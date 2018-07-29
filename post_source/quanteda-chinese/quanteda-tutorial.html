@@ -14,7 +14,7 @@ tags: [R, DS, bash, 中文]
 ---
 yaml-->
 <p>中文 Text Mining 的前處理比起其它以拉丁字母為主的文本困難許多，參考資源也相對龐雜不全。 這裡以較晚近出現的<a href="https://quanteda.io/"><code>quanteda</code></a>套件為根據，依其需求進行中文文本前處理<!--more-->。</p>
-<p>選擇 <code>quanteda</code>而非其它較流行的套件如<code>tm</code>的原因是因為其<a href="https://github.com/quanteda/stopwords">多語言支持</a>較佳，譬如其內建的 tokenizer 能直接對中文進行斷詞。然而，由於 <a href="https://github.com/fxsjy/jieba"><code>jieba</code></a>的社群資源以及斷詞效果較佳，此文還是以<a href="https://github.com/qinwf/jiebaR"><code>jiebaR</code></a>進行斷詞。</p>
+<p>選擇<code>quanteda</code>而非其它較流行的套件如<code>tm</code>的原因是因為其<a href="https://github.com/quanteda/stopwords">多語言支持</a>較佳，譬如其內建的 tokenizer 能<a href="https://koheiw.net/?p=339">直接對中文進行斷詞</a>。然而，由於 <a href="https://github.com/fxsjy/jieba"><code>jieba</code></a>的社群資源以及斷詞效果較佳，此文還是以<a href="https://github.com/qinwf/jiebaR"><code>jiebaR</code></a>進行斷詞。</p>
 <p>此外，因為使用的語料是簡體字，這裡也提到簡體、繁體轉換處理的相關資源。 我希望這篇文章能整理出一套中文文本前處理的架構，試圖減輕未來可能遇到的問題。</p>
 <div class="section level2">
 <h2>流程</h2>
