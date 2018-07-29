@@ -1,0 +1,16 @@
+#!/bin/bash
+
+### $1 is file of links, 1 url per row   ###
+### $2 is file of names, 1 name per row  ###
+
+file1=$1
+file2=$2
+
+# Get the number of lines in the link list
+
+num_lines=$(wc -l $file1 | egrep -o '^[0-9]*')
+
+for (( i=1; i<=${num_lines}; ++i )); do
+     wget "$(sed -n ${i}p $file1)" \
+         -O "$(sed -n ${i}p $file2)"
+done

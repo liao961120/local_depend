@@ -1,0 +1,39 @@
+---
+link-citations: yes
+bibliography: ref.bib
+output:
+  html_fragment:
+    includes:
+    number_sections: no
+---
+
+<!--yaml
+---
+layout: post
+mermaid: false
+mathjax2: false
+mathjax: false
+highlight: true
+title: ""
+description: ""
+tags: [R, DS, bash, 中文]
+---
+yaml-->
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	fig.dim = c(7, 4),
+	message = FALSE,
+	warning = FALSE,
+	comment = "",
+	out.width = "100%"
+)
+library(knitr)
+```
+
+<!--
+<p style="text-align:right; font-size:8px margin-top:0px margin-bottom:2px padding-top:0px padding-bottom:1px">
+上次更新：`r Sys.Date()`
+</p>
+-->
