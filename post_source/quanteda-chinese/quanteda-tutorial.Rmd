@@ -479,6 +479,11 @@ HTML('
 
 [^future]: 未來可能會發一篇續作。
 
+
+## Reproduce
+
+這篇文章的原始碼在我的 [GitHub](https://github.com/liao961120/local_depend/tree/master/post_source/quanteda-chinese)，歡迎下載至自己的電腦執行。
+
 <p style="text-align:right;font-size:7px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:1px">
 上次更新：`r Sys.Date()`
 </p>
