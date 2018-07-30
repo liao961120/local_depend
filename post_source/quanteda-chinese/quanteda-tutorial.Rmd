@@ -75,7 +75,7 @@ linkStyle 5 stroke-width:0px,fill:none;
 
 ## 資料爬取
 
-這邊使用 [RStudio](https://www.rstudio.com/) 軟體工程師 [Yihui](https://yihui.name/en/about/)的[中文部落格](https://yihui.name/cn/)文章作為練習素材。首先需要取得文章的網址，因此先到部落格的文章列表頁面(https://yihui.name/cn/)，使用瀏覽器的[開發者工具](https://developers.google.com/web/tools/chrome-devtools/?hl=zh-tw)(按`Ctrl + Shift + I`開啟)進行**觀察**。
+這邊使用 [RStudio](https://www.rstudio.com/) 軟體工程師 [Yihui](https://yihui.name/en/about/) 的[中文部落格](https://yihui.name/cn/)文章作為練習素材。首先需要取得文章的網址，因此先到部落格的文章列表頁面(https://yihui.name/cn/)，使用瀏覽器的[開發者工具](https://developers.google.com/web/tools/chrome-devtools/?hl=zh-tw)(按`Ctrl + Shift + I`開啟)進行**觀察**。
 
 接著使用[`rvest`](https://github.com/hadley/rvest)套件擷取網頁中所有文章的連結，並將文章網址儲存成`list_of_post.txt`：
 ```{r}
@@ -171,7 +171,6 @@ for (( i=1; i<=${num_lines}; ++i )); do
          -O "$(sed -n ${i}p $file2)"
 done
 ```
-
 
 
 ## 資料前處理
@@ -319,7 +318,7 @@ all_post <- bind_rows(all_post) %>% arrange(desc(date))
 
 `all_post$content`的結構相當簡單(一篇文章一個字串)，因此不須經過額外處理。其它變項不須斷詞處理，因此在此不加細談。
 
-#### jiebaR::segment (optional)
+#### jiebaR::segment
 
 因為`all_post$content`簡單的結構符合`jiebaR`套件的預設需求，但有時資料會比較複雜，因此記錄下來供未來參考。
 
@@ -473,7 +472,7 @@ HTML('
 
 [quanteda](https://quanteda.io/) 有相當完整的[教學資源](https://tutorials.quanteda.io/)，且有很多有用的函數。同時，[`tidytext`](https://github.com/juliasilge/tidytext) 套件也能輕易與 `quanteda` 配合，在 `document-feature matrix` 與`tidytext`所提倡的 **tidy data frame**(one-token-per-document-per-row) 兩種資料結構間自由轉換。**tidy data frame** 的格式與[`ggplot2`](https://github.com/tidyverse/ggplot2)相吻合，有助於資料視覺化的進行。
 
-這裡選擇以`quanteda`而非`tidytext`作為主要架構的原因在於`tidytext`的架構僅容許 **bag-of-words** 的架構，但`quanteda`除了 **bag-of-words** 之外，還保有** Positional analysis** 的潛力。
+這裡選擇以`quanteda`而非`tidytext`作為主要架構的原因在於`tidytext`的架構僅容許 **bag-of-words** 的架構，但`quanteda`除了 **bag-of-words** 之外，還保有 **Positional analysis** 的潛力。
 
 由於篇幅有限，這裡不多加細談`quanteda`套件[^future]。關於`quanteda`的使用，可以參考 [quanteda tutorial](https://tutorials.quanteda.io/)，內容非常詳盡。
 
