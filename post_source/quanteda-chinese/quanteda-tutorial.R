@@ -1,3 +1,6 @@
+### Source Code pulled from "quanteda-tutorial.Rmd" by  ###
+### purl("quanteda-tutorial.Rmd", documentation = 2L)   ###
+
 ## ----setup, include=FALSE------------------------------------------------
 knitr::opts_chunk$set(
 	echo = TRUE,
