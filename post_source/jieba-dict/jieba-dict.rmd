@@ -13,7 +13,7 @@ mermaid: false
 mathjax2: false
 mathjax: false
 highlight: true
-title: "jieba：使用自訂詞庫斷詞"
+title: "jieba 自訂詞庫斷詞"
 description: "提供自訂詞庫製作方式以及 jiebaR 自訂詞庫斷詞示範"
 tags: [Text Mining, R, 中文]
 ---
@@ -30,18 +30,18 @@ knitr::opts_chunk$set(
 )
 ```
 
-在進行中文 Text Mining 前處理時，必須先經過斷詞處理。社群當中存在相當好的斷詞處理工具，如 [jieba](https://github.com/fxsjy/jieba)。但斷詞時常遇到一個問題：**文本中重要的詞彙因為不常見於其它地方而被斷開，像是人物角色名稱**。要處理這個問題，需將自訂詞庫提供給斷詞套件，其才不會將重要詞彙斷開。
+在進行中文 Text Mining 前處理時，必須先經過斷詞處理。社群當中存在相當好的斷詞處理工具，如 [jieba](https://github.com/fxsjy/jieba)。但斷詞時常遇到一個問題：**文本中重要的詞彙因為不常見於其它地方而被斷開，像是人物角色名稱**。要處理這個問題，需將自訂詞庫提供給斷詞套件，才不會將重要詞彙斷開。
 <!--more-->
 
-這邊將使用 [jiebaR](https://github.com/qinwf/jiebaR)，介紹使用自訂詞庫的斷詞方式。同時也提供一種自訂詞庫的製作方式。
+這邊將使用 [jiebaR](https://github.com/qinwf/jiebaR)，介紹使用自訂詞庫的斷詞方式，並提供自訂詞庫的製作方式。
 
 ## 示範語料
 
 這裡使用金庸**[神雕俠侶](https://zh.wikipedia.org/wiki/%E7%A5%9E%E9%B5%B0%E4%BF%A0%E4%BE%B6)第三十二回 --- 情是何物**作為斷詞的文本。武俠小說在此是個很好的例子，因為裡面有許多人物名稱和專有名詞。
 
-在此因為著作權問題[^right]，語料的原始檔(`032.txt`)將不會出現在本文的 [GitHub repo](https://github.com/liao961120/local_depend/tree/master/post_source/jieba-dict) 中。
+因為著作權問題[^right]，語料的原始檔(`032.txt`)將不會出現在本文的 [GitHub repo](https://github.com/liao961120/local_depend/tree/master/post_source/jieba-dict) 中。
 
-[^right]: 本文目的僅在促進教育與學術，並無營利導向。且本文僅顯示極少的小說內容，應在合理使用的範圍內。若有侵犯著作權的疑慮，麻煩透過 [Email](mailto:liaomovie2@gmail.com) 與我聯絡。
+[^right]: 本文目的僅在促進教育與學術，並無營利企圖。且本文僅顯示極少的小說內容，應屬合理使用。若有侵犯著作權的疑慮，麻煩透過 [Email](mailto:liaomovie2@gmail.com) 與我聯絡。
 
 
 ## 製作自訂詞庫
@@ -62,7 +62,8 @@ data <- read_html(path) %>%
     html_nodes("ul") %>% html_nodes("li") %>%
     html_nodes("a") %>% html_text()
 ```
-觀察頁面後，可發現多數與小說相關的詞彙都位在 unordered list 下的連結內文(<a> tag)，因此透過 3 個`html_nodes()`取得連結，並用`html_text()`擷取連結內文。
+
+觀察頁面後，可發現多數與小說相關的詞彙都位在 unordered list 下的連結內文(\<a> tag)，因此透過 3 個`html_nodes()`取得連結，並用`html_text()`擷取連結內文。
 
 接著看看擷取的詞彙，可以發現這些詞彙依照順序大致可區分成三個來源：
 
@@ -70,6 +71,7 @@ data <- read_html(path) %>%
 2. 內文的連結(這是我們要的)
 3. 其它連結
     - 對應至頁面最下方，與小說有關但並非小說主要內容的連結，如，射鵰英雄。另外，也包含維基百科頁面的固定連結，如「編輯」、「討論」、「下載為PDF」等。
+
 ```{r}
 data <- unique(data)
 
@@ -83,7 +85,7 @@ data[207:211]
 data <- as_data_frame(data[21:206]) %>% 
     rbind("過兒", "靖哥哥") # 手動額外輸入
 
-head(data, 4) %>% kable("markdown", "c")
+head(data, 4) %>% kable("markdown", align="c")
 ```
 
 最後，將`data`存成`.csv`檔，方便未來使用：
@@ -93,7 +95,9 @@ readr::write_csv(data, "sdxl_wordlist.csv")
 
 ## jiebaR 斷詞
 
-jiebaR 斷詞可以選擇外來檔案或將檔案讀入後在進行斷詞，這邊將檔案讀入再斷詞：
+準備好自訂詞庫後，要開始對文本進行斷詞。
+
+jiebaR 斷詞可以選擇外來檔案或將檔案讀入後在進行斷詞，這邊將文本檔案讀入再斷詞：
 ```{r}
 library(stringr)
 raw_text <- readr::read_file("032.txt")
@@ -125,10 +129,10 @@ segment(raw_text, seg) %>%
 
 ### 使用自訂詞庫
 
-在`jiebaR::worker()`中設定自訂詞庫的位置：`user="sdxl_wordlist.csv"`，即可在斷詞系統中新增字典：
+在`jiebaR::worker()`中設定自訂詞庫的位置：`user = "sdxl_wordlist.csv"`，即可在斷詞系統中新增字典：
 ```{r}
 seg <- worker(bylines = F, symbol = T,
-              user="sdxl_wordlist.csv")
+              user = "sdxl_wordlist.csv")
 
 segment(raw_text, seg) %>%
     as_data_frame() %>% 
