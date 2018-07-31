@@ -16,7 +16,7 @@ mathjax: false
 highlight: true
 title: "Text Mining 前處理：中文、R 與 quanteda"
 description: "因為中文的特性，使得中文 Text Mining 的前處理較為複雜。此文以 R, quanteda, jiebaR 進行部落格文章的前處理，提供一套中文文本前處理的架構。"
-tags: [R, DS, bash, 中文]
+tags: [Text Mining, R, bash, 中文]
 ---
 yaml-->
 
