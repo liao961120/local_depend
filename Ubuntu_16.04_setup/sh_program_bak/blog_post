@@ -53,10 +53,40 @@ head $1 -n $to | tail +$from > "$header_path"
 #### Part 3: Append html_fragment to header file
 
 cat $1 >> "$header_path"
-echo -e "\nFile Created: \n'$header_path'"
 
 
 #### Part 4: Replace <code> <pre> classes for syntax highlight
 
 sed 's/<pre class="r"><code>/<pre><code class="r">/g' "$header_path" > "${post_path}foo.html"
 sed 's/<pre class="bash"><code>/<pre><code class="bash">/g' "${post_path}foo.html" > "$header_path"
+
+
+#### Part 5: Add Title to footnotes div
+
+read -p "Choose language: 'ch', 'en', 'no' > " lang
+
+if [[ "$lang" =~ (ch|tw|zh) ]]; then
+    foot_head="附註"
+    echo "Chinese"
+elif [[ "$lang" =~ (en|eng) ]]; then
+    foot_head="Notes"
+    echo "English"
+elif [[ "$lang" =~ (no|NO|No) ]]; then
+    foot_head="no"
+    echo "No Title"
+    echo -e "\nFile Created: \n'$header_path'"
+    exit 0
+else
+    echo "Error"
+    exit 1
+fi
+
+sed "s_<div class=\"footnotes\">_<div class=\"footnotes\"><h2>"$foot_head"</h2>_g" "$header_path" > "${post_path}foo.html"
+cat "${post_path}foo.html" > "$header_path"
+
+sed 's_<hr />__g' "$header_path" > "${post_path}foo.html"
+cat "${post_path}foo.html" > "$header_path"
+
+
+echo -e "\nFile Created: \n'$header_path'"
+

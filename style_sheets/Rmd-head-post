@@ -38,8 +38,3 @@ library(knitr)
 <!--more-->
 
 
-<!--
-<p style="text-align:right;font-size:8px;margin-top:0px; margin-bottom:0px;padding-top:0px;padding-bottom:0px">
-上次更新：`r Sys.Date()`
-</p>
--->

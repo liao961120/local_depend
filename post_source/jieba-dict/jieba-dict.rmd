@@ -40,6 +40,10 @@ library(knitr)
 
 這裡使用金庸**[神雕俠侶](https://zh.wikipedia.org/wiki/%E7%A5%9E%E9%B5%B0%E4%BF%A0%E4%BE%B6)第三十二回 --- 情是何物**作為斷詞的文本。武俠小說在此是個很好的例子，因為裡面有許多人物名稱和專有名詞。
 
+在此因為著作權問題[^right]，語料的原始檔(`032.txt`)將不會出現在本文的 [GitHub repo](https://github.com/liao961120/local_depend/tree/master/post_source/jieba-dict) 中。
+
+[^right]: 本文目的僅在促進教育與學術，並無營利導向。且本文僅顯示極少的小說內容，應在合理使用的範圍內。若有侵犯著作權的疑慮，麻煩透過 [Email](mailto:liaomovie2@gmail.com) 與我聯絡。
+
 
 ## 維基百科角色列表
 
@@ -77,9 +81,3 @@ write_csv(data, "sdxl_wordlist.csv")
 ```
 
 
-
-
-
-<p style="text-align:right;font-size:8px;margin-top:0px; margin-bottom:0px;padding-top:0px;padding-bottom:0px">
-上次更新：`r Sys.Date()`
-</p>

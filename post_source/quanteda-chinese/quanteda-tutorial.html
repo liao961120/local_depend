@@ -10,7 +10,7 @@ mathjax: false
 highlight: true
 title: "Text Mining 前處理：中文、R 與 quanteda"
 description: "因為中文的特性，使得中文 Text Mining 的前處理較為複雜。此文以 R, quanteda, jiebaR 進行部落格文章的前處理，提供一套中文文本前處理的架構。"
-tags: [R, DS, bash, 中文]
+tags: [Text Mining, R, bash, 中文]
 ---
 yaml-->
 <p>中文 Text Mining 的前處理比起其它以拉丁字母為主的文本困難許多，參考資源也相對龐雜不全。 這裡以較晚近出現的<a href="https://quanteda.io/"><code>quanteda</code></a>套件為根據，依其需求進行中文文本前處理<!--more-->。</p>
@@ -577,9 +577,6 @@ corp %&gt;% summary() %&gt;% as_data_frame() %&gt;%
 <div id="reproduce" class="section level2">
 <h2>Reproduce</h2>
 <p>這篇文章的原始碼在我的 <a href="https://github.com/liao961120/local_depend/tree/master/post_source/quanteda-chinese">GitHub</a>，歡迎下載至自己的電腦執行。</p>
-<p style="text-align:right;font-size:7px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:1px">
-上次更新：2018-07-30
-</p>
 </div>
 <div class="section level2 unnumbered">
 <h2>參考資料</h2>
