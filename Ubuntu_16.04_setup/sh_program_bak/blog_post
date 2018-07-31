@@ -60,6 +60,10 @@ cat $1 >> "$header_path"
 sed 's/<pre class="r"><code>/<pre><code class="r">/g' "$header_path" > "${post_path}foo.html"
 sed 's/<pre class="bash"><code>/<pre><code class="bash">/g' "${post_path}foo.html" > "$header_path"
 
+## Suppress highlighting for output code chunks
+sed 's/<pre><code>/<pre><code class="nohighlight">/g' "$header_path" > "${post_path}foo.html"
+cat "${post_path}foo.html" > "$header_path"
+
 
 #### Part 5: Add Title to footnotes div
 
@@ -86,6 +90,16 @@ cat "${post_path}foo.html" > "$header_path"
 
 sed 's_<hr />__g' "$header_path" > "${post_path}foo.html"
 cat "${post_path}foo.html" > "$header_path"
+
+
+#### Part 6: Append date
+
+cat >> "$header_path"  << _EOF_
+<p style="text-align:right;font-size:7px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:1px">
+上次更新：$(date +%Y-%m-%d)
+</p>
+_EOF_
+
 
 
 echo -e "\nFile Created: \n'$header_path'"
