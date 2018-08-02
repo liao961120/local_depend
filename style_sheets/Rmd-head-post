@@ -1,11 +1,12 @@
 ---
 link-citations: yes
-bibliography: ref.bib
 output:
   html_fragment:
+    self_contained: true
     includes:
     number_sections: no
 ---
+<!--For external images, set self_contained: false-->
 
 <!--yaml
 ---
@@ -27,6 +28,7 @@ knitr::opts_chunk$set(
 	message = FALSE,
 	warning = FALSE,
 	comment = "",
+	#fig.path = "../../assets/",
 	out.width = "100%"
 )
 library(knitr)

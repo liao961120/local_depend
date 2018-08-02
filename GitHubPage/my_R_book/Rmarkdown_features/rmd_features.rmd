@@ -36,9 +36,9 @@ yaml metadata determines the output file format, looking, and any other addition
 
 This is the complete yaml header of this document.
 
-```yaml
+```{yaml}
 ---
-title: "Rmarkdown Features"
+title: "R Markdown Features"
 subtitle: "A Compact Reference"
 author: "[Yongfu Liao](https://liao961120.github.io/)"
 date: "`r str_date`"
@@ -158,7 +158,7 @@ The code below is for generating PDF documents written in (Traditional) Chinese.
 
 ```{yaml}
 bibliography: ./citation/neanderthals.bib
-csl: ./citation/apa-no-doi-no-issue.csl # APA style sheet
+csl: ./citation/apa.csl # APA style sheet
 link-citations: yes
 ```
 

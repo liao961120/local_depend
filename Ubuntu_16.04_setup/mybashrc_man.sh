@@ -30,4 +30,4 @@ alias bak_rc='tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_16.04_setup/mybash
 
 
 
-#### Backup Time	Tue Jul 24 23:55:46 CST 2018 ####
+#### Backup Time	Thu Aug  2 12:22:37 CST 2018 ####

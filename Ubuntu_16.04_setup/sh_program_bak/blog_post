@@ -52,20 +52,41 @@ head $1 -n $to | tail +$from > "$header_path"
 
 #### Part 3: Append html_fragment to header file
 
-cat $1 >> "$header_path"
+yml_end=$(cat $1 | egrep '^yaml-->$' -n | grep -Eo '^[^:]+')
+(( ++yml_end ))
+
+tail +$yml_end $1 | cat >> "$header_path"
 
 
 #### Part 4: Replace <code> <pre> classes for syntax highlight
+temp="${post_path}tmpfile$RANDOM"
 
-sed 's/<pre class="r"><code>/<pre><code class="r">/g' "$header_path" > "${post_path}foo.html"
-sed 's/<pre class="bash"><code>/<pre><code class="bash">/g' "${post_path}foo.html" > "$header_path"
+sed 's/<pre class="r"><code>/<pre><code class="r">/g' "$header_path" > "${temp}"
+sed 's/<pre class="bash"><code>/<pre><code class="bash">/g' "${temp}" > "$header_path"
 
 ## Suppress highlighting for output code chunks
-sed 's/<pre><code>/<pre><code class="nohighlight">/g' "$header_path" > "${post_path}foo.html"
-cat "${post_path}foo.html" > "$header_path"
+sed 's/<pre><code>/<pre><code class="nohighlight">/g' "$header_path" > "${temp}"
+cat "${temp}" > "$header_path"
 
 
-#### Part 5: Add Title to footnotes div
+
+#### Deal with "self_contained: false" for R-bloggers submission
+
+# Change relative path (for local) to absolute path (for web page)
+sed "s#<img src=\"../../assets#<img src=\"/assets#g" "$header_path" > "${temp}"
+cat "${temp}" > "$header_path"
+
+
+#### Part 5: Append date
+
+cat >> "$header_path"  << _EOF_
+<p style="text-align:right;font-size:7px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:1px">
+Last updated: $(date +%Y-%m-%d)
+</p>
+_EOF_
+
+
+#### Part 6: Add Title to footnotes div
 
 read -p "Choose language: 'ch', 'en', 'no' > " lang
 
@@ -79,28 +100,25 @@ elif [[ "$lang" =~ (no|NO|No) ]]; then
     foot_head="no"
     echo "No Title"
     echo -e "\nFile Created: \n'$header_path'"
+	[[ -f ${temp} ]] && rm ${temp}   # Remove tempfile
     exit 0
 else
     echo "Error"
+	[[ -f ${temp} ]] && rm ${temp}   # Remove tempfile
     exit 1
 fi
 
-sed "s_<div class=\"footnotes\">_<div class=\"footnotes\"><h2>"$foot_head"</h2>_g" "$header_path" > "${post_path}foo.html"
-cat "${post_path}foo.html" > "$header_path"
+# Add H2 header after the div.footnotes
+sed "s_<div class=\"footnotes\">_<div class=\"footnotes\"><h2>"$foot_head"</h2>_g" "$header_path" > "${temp}"
+cat "${temp}" > "$header_path"
 
-sed 's_<hr />__g' "$header_path" > "${post_path}foo.html"
-cat "${post_path}foo.html" > "$header_path"
+# Remove horizontal line in the div.footnotes
+sed 's_<hr />__g' "$header_path" > "${temp}"
+cat "${temp}" > "$header_path"
 
-
-#### Part 6: Append date
-
-cat >> "$header_path"  << _EOF_
-<p style="text-align:right;font-size:7px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:1px">
-上次更新：$(date +%Y-%m-%d)
-</p>
-_EOF_
+[[ -f ${temp} ]] && rm ${temp}      # Remove tempfile
 
 
-
+# FeedBack
 echo -e "\nFile Created: \n'$header_path'"
 
