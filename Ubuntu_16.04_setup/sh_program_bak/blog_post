@@ -79,8 +79,17 @@ cat "${temp}" > "$header_path"
 
 #### Part 5: Append date
 
+read -p "Post on R-bloggers? (y/n) " rbloggers
+
+if [[ $rbloggers == "y" ]]; then
+	rbloggers='<a href="https://www.r-bloggers.com/">Visit R-bloggers</a><br>'
+else
+	rbloggers=''
+fi
+
 cat >> "$header_path"  << _EOF_
 <p style="text-align:right;font-size:7px;margin-top:0px;margin-bottom:0px;padding-top:0px;padding-bottom:1px">
+${rbloggers}
 Last updated: $(date +%Y-%m-%d)
 </p>
 _EOF_
