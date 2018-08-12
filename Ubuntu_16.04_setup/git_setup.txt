@@ -1,5 +1,9 @@
 ## save username & password, so no need to key in for every push 
 
+git config --global user.name "Mona Lisa"
+git config --global user.email "email@example.com"
+
+
 # https://stackoverflow.com/questions/35942754/how-to-save-username-and-password-in-git
 git config credential.helper store
 
