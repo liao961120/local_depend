@@ -15,4 +15,14 @@ git pull url master
 git config --global core.editor "gedit"
 
 
+git config --global credential.helper store
+
+
+
+
+
+
+
+
+
 
