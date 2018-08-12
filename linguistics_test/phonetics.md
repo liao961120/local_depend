@@ -1,5 +1,7 @@
 ## Consonant parameters
 
+The position where the contact between an active and passive articulator is produced is referred to as 'the place of articulation'
+
 ### voicing
 聲帶是否振動
 

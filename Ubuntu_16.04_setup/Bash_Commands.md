@@ -28,7 +28,7 @@ egrep "i.g" file.name
 
 - `+`: **1 or more**, e.g. `s+aa` matches 1 or more `s` followed by `aa`.
 
-- `*`: **0 or more**, e.g. `s+aa` matches 0 or more `s` followed by `aa`.
+- `*`: **0 or more**, e.g. `s*aa` matches 0 or more `s` followed by `aa`.
 
 - `{#}`: **Exact #**, e.g. `s{2}` matches strings with exactly 2 `s`(equivalent to `ss`).
 	- `{#_1, #_2}`: **Between #_1 & #_2**.

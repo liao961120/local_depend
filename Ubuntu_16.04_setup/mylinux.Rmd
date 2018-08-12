@@ -6,7 +6,6 @@ date: "`r format(Sys.Date(), '%B %d, %Y')`"
 link-citations: yes
 output:
   bookdown::html_document2:
-    highlight: haddock
     css: /home/liao/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
@@ -119,6 +118,24 @@ Download all web pages starting from `www.millionbook.net/wx/j/jingyong/sdxl/001
 url=http://www.millionbook.net/wx/j/jingyong/sdxl/
 wget "$url"{001..041}".htm"
 ```
+
+RegEx
+========
+
+**MetaCharacters**
+
+- `.`: Any character.
+
+- `+`: **1 or more**, e.g. `s+aa` matches 1 or more `s` followed by `aa`.
+
+- `*`: **0 or more**, e.g. `s*aa` matches 0 or more `s` followed by `aa`.
+
+- `{#}`: **Exact #**, e.g. `s{2}` matches strings with exactly 2 `s`(equivalent to `ss`).
+	- `{#_1, #_2}`: **Between #_1 & #_2**.
+
+- `(<some.char>)`: Use `(` & `)` to **group**
+	- `(na){2}`: matches ba**nana**.
+
 
 Navigation
 ========

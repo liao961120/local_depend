@@ -1,0 +1,7 @@
+#!/bin/bash
+oldwd=$PWD
+cd ~/private_repo/python
+
+Rscript -e "rmarkdown::render('python_notes.Rmd')" && cp python_notes.html ~/liao961120.github.io/notes/
+
+cd $oldwd
