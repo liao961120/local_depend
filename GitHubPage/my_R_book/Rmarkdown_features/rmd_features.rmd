@@ -2,7 +2,7 @@
 title: "R Markdown Features"
 subtitle: "A Compact Reference"
 author: "[Yongfu Liao](https://liao961120.github.io/)"
-date: "`r format(Sys.Date(), '%B %d, %Y')`"
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
 bibliography: /home/liao/local_depend/citation/neanderthals.bib
 csl: /home/liao/local_depend/style_sheets/apa.csl
 link-citations: yes
@@ -25,7 +25,7 @@ knitr::opts_chunk$set(
 	dev='svg',
 	fig.dim = c(5.5, 3.5)  # (width, height)
 )
-str_date <- "`r format(Sys.Date(), '%B %d, %Y')`"
+str_date <- "`r format(Sys.Date(), '%B %e, %Y')`"
 ```
 
 # yaml Setup {.tabset}
@@ -41,7 +41,7 @@ This is the complete yaml header of this document.
 title: "R Markdown Features"
 subtitle: "A Compact Reference"
 author: "[Yongfu Liao](https://liao961120.github.io/)"
-date: "`r str_date`"
+date: "`r format(Sys.Date(), '%B %e, %Y')`" 
 bibliography: /home/liao/local_depend/citation/neanderthals.bib
 csl: /home/liao/local_depend/style_sheets/apa.csl
 link-citations: yes

@@ -1,8 +1,17 @@
 #!/bin/bash
 
 cd ~/adv-r
-git fetch upstream
-git checkout master
-git merge upstream/master -m "update"
+git fetch upstream  # Copy 'remote: upstream' to 'local: upstream/master'
+git checkout master # Checkout to 'local: master'
+git merge upstream/master -m "update" # merge 'local: upstream/master' into 'local: master'
 cd -
+### Now, 'local: master' is syncronized with 'remote: upstream'
 
+
+# cd ~/adv-r
+# git add.
+# git commit -m "update"
+# git push origin master
+
+### Now, 'remote: origin' is syncronized with 'local: master',
+### and hence, 'remote: upstream'
