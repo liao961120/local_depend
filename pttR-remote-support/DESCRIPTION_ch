@@ -1,5 +1,5 @@
 Package: pttR
-Title: 批踢踢文本資料處理 | pttR
+Title: 批踢踢文本資料處理
 Version: 0.0.0.9000
 Authors@R: c(
     person("Yongfu", "Liao", email = "liao961120@gmail.com", role = c("aut", "cre")),
