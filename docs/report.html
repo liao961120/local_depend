@@ -11,7 +11,7 @@
 
 <meta name="author" content="Yongfu Liao" />
 
-<meta name="date" content="2018-08-26" />
+<meta name="date" content="2018-08-27" />
 
 <title></title>
 
@@ -133,7 +133,7 @@ body{font-size: 16px;}
 <div id="pttr-" class="section level2">
 <h2><code>pttR</code> 套件架構</h2>
 <blockquote>
-<p><em>I believe that packages … should strive to do one thing and do it well.</em></p>
+<p>I believe that packages … should strive to do one thing and do it well.</p>
 <p>– Hadley Wickham, <em>R Packages</em>, p. 99</p>
 </blockquote>
 <p>讓<code>pttR</code>聚焦在資料前處理，將後續較複雜的功能做成其它套件？</p>
@@ -159,9 +159,15 @@ body{font-size: 16px;}
 <li><p>透過 jiebaR 自訂詞庫斷詞</p></li>
 <li>建立詞庫，維護更新供使用者下載
 <ul>
-<li>現存資源：<a href="http://zh.pttpedia.wikia.com/wiki/">PTT 鄉民百科</a></li>
-<li><strong>新詞辨識</strong></li>
-<li>使用者提交</li>
+<li>現存資源：<a href="http://zh.pttpedia.wikia.com/wiki/">PTT 鄉民百科</a> (需要 Scrapy)</li>
+<li><strong>新詞辨識</strong>
+<ul>
+<li><a href="http://www.matrix67.com/blog/archives/5044">簡單實作</a>：</li>
+</ul>
+<blockquote>
+<p>文本片段的<strong>凝固程度</strong>和<strong>自由程度</strong>，两种判断标准缺一不可。只看凝固程度的话，程序会找出「巧克」、「俄罗」、「颜六色」、「柴可夫」等实际上是「半个词」的片段；只看自由程度的话，程序则会把「吃了一顿」、「看了一遍」、「睡了一晚」、「去了一趟」中的「了一」提取出来，因为它的左右邻字都太丰富了。</p>
+<p>我们把文本中出现过的所有长度不超过 d 的子串都当作潜在的词（即候选词，其中 d 为自己设定的候选词长度上限，我设定的值为 5 ），再为<strong>出现频数</strong>、<strong>凝固程度</strong>和<strong>自由程度</strong>各设定一个阈值，然后只需要<strong>提取出所有满足阈值要求的候选词</strong>即可。</p>
+</blockquote></li>
 </ul></li>
 </ul>
 </div>
