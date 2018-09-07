@@ -5,7 +5,9 @@
 ## $1 file name to be created
 ## $2 file type, defaults to html_document2
 
-case $2 in
+read -p "Choose type: 'pdf', 'html', 'post' > " type 
+
+case $type in
 	pdf|PDF)
 		cat ~/local_depend/style_sheets/Rmd-head-pdf > $1
 	    echo -e "Use PDF\nFile: $1"
