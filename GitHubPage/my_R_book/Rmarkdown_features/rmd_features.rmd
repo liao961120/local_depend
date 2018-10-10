@@ -8,7 +8,6 @@ csl: /home/liao/local_depend/style_sheets/apa.csl
 link-citations: yes
 output:
   bookdown::html_document2:
-    code_folding: show
     css: /home/liao/local_depend/style_sheets/style.css
     df_print: kable
     toc: true
@@ -184,6 +183,50 @@ knitr::opts_chunk$set(
 	fig.dim = c(3.5, 3.5)  # (width, height)
 )
 options(digits = 2) # auto round to 2 decimals when printed
+```
+
+# Child Documents
+
+It is possible to write R Markdown in separated files and combine them together before knitting to the output file. See [knitr documentation](https://yihui.name/knitr/) for more info.
+
+## Usage
+
+`main.Rmd`: 
+
+    ---
+    title: "This is Title"
+    author: "Yongfu Liao"
+    output: html_document
+    ---
+
+    `r ''````{r setup}
+    options(knitr.duplicate.label = 'allow')
+    ```
+
+    `r ''````{r child="part1.Rmd"}
+    ```
+
+    `r ''````{r child="part2.Rmd"}
+    ```
+
+The skeleton file that combines several R Markdown files. Only this file is rendered, other R Markdown files will automatically be inserted in the knitting process.
+
+To avoid code chunks having the same labels, set the option below in `setup` code chunk of `main.Rmd`.
+
+```r
+options(knitr.duplicate.label = 'allow')
+```
+
+# Conditional Compilation
+
+```{r eval=FALSE}
+if (knitr::is_html_output()) {
+  ...
+}
+
+if (knitr::opts_knit$get('rmarkdown.pandoc.to') == "latex")
+  ...
+}
 ```
 
 
@@ -620,6 +663,17 @@ library(ggplot2)
 ggplot(iris)+
     geom_point(aes(x=Sepal.Length, y=Sepal.Width, color=Species))
 ```
+
+
+# Xaringan (remark.js Slide)
+
+Xaringan is a HTML presentation output format of R Markdown. Xaringan doesn't support Pandoc markdown, but is very flexible and easy to use if having basic CSS knowledge. It also prints well on PDF (using Chrome or [decktape](https://github.com/astefanutti/decktape)). Read the [Chapter 7](https://bookdown.org/yihui/rmarkdown/xaringan.html) of *R Markdown Guide* for more details.
+
+<iframe src="https://liao961120.github.io/slides/xaringan/index.html", width=400, height=301>
+</iframe>  
+[Slide Link](https://liao961120.github.io/slides/xaringan/index.html)
+
+
 
 # Beamer Slide
 
