@@ -53,6 +53,14 @@ else
 fi
 ```
 
+#### pipe
+
+```bash
+[ -f <file-name> ] && <command>
+[ -d <dir-name> ] || <command>
+```
+
+
 ## Loops
 
 ### for
@@ -135,6 +143,61 @@ RegEx
 
 - `(<some.char>)`: Use `(` & `)` to **group**
 	- `(na){2}`: matches ba**nana**.
+
+
+String Manipulation
+========
+
+## cut
+
+`list.txt`:
+```
+10/04 2018,xaringan
+09/28 2018,pttR-intro
+```
+
+Read one line of `list.txt` in each loop,
+cut the line into 2 fields, seperated by `,`.
+```bash
+while read p; do
+  date=$(echo "$p" | cut -d ',' -f 1)
+  file=$(echo "$p" | cut -d ',' -f 2)
+done < list.txt
+```
+
+## printf
+
+More consistent then `echo`, 
+can use special characters like `\\n`.
+```bash
+printf "$date &nbsp;&nbsp; [$file](${file}/index.html)\n\n"
+```
+
+## cat
+
+`cat` the text between the two `_EOF_`.
+```bash
+cat << _EOF_
+---
+title: Slides
+---
+
+# List of Slides
+<br><br>
+_EOF_
+```
+
+`cat` the text between the two `_EOF_`, then **redirect the text to `index.md`**.
+```bash
+cat >> index.md  << _EOF_
+---
+title: Slides
+---
+
+# List of Slides
+<br><br>
+_EOF_
+```
 
 
 Navigation

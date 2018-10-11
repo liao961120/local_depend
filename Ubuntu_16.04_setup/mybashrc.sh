@@ -2,7 +2,7 @@ alias app_link='xdg-open /usr/share/applications/'
 alias dict='goldendict'
 alias r='Rscript -e' #Note capital 'R' is for running R in bash
 alias render_rmdbk='~/bin/render_rmarkdown_book'
-alias rmdbk='vim ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.rmd'
+alias rmdbk='code ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.rmd'
 alias new_rmd='~/bin/append_head_rmd'
 alias R='R --no-save -q'
 
