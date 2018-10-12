@@ -31,7 +31,7 @@ str_date <- "`r format(Sys.Date(), '%B %e, %Y')`"
 
 yaml metadata determines the output file format, looking, and any other additional customizing features of Rmarkdown files.  
 
-## yaml of this Doc {-}
+## yaml {-}
 
 This is the complete yaml header of this document.
 
@@ -113,6 +113,19 @@ urlcolor: blue
 always_allow_html: yes
 ---
 ```
+
+## PDF: template {- #pdf-template}
+
+```markdown
+output:
+  pdf_document:
+    template: two-col.latex
+    includes:
+      in_header: header.tex
+```
+
+It is possible to define [custom latex template](https://rmarkdown.rstudio.com/pdf_document_format#custom_templates).
+For example, [`two-col.latex`]()
 
 
 ## PDF: header.tex{- #pdf-header}
