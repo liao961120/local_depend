@@ -1,0 +1,50 @@
+---
+title: "R Markdown Features"
+subtitle: "A Compact Reference"
+author: "[Yongfu Liao](https://liao961120.github.io/)"
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
+bibliography: /home/liao/local_depend/citation/neanderthals.bib
+csl: /home/liao/local_depend/style_sheets/apa.csl
+link-citations: yes
+output:
+  bookdown::html_document2:
+    css: style.css
+    df_print: kable
+    toc: true
+    toc_depth: 2
+    toc_float:
+        collapsed: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	dev='svg',
+	fig.dim = c(5.5, 3.5)  # (width, height)
+)
+str_date <- "`r format(Sys.Date(), '%B %e, %Y')`"
+```
+
+
+# Xaringan (remark.js Slide)
+
+Xaringan is a HTML presentation output format of R Markdown. Xaringan doesn't support Pandoc markdown, but is very flexible and easy to use if having basic CSS knowledge. It also prints well on PDF (using Chrome or [decktape](https://github.com/astefanutti/decktape)). Read [Chapter 7](https://bookdown.org/yihui/rmarkdown/xaringan.html) of *R Markdown Guide* for more details.
+
+<iframe src="https://liao961120.github.io/slides/xaringan/index.html", width=400, height=301>
+</iframe>  
+[Slide Link](https://liao961120.github.io/slides/xaringan/index.html)
+
+
+# Beamer Slide
+
+Beamer slide is popular among proficient LaTeX users. However, I think Xaringan is a better option since it's able to print to PDF properly and at the same time having the ability to use interactive HTML features[^xaringan].
+
+<embed src="beamer.pdf" type="application/pdf" width="90%" height="420px">
+
+Note: You can use (left & right) arrow keys to navigate through the slides page-by-page.
+
+
+
+[^xaringan]: An automatic process can be set to render Xaringan slides, print them to PDF, and host HTML and PDF slides on GitHub Pages. See the [output webpage](/slides) and this [.travis.yml](https://github.com/liao961120/slides/blob/master/.travis.yml) if you want to implement it.

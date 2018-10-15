@@ -1,0 +1,133 @@
+---
+title: "R Markdown Features"
+subtitle: "A Compact Reference"
+author: "[Yongfu Liao](https://liao961120.github.io/)"
+date: "`r format(Sys.Date(), '%B %e, %Y')`"
+bibliography: /home/liao/local_depend/citation/neanderthals.bib
+csl: /home/liao/local_depend/style_sheets/apa.csl
+link-citations: yes
+output:
+  bookdown::html_document2:
+    css: style.css
+    df_print: kable
+    toc: true
+    toc_depth: 2
+    toc_float:
+        collapsed: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(
+	echo = TRUE,
+	message = FALSE,
+	warning = FALSE,
+	dev='svg',
+	fig.dim = c(5.5, 3.5)  # (width, height)
+)
+str_date <- "`r format(Sys.Date(), '%B %e, %Y')`"
+```
+
+# Some $\LaTeX$ for PDF output
+
+- `\pagenumbering{gobble}`
+This LaTeX code suppress the page number.
+
+- `\pagenumbering{arabic}`
+'Turn on' page number closed by `\pagenumbering{gobble}`.
+
+- `\newpage`: Start a new page
+
+The 3 type of code can be useful in the situation below:
+
+```tex
+---
+title: "A Title"
+author: "Someone"
+date: "`r str_date`"
+---
+
+... Some content in the first page (title page) ...
+
+\pagenumbering{gobble} % Suppress page number on the title page
+\newpage               % Start a new page
+
+... Some content in the second page ...
+
+\pagenumbering{arabic} % Revert suppression of page number
+                       % Now, the page num starts with '2'
+```
+
+
+# $\LaTeX$ Math {.tabset}
+
+## Passing Matrix Object {-}
+
+### Setup {-}
+
+Add `results='asis'` to r code chunk option.
+
+````r
+`r ''````{r results='asis', echo=FALSE}
+library(mat2tex)
+mt <- c(1,2)
+"$A =" %_% xm(mt,0) %_%"_{2 \\times 1}$"
+```
+````
+
+```{r echo=FALSE, results='asis'}
+library(mat2tex)
+mt <- c(1,2)
+"$A =" %_% xm(mt,0) %_%"_{2 \\times 1}$"
+```
+
+### Include Matrix in Text {-}
+
+````r
+This is the variable `mt`,
+`r ''````{r results='asis', echo=FALSE}
+library(mat2tex)
+mt <- matrix(1:4, 2,2)
+"$A =" %_% xm(mt,0) %_%"^{-1}$"
+```
+, which is a matrix.
+````
+
+renders as:
+
+<div class="success">
+This is the variable `mt`,
+```{r results='asis', echo=FALSE}
+library(mat2tex)
+mt <- matrix(1:4, 2,2)
+"$A =" %_% xm(mt,0) %_%"^{-1}$"
+```
+, which is a matrix.
+</div>
+
+Check [here](http://markheckmann.github.io/mat2tex/){target=_blank""} for more information.
+
+## kable {-}
+```{r}
+library(knitr)
+library(dplyr)
+iris_data <- head(iris) %>%
+    select(Sepal.Length, Sepal.Width)
+
+colnames(iris_data) <- c("$\\alpha$", "$\\frac{a}{b}$")
+kable(iris_data, format = "markdown", align = "c")
+```
+
+## Plotting Expression {-}
+```{r fig.height=3}
+library(latex2exp)
+library(ggplot2)
+iris_data2 <- iris[c(1:3, 50:53, 100:103), ] %>%
+    select(Sepal.Length, Sepal.Width, Species)
+
+iris_data2 %>% ggplot() +
+    geom_point(aes(x = Sepal.Length, 
+                   y = Sepal.Width, 
+                   color = Species)) +
+    labs(x = TeX("Length($\\frac{kg}{cm^2}$)"),
+         y = TeX("\\frac{a}{b}"))
+```
