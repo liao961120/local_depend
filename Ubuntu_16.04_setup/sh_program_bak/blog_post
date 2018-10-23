@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ## This is a script for attatching yaml header for posts going to be published on Yongfu's Blog. It is specifically suited for html_fragment output.
-# argument 1 is file name
+# arg 1 is file name
 
 #### Part 1: Enter post date for file name ####
 post_path=/home/liao/liao961120.github.io/_posts/
@@ -128,6 +128,6 @@ cat "${temp}" > "$header_path"
 [[ -f ${temp} ]] && rm ${temp}      # Remove tempfile
 
 
-# FeedBack
+# FeedBack on std output
 echo -e "\nFile Created: \n'$header_path'"
 

@@ -11,7 +11,7 @@ output:
     css: style.css
     df_print: kable
     toc: true
-    toc_depth: 2
+    toc_depth: 1
     toc_float:
         collapsed: false
 ---
@@ -29,19 +29,27 @@ str_date <- "`r format(Sys.Date(), '%B %e, %Y')`"
 ```
 
 
-# (PART) yaml {-}
+# (PART) **yaml** {-}
+<br>
+
 ```{r child='00-yaml.rmd'}
 ```
 
-# (PART) knitr {-}
+# (PART) **knitr** {-}
+<br>
+
 ```{r child='01-knitr.rmd'}
 ```
 
-# (PART) LaTeX {-}
+# (PART) **LaTeX** {-}
+<br>
+
 ```{r child='02-latex.rmd'}
 ```
 
-# (PART) Presentation {-}
+# (PART) **Presentation** {-}
+<br>
+
 ```{r child='03-slide.rmd'}
 ```
 

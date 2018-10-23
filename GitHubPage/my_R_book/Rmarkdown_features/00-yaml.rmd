@@ -89,6 +89,8 @@ urlcolor: "blue"
 linestretch: 1.5
 fontsize: 12pt 
 geometry: a5paper, headheight=0pt, margin=0.4in
+linestretch: 1.5
+links-as-notes: true
 ---
 ```
 
@@ -113,6 +115,8 @@ output:
 urlcolor: blue
 always_allow_html: yes
 linestretch: 1.5
+geometry: a4paper #, headheight=0pt, margin=0.4in, landscape
+links-as-notes: true
 ---
 ```
 

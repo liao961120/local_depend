@@ -1,6 +1,7 @@
 ---
 title: 
 subtitle: 
+#abstract: 
 author: "廖永賦\\thanks{國立臺灣大學心理學系}"
 date: "`r format(Sys.Date(), '%B %d, %Y')`"
 bibliography: /home/liao/local_depend/apa.csl 
@@ -8,6 +9,10 @@ csl: /home/liao/local_depend/style_sheets/apa.csl #apa_ch.csl
 link-citations: yes
 urlcolor: blue
 always_allow_html: yes
+linestretch: 1.5
+links-as-notes: true
+geometry: a4paper #, headheight=0pt, margin=0.4in, landscape
+#secnumdepth: 4
 output:
   bookdown::pdf_document2:
     latex_engine: xelatex
@@ -25,6 +30,8 @@ knitr::opts_chunk$set(
 	message = FALSE,
 	warning = FALSE,
 	comment = "",
-	out.width = "100%"
+	out.width = "100%",
+	fig.pos = 'h',
+	fig.align = 'center'
 )
 ```
