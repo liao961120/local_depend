@@ -97,29 +97,29 @@ _EOF_
 
 #### Part 6: Add Title to footnotes div
 
-read -p "Choose language: 'ch', 'en', 'no' > " lang
+#read -p "Choose language: 'ch', 'en', 'no' > " lang
 
-if [[ "$lang" =~ (ch|tw|zh) ]]; then
-    foot_head="附註"
-    echo "Chinese"
-elif [[ "$lang" =~ (en|eng) ]]; then
-    foot_head="Notes"
-    echo "English"
-elif [[ "$lang" =~ (no|NO|No) ]]; then
-    foot_head="no"
-    echo "No Title"
-    echo -e "\nFile Created: \n'$header_path'"
-	[[ -f ${temp} ]] && rm ${temp}   # Remove tempfile
-    exit 0
-else
-    echo "Error"
-	[[ -f ${temp} ]] && rm ${temp}   # Remove tempfile
-    exit 1
-fi
+#if [[ "$lang" =~ (ch|tw|zh) ]]; then
+#    foot_head="附註"
+#    echo "Chinese"
+#elif [[ "$lang" =~ (en|eng) ]]; then
+#    foot_head="Notes"
+#    echo "English"
+#elif [[ "$lang" =~ (no|NO|No) ]]; then
+#    foot_head="no"
+#    echo "No Title"
+#    echo -e "\nFile Created: \n'$header_path'"
+#	[[ -f ${temp} ]] && rm ${temp}   # Remove tempfile
+#    exit 0
+#else
+#    echo "Error"
+#	[[ -f ${temp} ]] && rm ${temp}   # Remove tempfile
+#    exit 1
+#fi
 
 # Add H2 header after the div.footnotes
-sed "s_<div class=\"footnotes\">_<div class=\"footnotes\"><h2>"$foot_head"</h2>_g" "$header_path" > "${temp}"
-cat "${temp}" > "$header_path"
+#sed "s_<div class=\"footnotes\">_<div class=\"footnotes\"><h2>"$foot_head"</h2>_g" "$header_path" > "${temp}"
+#cat "${temp}" > "$header_path"
 
 # Remove horizontal line in the div.footnotes
 sed 's_<hr />__g' "$header_path" > "${temp}"

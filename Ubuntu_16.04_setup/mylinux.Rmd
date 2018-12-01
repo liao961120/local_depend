@@ -1,5 +1,5 @@
 ---
-title: "My Linux Notes"
+title: "My Bash Notes"
 subtitle: "A Quick Reference"
 author: "[Yongfu Liao](https://liao961120.github.io/)"
 date: "`r format(Sys.Date(), '%B %d, %Y')`"
@@ -28,9 +28,7 @@ knitr::opts_chunk$set(
 Common Syntax
 ========
 
-## Branching
-
-### case
+## case
 ```bash
 case "$var" in
 	pattern_1)
@@ -42,7 +40,7 @@ case "$var" in
 esac
 ```
 
-### if
+## if
 ```bash
 if [[ ]]; then
 	commands
@@ -53,11 +51,29 @@ else
 fi
 ```
 
-#### pipe
+### Logical Operators
 
 ```bash
-[ -f <file-name> ] && <command>
-[ -d <dir-name> ] || <command>
+-eq # equal
+-ne # not equal
+-lt # less than
+-le # less than or equal
+-gt # greater than
+-ge # greater than or equal
+```
+
+```bash
+[[ $num1 -eq $num2 ]] && echo "true"
+```
+
+
+## Conditionals (Square brackets)
+
+```bash
+[ -f file.txt ] && echo "File exist" 
+[ -s FB_title.txt ] && echo "File size > 0"
+[ -d dir/ ] && echo "Dir exist"
+[ -z "$var" ]      # Whether $var is empty
 ```
 
 
@@ -199,6 +215,26 @@ title: Slides
 _EOF_
 ```
 
+## grep
+
+Search files in working dir that contain certain string:
+```bash
+grep -r ".img" *
+```
+
+Search file names in working dir that contain certain string:
+```bash
+ls | grep ".txt"
+```
+
+
+## Compare Files
+
+```bash
+ls dir1 > file1.txt
+ls dir2 > file2.txt
+diff file1.txt file2.txt
+```
 
 Navigation
 ========
@@ -253,9 +289,51 @@ $(ls -l)"
 rm ~/bash_pract/foo-sym
 ```
 
+Reading Files
+========
+
+## Loop Over Every Line of a File
+```bash
+while read p; do
+  date=$(echo "$p" | cut -d ',' -f 1)
+  file=$(echo "$p" | cut -d ',' -f 2)
+done < list.txt
+```
+
+## Loop Over Several Files
+```bash
+while IFS=$'\t' read -r title tags link
+do
+  printf "${title}/n"
+  printf "${tags}/n"
+  printf "${link}/n/n"
+done < <(paste FB_title.txt FB_tags.txt FB_link.txt)
+```
+
+Function Flows
+========
+
+```bash
+[ -f file.txt ] && exit 0
+```
+
+```bash
+sleep 10 # seconds
+```
+
 
 Network
 ========
+
+## Curl
+
+```bash
+curl --silent --show-error --fail https://raw.githubusercontent.com/Rbloggers/web/posts/FB_title.txt > FB_title.txt
+```
+
+- `--silent`: Don't print process to std. output
+- `--show-error`: Print error message to std. output
+- `--fail`: Return empty file if 404
 
 
 ## Setup SSH
@@ -297,12 +375,10 @@ Remote Control Via SSH
 
 ## Hardware Configuration
 
-1. Fix floating IP
-(Alternative: auto push IP address when turned on
-https://superuser.com/questions/471253/ubuntu-how-to-run-a-terminal-command-on-boot)
-2. Enable WakeOnLane(WOL) at BIOS: 
-	1. `Power Management Setup` > `WOL: enabled`[^wol]
-	2. `Power Management Setup` > `deep power off mode: disabled`[^poff]
+Enable WakeOnLane(WOL) at BIOS: 
+	
+1. `Power Management Setup` > `WOL: enabled`[^wol]
+2. `Power Management Setup` > `deep power off mode: disabled`[^poff]
 
 
 [^wol]: There may be different names for WOL, such as 'Wake Up on Lan', 'Automatic Power Up', 'Resume by LAN', 'Power Up On PCI Device', 'PME Event Wake Up', etc.
@@ -338,3 +414,8 @@ rm_ip="192.168.2.110"
 rm_ip_b=`bash ~/ip2ipb.sh $rm_ip`
 ssh_pc="liao961120@$rm_ip"
 ```
+
+Other Resources
+===========
+
+- [Bash scripting cheatsheet](https://devhints.io/bash)

@@ -2,7 +2,7 @@
 link-citations: yes
 output:
   html_fragment:
-    self_contained: true
+    self_contained: false
     includes:
     number_sections: no
 ---
@@ -10,10 +10,9 @@ output:
 
 <!--yaml
 ---
-layout: post
 mermaid: false
-mathjax2: false
 mathjax: false
+mathjax_autoNumber: false
 highlight: true
 title: ""
 description: ""
