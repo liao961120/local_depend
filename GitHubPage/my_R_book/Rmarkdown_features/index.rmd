@@ -7,13 +7,12 @@ bibliography: /home/liao/local_depend/citation/neanderthals.bib
 csl: /home/liao/local_depend/style_sheets/apa.csl
 link-citations: yes
 output:
-  bookdown::html_document2:
-    css: style.css
+  bookdown::gitbook:
+    split_by: rmd
     df_print: kable
-    toc: true
     toc_depth: 1
-    toc_float:
-        collapsed: false
+    #self_contained: true
+    output_dir: _book
 ---
 
 ```{r setup, include=FALSE}
@@ -33,28 +32,3 @@ klippy::klippy(position = c('top', 'right'), all_precode = T)
 ```
 
 
-# (PART) **yaml** {-}
-<br>
-
-```{r child='00-yaml.rmd'}
-```
-
-# (PART) **knitr** {-}
-<br>
-
-```{r child='01-knitr.rmd'}
-```
-
-# (PART) **LaTeX** {-}
-<br>
-
-```{r child='02-latex.rmd'}
-```
-
-# (PART) **Presentation** {-}
-<br>
-
-```{r child='03-slide.rmd'}
-```
-
-# References {-}

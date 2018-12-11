@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R Markdown Features</title>
+  <meta name="description" content="R Markdown Features">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R Markdown Features" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Markdown Features" />
+  
+  
+  
+
+<meta name="author" content="Yongfu Liao">
+
+
+<meta name="date" content="2018-12-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="03-slide.html">
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="part"><span><b>I <strong>yaml</strong></b></span></li>
+<li class="chapter" data-level="1" data-path="00-yaml.html"><a href="00-yaml.html"><i class="fa fa-check"></i><b>1</b> yaml Setup</a></li>
+<li class="part"><span><b>II <strong>knitr</strong></b></span></li>
+<li class="chapter" data-level="2" data-path="01-knitr.html"><a href="01-knitr.html"><i class="fa fa-check"></i><b>2</b> knitr Parameters</a></li>
+<li class="chapter" data-level="3" data-path="01-knitr.html"><a href="01-knitr.html#child-documents"><i class="fa fa-check"></i><b>3</b> Child Documents</a></li>
+<li class="chapter" data-level="4" data-path="01-knitr.html"><a href="01-knitr.html#conditional-compilation"><i class="fa fa-check"></i><b>4</b> Conditional Compilation</a></li>
+<li class="chapter" data-level="5" data-path="01-knitr.html"><a href="01-knitr.html#dynamic-variables"><i class="fa fa-check"></i><b>5</b> Dynamic Variables</a></li>
+<li class="chapter" data-level="6" data-path="01-knitr.html"><a href="01-knitr.html#display-code-chunk-with-code-chunk"><i class="fa fa-check"></i><b>6</b> Display Code Chunk with Code Chunk</a></li>
+<li class="chapter" data-level="7" data-path="01-knitr.html"><a href="01-knitr.html#cite"><i class="fa fa-check"></i><b>7</b> Bibliographies &amp; Citations</a></li>
+<li class="chapter" data-level="8" data-path="01-knitr.html"><a href="01-knitr.html#emphasis"><i class="fa fa-check"></i><b>8</b> Emphasis</a></li>
+<li class="chapter" data-level="9" data-path="01-knitr.html"><a href="01-knitr.html#footnotes-with-paragraphs"><i class="fa fa-check"></i><b>9</b> Footnotes with Paragraphs</a></li>
+<li class="chapter" data-level="10" data-path="01-knitr.html"><a href="01-knitr.html#shaped-images-html"><i class="fa fa-check"></i><b>10</b> Shaped Images (HTML)</a></li>
+<li class="chapter" data-level="11" data-path="01-knitr.html"><a href="01-knitr.html#figures"><i class="fa fa-check"></i><b>11</b> Figures</a></li>
+<li class="part"><span><b>III <strong>LaTeX</strong></b></span></li>
+<li class="chapter" data-level="12" data-path="02-latex.html"><a href="02-latex.html"><i class="fa fa-check"></i><b>12</b> Some <span class="math inline">\(\LaTeX\)</span> for PDF output</a></li>
+<li class="chapter" data-level="13" data-path="02-latex.html"><a href="02-latex.html#latex-math"><i class="fa fa-check"></i><b>13</b> <span class="math inline">\(\LaTeX\)</span> Math</a></li>
+<li class="part"><span><b>IV <strong>Presentation</strong></b></span></li>
+<li class="chapter" data-level="14" data-path="03-slide.html"><a href="03-slide.html"><i class="fa fa-check"></i><b>14</b> Xaringan (remark.js Slide)</a></li>
+<li class="chapter" data-level="15" data-path="03-slide.html"><a href="03-slide.html#beamer-slide"><i class="fa fa-check"></i><b>15</b> Beamer Slide</a></li>
+<li class="part"><span><b>V <strong>Advanced</strong></b></span></li>
+<li class="chapter" data-level="16" data-path="04-bookdown.html"><a href="04-bookdown.html"><i class="fa fa-check"></i><b>16</b> Printing Bookdown to PDF</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Markdown Features</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="printing-bookdown-to-pdf" class="section level1">
+<h1><span class="header-section-number">16</span> Printing Bookdown to PDF</h1>
+<p>Although bookdown nicely provides options to render the book to PDF formats, setting up things related to LaTeX can still be demanding, especially for people not familiar with LaTeX. To make bookdown nicely render elements properly to both HTML and PDF also takes some additional efforts. You have to make sure not to use pure HTML or LaTeX commands in Rmd files.</p>
+<p>One possible solution is to forget about LaTeX and use HTML compatible syntax entirely. The PDF can then be generated by using the web browser to print the web page. Currently, I found Firefox working better than Chrome in printing nicer appearance of the PDF (e.g., page break before H1 titles).</p>
+<p>To achieve this, one has to make all chapters output to one single HTML file and specify some additional css styles to tweak the appearance of PDF. You can do this by putting the code below in <code>_output.yml</code>:</p>
+<div class="sourceCode"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span class="fu">bookdown:</span><span class="at">:gitbook:</span>
+  <span class="fu">split_by:</span><span class="at"> none</span>
+  <span class="fu">css:</span><span class="at"> style.css</span></code></pre></div>
+<p>and tweak the appearance of PDF by specifying <code>@media print</code> in <code>style.css</code>:</p>
+<div class="sourceCode"><pre class="sourceCode css"><code class="sourceCode css"><span class="dv">@media</span> <span class="dv">print {</span>
+  div<span class="fl">.level1</span> <span class="kw">{</span> 
+    <span class="kw">page-break-before:</span> <span class="dt">always</span><span class="kw">;}</span>
+  img <span class="kw">{</span>
+    <span class="kw">display:</span> <span class="dt">block</span><span class="kw">;</span>
+  <span class="kw">}</span>
+  img, table, ul, ol, <span class="fl">.code-snippet</span>, blockquote, pre <span class="kw">{</span>
+      <span class="kw">page-break-inside:</span> <span class="dt">avoid</span><span class="kw">;</span>
+  <span class="kw">}</span>
+<span class="dv">}</span></code></pre></div>
+<p>Note that <code>page-break-before: always</code> doesn’t seem to work in Chrome, and <code>img { page-break-inside: avoid; }</code> doesn’t work on Firefox (so some images get cut into parts), at least on my computer.</p>
+
+<div id="refs" class="references">
+<div>
+<p>Abadia, O. M., &amp; Gonzalez Morales, M. R. (2010). Redefining neanderthals and art: An alternative interpretation of the multiple species model for the origin of behavioural modernity. <em>Oxford Journal of Archaeology</em>, <em>29</em>(3), 229–243. Journal Article. <a href="https://doi.org/10.1111/j.1468-0092.2010.00346.x" class="uri">https://doi.org/10.1111/j.1468-0092.2010.00346.x</a></p>
+</div>
+<div>
+<p>Csikszentmihalyi, M. (2014). Society, culture, and person: A systems view of creativity. In <em>The systems model of creativity: The collected works of mihaly csikszentmihalyi</em> (pp. 47–61). Book Section, Dordrecht: Springer Netherlands. <a href="https://doi.org/10.1007/978-94-017-9085-7_4" class="uri">https://doi.org/10.1007/978-94-017-9085-7_4</a></p>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="03-slide.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

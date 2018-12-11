@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html >
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>R Markdown Features</title>
+  <meta name="description" content="R Markdown Features">
+  <meta name="generator" content="bookdown 0.7 and GitBook 2.6.7">
+
+  <meta property="og:title" content="R Markdown Features" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="R Markdown Features" />
+  
+  
+  
+
+<meta name="author" content="Yongfu Liao">
+
+
+<meta name="date" content="2018-12-11">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  
+  
+<link rel="prev" href="00-yaml.html">
+<link rel="next" href="02-latex.html">
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+
+
+
+
+
+
+
+<script src="libs/clipboard-1.7.1/clipboard.min.js"></script>
+<link href="libs/primer-tooltips-1.4.0/build.css" rel="stylesheet" />
+<link href="libs/klippy-0.0.0.9500/css/klippy.min.css" rel="stylesheet" />
+<script src="libs/klippy-0.0.0.9500/js/klippy.min.js"></script>
+
+
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li class="part"><span><b>I <strong>yaml</strong></b></span></li>
+<li class="chapter" data-level="1" data-path="00-yaml.html"><a href="00-yaml.html"><i class="fa fa-check"></i><b>1</b> yaml Setup</a></li>
+<li class="part"><span><b>II <strong>knitr</strong></b></span></li>
+<li class="chapter" data-level="2" data-path="01-knitr.html"><a href="01-knitr.html"><i class="fa fa-check"></i><b>2</b> knitr Parameters</a></li>
+<li class="chapter" data-level="3" data-path="01-knitr.html"><a href="01-knitr.html#child-documents"><i class="fa fa-check"></i><b>3</b> Child Documents</a></li>
+<li class="chapter" data-level="4" data-path="01-knitr.html"><a href="01-knitr.html#conditional-compilation"><i class="fa fa-check"></i><b>4</b> Conditional Compilation</a></li>
+<li class="chapter" data-level="5" data-path="01-knitr.html"><a href="01-knitr.html#dynamic-variables"><i class="fa fa-check"></i><b>5</b> Dynamic Variables</a></li>
+<li class="chapter" data-level="6" data-path="01-knitr.html"><a href="01-knitr.html#display-code-chunk-with-code-chunk"><i class="fa fa-check"></i><b>6</b> Display Code Chunk with Code Chunk</a></li>
+<li class="chapter" data-level="7" data-path="01-knitr.html"><a href="01-knitr.html#cite"><i class="fa fa-check"></i><b>7</b> Bibliographies &amp; Citations</a></li>
+<li class="chapter" data-level="8" data-path="01-knitr.html"><a href="01-knitr.html#emphasis"><i class="fa fa-check"></i><b>8</b> Emphasis</a></li>
+<li class="chapter" data-level="9" data-path="01-knitr.html"><a href="01-knitr.html#footnotes-with-paragraphs"><i class="fa fa-check"></i><b>9</b> Footnotes with Paragraphs</a></li>
+<li class="chapter" data-level="10" data-path="01-knitr.html"><a href="01-knitr.html#shaped-images-html"><i class="fa fa-check"></i><b>10</b> Shaped Images (HTML)</a></li>
+<li class="chapter" data-level="11" data-path="01-knitr.html"><a href="01-knitr.html#figures"><i class="fa fa-check"></i><b>11</b> Figures</a></li>
+<li class="part"><span><b>III <strong>LaTeX</strong></b></span></li>
+<li class="chapter" data-level="12" data-path="02-latex.html"><a href="02-latex.html"><i class="fa fa-check"></i><b>12</b> Some <span class="math inline">\(\LaTeX\)</span> for PDF output</a></li>
+<li class="chapter" data-level="13" data-path="02-latex.html"><a href="02-latex.html#latex-math"><i class="fa fa-check"></i><b>13</b> <span class="math inline">\(\LaTeX\)</span> Math</a></li>
+<li class="part"><span><b>IV <strong>Presentation</strong></b></span></li>
+<li class="chapter" data-level="14" data-path="03-slide.html"><a href="03-slide.html"><i class="fa fa-check"></i><b>14</b> Xaringan (remark.js Slide)</a></li>
+<li class="chapter" data-level="15" data-path="03-slide.html"><a href="03-slide.html#beamer-slide"><i class="fa fa-check"></i><b>15</b> Beamer Slide</a></li>
+<li class="part"><span><b>V <strong>Advanced</strong></b></span></li>
+<li class="chapter" data-level="16" data-path="04-bookdown.html"><a href="04-bookdown.html"><i class="fa fa-check"></i><b>16</b> Printing Bookdown to PDF</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">R Markdown Features</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="knitr-parameters" class="section level1">
+<h1><span class="header-section-number">2</span> knitr Parameters</h1>
+<div id="root" class="section level2">
+<h2><span class="header-section-number">2.1</span> Root</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">knitr<span class="op">::</span>opts_knit<span class="op">$</span><span class="kw">set</span>(<span class="dt">root.dir=</span><span class="st">&#39;..&#39;</span>)</code></pre></div>
+<p>The root directory of the <code>.rmd</code> file you want to knit is set to the directory where the <code>.rmd</code> file is located by default. In the case above, I changed it to the <strong>directory that is parent to the default directory</strong>. This is useful if you build websites with <a href="https://rmarkdown.rstudio.com/rmarkdown_websites.htm">R Markdown Websites</a>, since <strong>R Markdown Websites</strong> doesn’t allow hierarchical website structure. By changing the root directory, you can more easly organize your project directory structure without violating the requirement of <strong>R Markdown Websites</strong>. This is especially true when you source a lot of Rscripts in the <code>.Rmd</code> files.</p>
+</div>
+<div id="code-chunk-figure-options" class="section level2">
+<h2><span class="header-section-number">2.2</span> Code Chunk &amp; Figure Options</h2>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(svglite) 
+knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(
+    <span class="dt">echo =</span> <span class="ot">FALSE</span>, <span class="co"># No display code chunks</span>
+    <span class="dt">message =</span> <span class="ot">FALSE</span>,
+    <span class="dt">warning =</span> <span class="ot">FALSE</span>,
+    <span class="dt">dev=</span><span class="st">&#39;svg&#39;</span>, <span class="co"># or &#39;svglite&#39; for multibite characters</span>
+    <span class="dt">comment=</span><span class="st">&quot;&quot;</span>,
+    <span class="dt">fig.dim =</span> <span class="kw">c</span>(<span class="fl">3.5</span>, <span class="fl">3.5</span>)  <span class="co"># (width, height)</span>
+)
+<span class="kw">options</span>(<span class="dt">digits =</span> <span class="dv">2</span>) <span class="co"># auto round to 2 decimals when printed</span></code></pre></div>
+</div>
+</div>
+<div id="child-documents" class="section level1">
+<h1><span class="header-section-number">3</span> Child Documents</h1>
+<p>It is possible to write R Markdown in separated files and combine them together before knitting to the output file. See <a href="https://yihui.name/knitr/">knitr documentation</a> for more info.</p>
+<div id="usage" class="section level2">
+<h2><span class="header-section-number">3.1</span> Usage</h2>
+<p><code>main.Rmd</code>:</p>
+<pre><code>---
+title: &quot;This is Title&quot;
+author: &quot;Yongfu Liao&quot;
+output: html_document
+---
+
+```{r setup}
+options(knitr.duplicate.label = &#39;allow&#39;)
+```
+
+```{r child=&quot;part1.Rmd&quot;}
+```
+
+```{r child=&quot;part2.Rmd&quot;}
+```</code></pre>
+<p>The skeleton file that combines several R Markdown files. Only this file is rendered, other R Markdown files will automatically be inserted in the knitting process.</p>
+<p>To avoid code chunks having the same labels, set the option below in <code>setup</code> code chunk of <code>main.Rmd</code>.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">options</span>(<span class="dt">knitr.duplicate.label =</span> <span class="st">&#39;allow&#39;</span>)</code></pre></div>
+</div>
+</div>
+<div id="conditional-compilation" class="section level1">
+<h1><span class="header-section-number">4</span> Conditional Compilation</h1>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="cf">if</span> (knitr<span class="op">::</span><span class="kw">is_html_output</span>()) {
+  ...
+}
+
+<span class="cf">if</span> (knitr<span class="op">::</span>opts_knit<span class="op">$</span><span class="kw">get</span>(<span class="st">&#39;rmarkdown.pandoc.to&#39;</span>) <span class="op">==</span><span class="st"> &quot;latex&quot;</span>)
+  ...
+<span class="er">}</span></code></pre></div>
+</div>
+<div id="dynamic-variables" class="section level1">
+<h1><span class="header-section-number">5</span> Dynamic Variables</h1>
+<p>Include <strong>R Code Chunk Variables</strong> in the body of text. This can be a really useful feature for writing thesis or research paper:</p>
+<ul>
+<li><p>No need to copy &amp; paste the outcomes, such as the statistics. This greatly reduce the risk of error, and it also largely boosts efficiency.</p></li>
+<li><p>Automatically updates the results in the paper when the data are updated. This also boosts efficiency and, more importantly, increases the <strong>reproducibility</strong> of the research: you can be confident that the results come directly from the data (unless there are errors in the <em>code</em>, which can be ‘seen’, whereas <strong>errors from copy-&amp;-paste’s are invisible</strong>).</p></li>
+</ul>
+<p>Below is a simple demonstration of this feature.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">tr1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">25</span>, <span class="dt">mean=</span><span class="fl">1.1</span>) <span class="co">#data of treatment1</span>
+tr2 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n=</span><span class="dv">25</span>, <span class="dt">mean=</span><span class="fl">0.9</span>) <span class="co">#data of treatment2</span>
+ttest &lt;-<span class="st"> </span><span class="kw">t.test</span>(tr1, tr2, <span class="dt">paired =</span> T)
+diff &lt;-<span class="st"> </span>ttest[[<span class="st">&quot;estimate&quot;</span>]][[<span class="st">&quot;mean of the differences&quot;</span>]]
+p_val &lt;-<span class="st"> </span>ttest[[<span class="st">&quot;p.value&quot;</span>]]</code></pre></div>
+<ol style="list-style-type: decimal">
+<li><p>The mean difference between the two groups is 0.098.</p>
+<div class="sourceCode"><pre class="sourceCode latex"><code class="sourceCode latex">The mean difference between the two treatments is `r round(diff, 3)`.</code></pre></div></li>
+<li><p>The <em>p</em>-value of the paired t-test is 0.7191, which is not significant.</p>
+<div class="sourceCode"><pre class="sourceCode latex"><code class="sourceCode latex">    The *p*-value of the paired t-test is `r round(p_val, 4)`, which is `r ifelse(p_val&lt;=0.05, &quot;&quot;, &quot;not&quot;)` significant.</code></pre></div></li>
+</ol>
+</div>
+<div id="display-code-chunk-with-code-chunk" class="section level1">
+<h1><span class="header-section-number">6</span> Display Code Chunk with Code Chunk</h1>
+<p>Wrap the code chunk you want to display (without running the code inside) inside <strong>four ticks</strong>:</p>
+<pre class="rmd"><code>````Rmd
+<code>`r ''`</code>```{r}
+Some R Code
+```
+````</code></pre>
+<p>The code <code>`r ''`</code> is for suppressing the execution of the r code chunk after it.</p>
+</div>
+<div id="cite" class="section level1">
+<h1><span class="header-section-number">7</span> Bibliographies &amp; Citations</h1>
+<p>You can read the full documentation of <a href="https://rmarkdown.rstudio.com/authoring_bibliographies_and_citations.html" target="_blank">Bibliographies &amp; Citations</a> at Rstudio.</p>
+<div id="citation-syntax" class="section level2">
+<h2><span class="header-section-number">7.1</span> Citation syntax</h2>
+<div id="classical-citation-author-year-and-brackets" class="section level3 unnumbered">
+<h3>Classical Citation: <strong>Author</strong>, <strong>year</strong>, and <strong>brackets</strong></h3>
+<ul>
+<li><code>Some text [@citekey].</code>
+<ul>
+<li>Some text <span class="citation">(Abadia &amp; Gonzalez Morales, <a href="#ref-RN9">2010</a>)</span>.</li>
+</ul></li>
+</ul>
+</div>
+<div id="in-text-citation-author-year" class="section level3 unnumbered">
+<h3>In-text Citation: <strong>Author (year)</strong></h3>
+<ul>
+<li><code>@citekey Some text</code>
+<ul>
+<li><span class="citation">Csikszentmihalyi (<a href="#ref-RN15">2014</a>)</span> Some text</li>
+</ul></li>
+<li><code>@citekey [p. 20] Some text.</code>
+<ul>
+<li><span class="citation">Abadia &amp; Gonzalez Morales (<a href="#ref-RN9">2010</a>, p. 20)</span> Some text.</li>
+</ul></li>
+</ul>
+</div>
+<div id="year-only-suppress-author" class="section level3 unnumbered">
+<h3>Year only: Suppress Author</h3>
+<ul>
+<li><code>Some text [-@citekey].</code>
+<ul>
+<li>Some text <span class="citation">(<a href="#ref-RN9">2010</a>)</span></li>
+</ul></li>
+</ul>
+</div>
+<div id="two-citations" class="section level3 unnumbered">
+<h3>Two Citations</h3>
+<ul>
+<li><code>Some text [@citekey1; @citekey2].</code>
+<ul>
+<li>Some text <span class="citation">(Abadia &amp; Gonzalez Morales, <a href="#ref-RN9">2010</a>; Csikszentmihalyi, <a href="#ref-RN15">2014</a>)</span>.</li>
+</ul></li>
+<li>Prefix &amp; Suffix
+<ul>
+<li><code>Text [see @citekey1 pp.45; also, @citekey2 ch. 2].</code></li>
+<li>Text <span class="citation">(see Abadia &amp; Gonzalez Morales, <a href="#ref-RN9">2010</a>, p. 45; also, Csikszentmihalyi, <a href="#ref-RN15">2014</a> ch. 2)</span>.</li>
+</ul></li>
+</ul>
+</div>
+</div>
+<div id="include-.bib-file-in-reference" class="section level2 tabset">
+<h2><span class="header-section-number">7.2</span> Include <code>.bib</code> file in Reference</h2>
+<p>Rmarkdown requires specific formats of bibliographies. One of the most common one is <code>.bib</code>. A lot of people (including me) use Endnote to manage bibliographies. Read <a href="https://libguides.usask.ca/c.php?g=218034&amp;p=1458583">this</a> to see how to generate <code>.bib</code> files from EndNote.</p>
+<p>However, you can’t control the format of the <strong>citation key</strong> generated by Endnote. Having a well-structured format of citation key greatly enhance efficiency, which can be done by using <strong><a href="https://www.zotero.org/">Zotero</a></strong> and its extension <strong><a href="https://retorque.re/zotero-better-bibtex/">Better BibTeX</a></strong>. I strongly recommend using this approach, since the learning curve isn’t steep and it only hurts once. The payoff is a long-term efficiency boost.</p>
+<p>Below are some syntax in Rmarkdown to control the display of reference in the document.</p>
+<div id="reference-heading" class="section level3 unnumbered">
+<h3>Reference heading</h3>
+<p>The body of cited reference in the <code>.bib</code> file will be shown under the header named Reference (it doesn’t matter which <strong>level</strong> of heading you use).</p>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="fu">## Reference</span></code></pre></div>
+</div>
+<div id="specific-refs" class="section level3 unnumbered">
+<h3>Specific Refs</h3>
+<p>Include specific references that were <strong>not cited</strong> in the body of text.</p>
+<pre class="pandoc"><code>---
+nocite: |
+  @item1, @item2
+...</code></pre>
+</div>
+<div id="all-refs" class="section level3 unnumbered">
+<h3>All Refs</h3>
+<p>Include <strong>All references</strong> in the body of text.</p>
+<pre class="pandoc"><code>---
+nocite: |
+  @*
+...</code></pre>
+</div>
+</div>
+</div>
+<div id="emphasis" class="section level1 tabset">
+<h1><span class="header-section-number">8</span> Emphasis</h1>
+<div id="an-example" class="section level2 unnumbered">
+<h2>An Example</h2>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">```{block2, type=&quot;success&quot;}
+| This is line 1, pragraph one. [**Red text**]{.red}. Text text text text.
+| This is [line 2]{style=&quot;color:rgba(255, 0, 0, 1)&quot;} of paragraph one. 
+
+Paragraph two starts here.
+```</code></pre></div>
+
+<div class="success">
+<div style="white-space: pre-line;">This is line 1, pragraph one. <span class="red"><strong>Red text</strong></span>. Text text text text.
+This is <span style="color:rgba(255, 0, 0, 1)">line 2</span> of paragraph one.</div>
+Paragraph two starts here.
+</div>
+
+</div>
+<div id="colored-divs" class="section level2 unnumbered">
+<h2>Colored divs</h2>
+<div id="bootstrap-alert" class="section level3 unnumbered">
+<h3>Bootstrap Alert</h3>
+<p>You can use bootstrap’s default alert divs in Rmarkdown, defined with four classes:</p>
+<ol style="list-style-type: decimal">
+<li>alert alert-success</li>
+<li>alert alert-warning</li>
+<li>alert alert-info</li>
+<li>alert alert-danger</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">```{block, type=&quot;alert alert-success&quot;}
+Bootstrap-defined colored region
+```</code></pre></div>
+<div class="alert alert-success">
+<p>
+Bootstrap-defined colored region
+</p>
+</div>
+</div>
+<div id="customized-divs" class="section level3 unnumbered">
+<h3>Customized divs</h3>
+<p>Alternative, you can define your own styled divs, as in my stylesheet<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>:</p>
+<p>There are 4 choices of classes,</p>
+<ol style="list-style-type: decimal">
+<li>success</li>
+<li>warning</li>
+<li>info</li>
+<li>error</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">```{block, type=&quot;info&quot;}
+some text in the colored region
+```</code></pre></div>
+<div class="info">
+<p>
+some text in the colored region
+</p>
+</div>
+</div>
+</div>
+<div id="bootstrap-callouts" class="section level2 unnumbered">
+<h2>Bootstrap Callouts</h2>
+<p>Althougt it’s “Bootstrap” callouts, it’s not contained in default bootstrap theme. I defined it in my stylesheet.</p>
+<p>There are 4 choices of classes,</p>
+<ol style="list-style-type: decimal">
+<li>bs-callout bs-callout-success</li>
+<li>bs-callout bs-callout-warning</li>
+<li>bs-callout bs-callout-info</li>
+<li>bs-callout bs-callout-error</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">```{block2, type=&quot;bs-callout bs-callout-warning&quot;}
+<span class="fu">### Heading in Callout</span>
+**Calleout Text** texttexttexttexttexttext
+```</code></pre></div>
+
+<div class="bs-callout bs-callout-warning">
+<h3 id="heading-in-callout">Heading in Callout</h3>
+<strong>Calleout Text</strong> texttexttexttexttexttext
+</div>
+
+</div>
+<div id="new-line" class="section level2 unnumbered">
+<h2>New Line</h2>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">| Text of line 1
+| Text of line 2
+
+New paragraph</code></pre></div>
+
+<div class="alert alert-success">
+<div style="white-space: pre-line;">Text of line 1
+Text of line 2</div>
+New paragraph
+</div>
+
+</div>
+<div id="attach-attributes" class="section level2 unnumbered">
+<h2>Attach Attributes</h2>
+<p>By using <code>[</code>text<code>]</code>, pandoc turns the text in the square brackets into the HTML <code>&lt;span&gt;</code> tag. HTML <code>class</code>, <code>id</code>, attributes specific to <code>&lt;span&gt;</code> can then be attached by using the curly braces.</p>
+<div id="class" class="section level3 unnumbered">
+<h3><code>class</code></h3>
+<p>Rmarkdown syntax allows attaching attributes (such as class, id, etc.) to certain elements by wrapping attributes into <code>{ ... }</code>.</p>
+<p>Elements allowed attributes to be attach (by markdown syntax directly):</p>
+<ol style="list-style-type: decimal">
+<li>Section: Attributes are added next to <strong>any level of heading</strong>.</li>
+<li>Link: <code>[Text](LINK){attributes}</code></li>
+<li><code>span</code>: Text wrapped in <code>[</code>, <code>]</code>. e.g <code>[Text with class &quot;red&quot;]{.red}</code>.</li>
+</ol>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">[**Red Bold text**]{.red}</code></pre></div>
+
+<div class="alert alert-success">
+<span class="red"><strong>Red Bold text</strong></span>
+</div>
+
+<p>Note<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a>.</p>
+</div>
+<div id="other-attributes" class="section level3 unnumbered">
+<h3>Other Attributes</h3>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">Add color through [span style]{style=&quot;color:rgba(255, 0, 0, 1)&quot;}</code></pre></div>
+
+<div class="alert alert-success">
+Add color through <span style="color:rgba(255, 0, 0, 1)">span style</span>
+</div>
+
+</div>
+</div>
+</div>
+<div id="footnotes-with-paragraphs" class="section level1">
+<h1><span class="header-section-number">9</span> Footnotes with Paragraphs</h1>
+<p>Check <a href="http://pandoc.org/MANUAL.html#footnotes" target="_blank">Pandoc</a> for details.</p>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span class="ot">[^longnote]</span>: Here&#39;s one with multiple blocks.
+
+<span class="bn">    Subsequent paragraphs are indented to show that they belong to the previous footnote. (JUST IGNORE ME, I AM Exteeeeeendiiiiiiing the text to show the effect of paragraph).</span>
+
+<span class="bn">    In this way, multi-paragraph footnotes work like multi-paragraph list items.</span></code></pre></div>
+<ul>
+<li>Read the output by clicking the superscript<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a>.</li>
+</ul>
+</div>
+<div id="shaped-images-html" class="section level1 tabset">
+<h1><span class="header-section-number">10</span> Shaped Images (HTML)</h1>
+<div id="rounded-edge" class="section level2 unnumbered">
+<h2>Rounded Edge</h2>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">![](../../local_depend/icons/libreoffice.ico){width=auto height=&quot;30%&quot; .rounded}</code></pre></div>
+<div class="figure">
+<img src="/home/liao/local_depend/icons/libreoffice.ico" class="rounded" style="height:30.0%" />
+
+</div>
+<div id="boostrap" class="section level3 unnumbered">
+<h3>Boostrap</h3>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">![](../../local_depend/icons/libreoffice.ico){width=auto height=&quot;30%&quot; .img-rounded}</code></pre></div>
+<div class="figure">
+<img src="/home/liao/local_depend/icons/libreoffice.ico" alt="Bootstrap Rounded" class="img-rounded" style="height:30.0%" />
+<p class="caption">Bootstrap Rounded</p>
+</div>
+</div>
+</div>
+<div id="circle-image" class="section level2 unnumbered">
+<h2>Circle Image</h2>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">![](../../local_depend/icons/libreoffice.ico){width=auto height=&quot;30%&quot; .circle}</code></pre></div>
+<div class="figure">
+<img src="/home/liao/local_depend/icons/libreoffice.ico" alt="This is figure Caption" class="circle" style="height:30.0%" />
+<p class="caption">This is figure Caption</p>
+</div>
+<div id="boostrap-1" class="section level3 unnumbered">
+<h3>Boostrap</h3>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">![](../../local_depend/icons/libreoffice.ico){width=auto height=&quot;30%&quot; .img-circle}</code></pre></div>
+<div class="figure">
+<img src="/home/liao/local_depend/icons/libreoffice.ico" alt="Bootstrap Circle" class="img-circle" style="height:30.0%" />
+<p class="caption">Bootstrap Circle</p>
+</div>
+</div>
+</div>
+<div id="thumbnail" class="section level2 unnumbered">
+<h2>Thumbnail</h2>
+<div class="sourceCode"><pre class="sourceCode markdown"><code class="sourceCode markdown">![](../../local_depend/icons/libreoffice.ico){width=auto height=&quot;30%&quot; .img-thumbnail}</code></pre></div>
+<div class="figure">
+<img src="/home/liao/local_depend/icons/libreoffice.ico" alt="Bootstrap Thumbnail" class="img-thumbnail" style="height:30.0%" />
+<p class="caption">Bootstrap Thumbnail</p>
+</div>
+<!-- footnotes ---------------------------- -->
+<!-- syntax for Reference section -->
+</div>
+</div>
+<div id="figures" class="section level1">
+<h1><span class="header-section-number">11</span> Figures</h1>
+<div id="captions" class="section level2">
+<h2><span class="header-section-number">11.1</span> Captions</h2>
+<p>Include <code>fig.cap='An Caption of the Plot'</code> in the code chunk option gives:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="st">```</span><span class="dt">{r fig.cap=&#39;An Caption of the Plot&#39;}</span>
+<span class="dt">library(ggplot2)</span>
+<span class="dt">ggplot(iris) +</span>
+<span class="dt">    geom_point(aes(x = Sepal.Length,</span>
+<span class="dt">                   y = Sepal.Width,</span>
+<span class="dt">                   color = Species)</span>
+<span class="dt">               )</span>
+<span class="st">```</span></code></pre></div>
+<div class="figure"><span id="fig:unnamed-chunk-29"></span>
+<img src="_main_files/figure-html/unnamed-chunk-29-1.svg" alt="An Caption of the Plot" width="528" />
+<p class="caption">
+Figure 11.1: An Caption of the Plot
+</p>
+</div>
+
+</div>
+</div>
+
+
+
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-RN9">
+<p>Abadia, O. M., &amp; Gonzalez Morales, M. R. (2010). Redefining neanderthals and art: An alternative interpretation of the multiple species model for the origin of behavioural modernity. <em>Oxford Journal of Archaeology</em>, <em>29</em>(3), 229–243. Journal Article. <a href="https://doi.org/10.1111/j.1468-0092.2010.00346.x" class="uri">https://doi.org/10.1111/j.1468-0092.2010.00346.x</a></p>
+</div>
+<div id="ref-RN15">
+<p>Csikszentmihalyi, M. (2014). Society, culture, and person: A systems view of creativity. In <em>The systems model of creativity: The collected works of mihaly csikszentmihalyi</em> (pp. 47–61). Book Section, Dordrecht: Springer Netherlands. <a href="https://doi.org/10.1007/978-94-017-9085-7_4" class="uri">https://doi.org/10.1007/978-94-017-9085-7_4</a></p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol start="1">
+<li id="fn1"><p>Look at my <a href="https://github.com/liao961120/local_depend/blob/master/style_sheets/style.css" target="_blank">stylesheet</a> for syntax details.<a href="01-knitr.html#fnref1">↩</a></p></li>
+<li id="fn2"><p><code>.red</code> is also a self-defined class in my stylesheet. <!-- footnotes -------------------------- --><a href="01-knitr.html#fnref2">↩</a></p></li>
+<li id="fn3"><p>Here’s one with multiple blocks.</p>
+<p>Subsequent paragraphs are indented to show that they belong to the previous footnote. (JUST IGNORE ME, I AM Exteeeeeendiiiiiiing the text to show the effect of paragraph).</p>
+<p>In this way, multi-paragraph footnotes work like multi-paragraph list items.<a href="01-knitr.html#fnref3">↩</a></p></li>
+</ol>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="00-yaml.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="02-latex.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"google": false,
+"linkedin": false,
+"weibo": false,
+"instapper": false,
+"vk": false,
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "";
+    if (src === "" || src === "true") src = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
