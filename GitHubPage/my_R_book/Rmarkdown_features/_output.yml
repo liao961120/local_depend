@@ -1,0 +1,14 @@
+bookdown::gitbook:
+  split_by: rmd
+  includes:
+    in_header: ['addons/target_blank.js', 'addons/GA.html']
+  css: addons/style.css
+  output_dir: _book
+  #dev: "png"
+  config:
+    toc:
+      collapse: section
+      before: |
+        <li><a href="./">R Markdown Features</a></li>
+    edit: https://github.com/liao961120/local_depend/edit/master/GitHubPage/my_R_book/Rmarkdown_features/%s
+    sharing: no

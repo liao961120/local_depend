@@ -6,13 +6,6 @@ date: "`r format(Sys.Date(), '%B %e, %Y')`"
 bibliography: /home/liao/local_depend/citation/neanderthals.bib
 csl: /home/liao/local_depend/style_sheets/apa.csl
 link-citations: yes
-output:
-  bookdown::gitbook:
-    split_by: rmd
-    df_print: kable
-    toc_depth: 1
-    #self_contained: true
-    output_dir: _book
 ---
 
 ```{r setup, include=FALSE}

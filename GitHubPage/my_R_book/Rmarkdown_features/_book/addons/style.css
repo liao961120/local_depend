@@ -1,0 +1,20 @@
+/* Make Author right-align in blockquotes */
+blockquote > p:last-child {
+  text-align: right;
+}
+blockquote > p:first-child {
+  text-align: inherit;
+}
+
+/* Tweak PDF print */
+@media print {
+  div.level1 { 
+    -webkit-column-break-after: always;
+    page-break-before: always;}
+  img {
+    display: block;
+  }
+  img, table, ul, ol, .code-snippet, blockquote, pre {
+      page-break-inside: avoid;
+  }
+}

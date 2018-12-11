@@ -4,7 +4,7 @@
 
 yaml metadata determines the output file format, looking, and any other additional customizing features of Rmarkdown files.  
 
-## yaml {-}
+## yaml
 
 This is the complete yaml header of this document.
 
@@ -29,7 +29,7 @@ output:
 ---
 ```
 
-## HTML {-}
+## HTML
 
 ```{yaml}
 output:
@@ -46,7 +46,7 @@ output:
     toc_float: true
 ```
 
-## PDF {-}
+## PDF
 
 You may need to attatch an additional `header.tex` and set `latex_engine` to `xelatex` for PDF documents containing multibite characters (e.g. Chinese). Read more about  [header.txt](#pdf-header).
 ```{yaml}
@@ -69,7 +69,7 @@ links-as-notes: true
 
 Note that Latex only accepts fontsize of 10pt, 11pt, or 12pt. See [this](https://github.com/rstudio/rmarkdown/issues/878) for more detail.
 
-## PDF 2 {-}
+## PDF 2
 This is the yaml header for `bookdown::pdf_document2` output. Using `bookdown` extensions have several advantages. Search 'bookdown' for details.
 ```{yaml}
 ---
@@ -94,7 +94,7 @@ links-as-notes: true
 ```
 
 
-## PDF: header.tex{- #pdf-header}
+## PDF: header.tex{#pdf-header}
 
 The code below is for generating PDF documents written in (Traditional) Chinese.
 
@@ -102,7 +102,7 @@ The code below is for generating PDF documents written in (Traditional) Chinese.
 `r paste(readLines("~/local_depend/style_sheets/header.tex"), collapse = '\n')`
 ```
 
-## PDF: template {- #pdf-template}
+## PDF: template {#pdf-template}
 
 ```markdown
 output:
@@ -121,7 +121,7 @@ $body$
 \end{multicols}
 ```
 
-## Bibliography {-}
+## Bibliography
 
 ```{yaml}
 bibliography: ./citation/neanderthals.bib
