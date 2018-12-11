@@ -1,7 +1,12 @@
 #!/bin/bash
 
-Rscript -e "rmarkdown::render('~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.rmd')"
+Rscript -e "bookdown::render_book('~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/index.rmd')" 
 
-mv ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/rmd_features.html ~/liao961120.github.io/notes/rmd_features.html
+target_dir='~/liao961120.github.io/notes/rmd_features'
+
+[[ -d ~/liao961120.github.io/notes/rmd_features ]] || mkdir ~/liao961120.github.io/notes/rmd_features
+
+cp -r ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/_book/* ~/liao961120.github.io/notes/rmd_features
+
 
 cp ~/local_depend/GitHubPage/my_R_book/Rmarkdown_features/beamer/beamer.pdf ~/liao961120.github.io/notes/beamer.pdf
