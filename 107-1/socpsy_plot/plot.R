@@ -12,34 +12,54 @@ plot_data <- poplev_helping %>%
   gather("types", "y", -pop_level)
 
 # new
-ggplot(data = plot_data, aes(x = pop_level, color = types)) +
-  geom_line(aes(y = y), size = 0.8) +
+p_base <- ggplot(data = plot_data, aes(x = pop_level, color = types)) +
+  geom_line(aes(y = y), size = 0.5) +
   scale_colour_discrete(guide = 'none')  +    
   geom_dl(aes(y = y, label = types), 
           method = list(dl.trans(y=y+0, x=x+0.1),
                         "last.points",
-                        cex = 0.7,
-                        fontface='bold')) +
+                        cex = 0.5)) + #,fontface='bold'
   scale_y_continuous(sec.axis = 
                        sec_axis(~.*(-0.8/70)+(3.6/7), 
                                 breaks = seq(from = 0.4, 
                                              to = -0.4, 
                                              by = -0.1),
-                                name = "完成人口調查 (factor score)\n")) +
+                                name = "完成人口調查 (factor score)")) +
+  scale_x_continuous(limits = c(1, 5.6), breaks = 1:5) +
   labs(title = '助人行為與社群人口數關聯',
     color = '助人行為種類', 
-    y = '助人行為 (%)\n',
+    y = '助人行為 (%)',
     x = '人口數 (量級)') +
-  scale_x_continuous(limits = c(1, 5.5), breaks = 1:5) +
-  theme_gray(base_size = 13) +
+  #theme_gray(base_size = 10) +
   theme(legend.position="bottom",
         panel.grid.minor.y = element_blank(),
         panel.grid.minor.x = element_blank(),
         panel.grid.major.x = element_blank(),
         axis.line = element_line(colour = "black"),
-        plot.title = element_text(face = "bold"))
+        plot.title = element_text(face = "bold"),
+        axis.line.y.right = element_line(color = "#00BA38"),
+        axis.title.y.right = element_text(color = "#00BA38"),
+        axis.ticks.y.right = element_line(color = "#00BA38"))
 
-  
+p_highlight <- p_base + 
+  geom_line(data = poplev_helping,
+             aes(y = `撿信封`),
+             color='#F564E3',
+             size = 1.1) +
+  geom_line(data = poplev_helping,
+             aes(y = `填寫調查`),
+             color='#00BA38',
+             size = 1.1)
+
+## Save plot
+png(file = "popsize_helping.png", bg = "transparent", res=300, width = 1150, height = 850)
+p_base
+dev.off()
+
+png(file = "popsize_helping_bold.png", bg = "transparent", res=300, width = 1150, height = 850)
+p_highlight
+dev.off()
+
 
   # geom_line(data = poplev_helping,
   #           aes(y = dropped_envelope, color='幫忙撿掉落信封'),
