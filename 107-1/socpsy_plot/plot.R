@@ -16,7 +16,7 @@ p_base <- ggplot(data = plot_data, aes(x = pop_level, color = types)) +
   geom_line(aes(y = y), size = 0.5) +
   scale_colour_discrete(guide = 'none')  +    
   geom_dl(aes(y = y, label = types), 
-          method = list(dl.trans(y=y+0, x=x+0.1),
+          method = list(dl.trans(y=1.1*y-0.2, x=x+0.05),
                         "last.points",
                         cex = 0.5)) + #,fontface='bold'
   scale_y_continuous(sec.axis = 
@@ -30,7 +30,7 @@ p_base <- ggplot(data = plot_data, aes(x = pop_level, color = types)) +
     color = '助人行為種類', 
     y = '助人行為 (%)',
     x = '人口數 (量級)') +
-  #theme_gray(base_size = 10) +
+  theme_gray(base_size = 8) +
   theme(legend.position="bottom",
         panel.grid.minor.y = element_blank(),
         panel.grid.minor.x = element_blank(),
@@ -52,11 +52,11 @@ p_highlight <- p_base +
              size = 1.1)
 
 ## Save plot
-png(file = "popsize_helping.png", bg = "transparent", res=300, width = 1150, height = 850)
+png(file = "popsize_helping.png", bg = "transparent", res=300, width = 1150, height = 880)
 p_base
 dev.off()
 
-png(file = "popsize_helping_bold.png", bg = "transparent", res=300, width = 1150, height = 850)
+png(file = "popsize_helping_bold.png", bg = "transparent", res=300, width = 1150, height = 880)
 p_highlight
 dev.off()
 
