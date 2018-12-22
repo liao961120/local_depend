@@ -73,7 +73,7 @@ png(file = "popsize_helping.png", bg = "transparent", res=300, width = 1150, hei
 p_base
 dev.off()
 
-png(file = "popsize_helping_bold.png", bg = "transparent", res=300, width = 1145, height = 880)
+png(file = "popsize_helping_bold.png", bg = "transparent", res=300, width = 1130, height = 880)
 p_highlight
 dev.off()
 
