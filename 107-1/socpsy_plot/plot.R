@@ -15,7 +15,7 @@ plot_data <- poplev_helping %>%
 p_base <- ggplot(data = plot_data, aes(x = pop_level, color = types)) +
   geom_line(aes(y = y), size = 0.5) +
   scale_colour_discrete(guide = 'none')  +    
-  geom_dl(aes(y = y, label = types), 
+  geom_dl(aes(y = y, label = types),
           method = list(dl.trans(y=1.1*y-0.2, x=x+0.05),
                         "last.points",
                         cex = 0.5)) + #,fontface='bold'
@@ -41,7 +41,23 @@ p_base <- ggplot(data = plot_data, aes(x = pop_level, color = types)) +
         axis.title.y.right = element_text(color = "#00BA38"),
         axis.ticks.y.right = element_line(color = "#00BA38"))
 
+
+gray_lines <- colnames(poplev_helping)[-c(1,6,7)]
 p_highlight <- p_base + 
+  # Add gray
+  geom_line(data = poplev_helping,
+            aes_string(y = gray_lines[1]),
+                color='gray') +
+  geom_line(data = poplev_helping,
+            aes_string(y = gray_lines[2]),
+                color='gray') +
+  geom_line(data = poplev_helping,
+            aes_string(y = gray_lines[3]),
+                color='gray') +
+  geom_line(data = poplev_helping,
+            aes_string(y = gray_lines[4]),
+                color='gray') +
+  # highlight
   geom_line(data = poplev_helping,
              aes(y = `撿信封`),
              color='#F564E3',
@@ -50,6 +66,7 @@ p_highlight <- p_base +
              aes(y = `填寫調查`),
              color='#00BA38',
              size = 1.1)
+
 
 ## Save plot
 png(file = "popsize_helping.png", bg = "transparent", res=300, width = 1150, height = 880)
