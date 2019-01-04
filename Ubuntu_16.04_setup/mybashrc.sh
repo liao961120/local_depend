@@ -25,6 +25,25 @@ rm_ip="`head -1 ~/local_depend/hostname/hostname.txt`" #Now floating IP, needs t
 rm_ip_b=`bash ~/ip2ipb.sh $rm_ip` #see 'ip2ipb.sh for detail'
 ssh_pc="liao961120@$rm_ip"  #used as 'ssh $ssh_pc'
 
+# CSV viewer
+function csv_viewer {
+    perl -pe 's/((?<=,)|(?<=^)),/ ,/g;' "$@" | column -t -s, | less  -F -S -X -K
+}
+
+# TSV viewer
+function tsv_viewer {
+    perl -pe 's/((?<=\t)|(?<=^))\t/ \t/g;' "$@" | column -t -s $'\t' | less  -F -S -X -K
+}
+
+# timer
+function timer(){
+  date1=`date +%s`; 
+   while true; do 
+    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
+    sleep 0.1
+   done
+}
+
 
 # Backup ~/bin (Custom shell programs)
 cp -r ~/bin/* ~/local_depend/Ubuntu_16.04_setup/sh_program_bak/

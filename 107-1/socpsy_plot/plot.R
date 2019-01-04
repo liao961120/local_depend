@@ -67,6 +67,12 @@ p_highlight <- p_base +
              color='#00BA38',
              size = 1.1)
 
+# Test gghighlight
+p_base + 
+  gghighlight::gghighlight() +
+  gghighlight::gghighlight(types %in% 
+                             c('填寫調查', '撿信封'))
+
 
 ## Save plot
 png(file = "popsize_helping.png", bg = "transparent", res=300, width = 1150, height = 880)
