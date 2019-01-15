@@ -1,14 +1,16 @@
 gghighlight-issue.R
 ================
 liao
-Fri Jan 4 12:03:59 2019
+Fri Jan 4 12:06:45 2019
 
 ``` r
 library(ggplot2)
 library(gghighlight)
 library(dplyr)
 
-poplev_helping <- readr::read_csv("poplev-helping2.csv") %>% 
+fp <- url('https://raw.githubusercontent.com/liao961120/local_depend/master/107-1/socpsy_plot/poplev-helping2.csv')
+
+poplev_helping <- readr::read_csv(fp) %>% 
   tidyr::gather("types", "y", -pop_level)
 ```
 
@@ -40,7 +42,7 @@ p <- ggplot(poplev_helping,
 p
 ```
 
-![](gghighlight-issue_files/figure-markdown_github/unnamed-chunk-1-1.png)
+![](https://raw.githubusercontent.com/liao961120/local_depend/master/107-1/socpsy_plot/gghighlight-issue_files/figure-markdown_github/unnamed-chunk-1-1.png)
 
 ``` r
 p + gghighlight(types %in% c('donation', 'envelope'))
@@ -51,4 +53,4 @@ p + gghighlight(types %in% c('donation', 'envelope'))
 
     ## label_key: types
 
-![](gghighlight-issue_files/figure-markdown_github/unnamed-chunk-1-2.png)
+![](https://raw.githubusercontent.com/liao961120/local_depend/master/107-1/socpsy_plot/gghighlight-issue_files/figure-markdown_github/unnamed-chunk-1-2.png)
