@@ -3,5 +3,10 @@
 raw="$@"
 query=${raw// /+}
 
-chromium-browser "https://www.google.com.tw/search?q=${query}" --disable-gpu; exit
-
+if [[ "$query" =~ ^https?://.* ]]; then
+  chromium-browser "$query" --disable-gpu; exit
+elif [[ "$query" =~ ^//.* ]]; then
+  chromium-browser 'http:'"${query}" --disable-gpu; exit
+else
+  chromium-browser "https://www.google.com.tw/search?q=${query}" --disable-gpu; exit
+fi

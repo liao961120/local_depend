@@ -2,4 +2,16 @@
 
 cd /home/liao/Rmd_ref
 Rscript -e "bookdown::render_book('index.Rmd')" 
+cp _main.html docs/index.html
+
+# Update on github
+echo "Push to GitHub? (y/n)"
+read p
+if [[ $p == 'Y' || $p == 'y' ]]; then
+    git add .
+    git commit -m 'update'
+    git push origin master
+else
+    echo "Changes save locally (not pushed to GitHub)"
+fi
 cd - 

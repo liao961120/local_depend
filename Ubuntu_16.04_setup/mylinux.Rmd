@@ -1,10 +1,12 @@
 ---
 title: "My Bash Notes"
 subtitle: "A Quick Reference"
-author: "[Yongfu Liao](https://liao961120.github.io/)"
+author: "Yongfu Liao"
 date: "`r format(Sys.Date(), '%B %d, %Y')`"
 link-citations: yes
 output:
+  rmdformats::readthedown:
+    use_bookdown: true
   bookdown::html_document2:
     css: /home/liao/local_depend/style_sheets/style.css
     df_print: kable
@@ -246,6 +248,7 @@ Navigation
 Systematically rename multiple files by `for` loop.
 
 ```{bash, preprocess-dir, include=FALSE}
+[[ -d ~/bash_pract ]] || mkdir ~/bash_pract
 cd ~/bash_pract && rm -r dir
 mkdir dir dir/dir2
 touch dir/{01..03}-file.txt dir/README

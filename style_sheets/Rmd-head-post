@@ -1,10 +1,13 @@
 ---
 link-citations: yes
 output:
-  html_fragment:
-    self_contained: false
-    includes:
-    number_sections: no
+  bookdown::html_document2:
+    number_sections: false
+    self_contained: true
+    pandoc_args: "--mathjax"
+    mathjax: NULL
+    theme: NULL
+    template: /home/liao/R/x86_64-pc-linux-gnu-library/3.4/rmarkdown/rmd/fragment/default.html
 ---
 <!--For external images, set self_contained: false-->
 

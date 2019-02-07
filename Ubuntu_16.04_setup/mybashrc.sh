@@ -9,6 +9,9 @@ alias R='R --no-save -q'
 alias pyvir='source bin/activate'
 alias xampp='sudo /opt/lampp/manager-linux-x64.run'
 alias serve='chromium-browser "http://127.0.0.1:4000"; bundle exec jekyll serve --drafts'
+alias micro='~/micro'
+alias bitly='chromium-browser --incognito https://bitly.com &'
+
 
 export RSTUDIO_PANDOC=/usr/lib/rstudio/bin/pandoc
 PS1="\[\033[1;32m\]\u@nb:\[\033[1;34m\]\w\[\033[00m\]$ "
@@ -54,3 +57,4 @@ alias bak_rc='tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_16.04_setup/mybash
 
 # added by travis gem
 [ -f /home/liao/.travis/travis.sh ] && source /home/liao/.travis/travis.sh
+
