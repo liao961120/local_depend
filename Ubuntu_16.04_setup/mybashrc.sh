@@ -11,6 +11,7 @@ alias xampp='sudo /opt/lampp/manager-linux-x64.run'
 alias serve='chromium-browser "http://127.0.0.1:4000"; bundle exec jekyll serve --drafts'
 alias micro='~/micro'
 alias bitly='chromium-browser --incognito https://bitly.com &'
+alias pdf_resize='java -jar Desktop/briss-0.9/briss-0.9.jar'
 
 
 export RSTUDIO_PANDOC=/usr/lib/rstudio/bin/pandoc
@@ -19,6 +20,8 @@ export PS1
 export PATH=~/bin:"$PATH"  #Add ~/bin to PATH so custom shell programs can be found
 export GEM_HOME=$HOME/gems
 export PATH=$HOME/gems/bin:$PATH
+
+
 
 # Define variables for SSH remote pc.
 ### Reads IP from git repo ~/local_depend/hostname/hostname.txt ###
@@ -58,3 +61,6 @@ alias bak_rc='tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_16.04_setup/mybash
 # added by travis gem
 [ -f /home/liao/.travis/travis.sh ] && source /home/liao/.travis/travis.sh
 
+if [ $TILIX_ID ] || [ $VTE_VERSION ] ; then source /etc/profile.d/vte.sh; fi # Ubuntu Budgie END
+
+cd ~
