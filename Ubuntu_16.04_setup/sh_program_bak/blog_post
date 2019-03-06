@@ -77,6 +77,19 @@ sed "s#<img src=\"../../assets#<img src=\"/assets#g" "$header_path" > "${temp}"
 cat "${temp}" > "$header_path"
 
 
+## Trim file name
+# basename=$(basename -- "$header_path")
+# length=`expr ${#basename} - 11`
+# basename=`echo ${basename:11:$length}`
+# name_no_ext="${basename%.*}"'_files'
+# 
+# Sed
+# sed "s#<img src=\"${name_no_ext}#<img src=\"/post_source/${name_no_ext}/${name_no_ext}_files#g" "$header_path" > "${temp}"
+# cat "${temp}" > "$header_path"
+
+
+
+
 #### Part 5: Append date
 
 read -p "Post on R-bloggers? (y/n) " rbloggers

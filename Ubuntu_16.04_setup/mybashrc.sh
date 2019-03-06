@@ -6,12 +6,14 @@ alias rmdbk='xdg-open ~/Rmd_ref'
 alias mypython='code ~/private_repo/python/python_notes.Rmd'
 alias new_rmd='~/bin/append_head_rmd'
 alias R='R --no-save -q'
+alias r="radian"
 alias pyvir='source bin/activate'
 alias xampp='sudo /opt/lampp/manager-linux-x64.run'
 alias serve='chromium-browser "http://127.0.0.1:4000"; bundle exec jekyll serve --drafts'
 alias micro='~/micro'
 alias bitly='chromium-browser --incognito https://bitly.com &'
 alias pdf_resize='java -jar Desktop/briss-0.9/briss-0.9.jar'
+alias gephi='~/Desktop/SNA/gephi-0.9.2/bin/gephi'
 
 
 export RSTUDIO_PANDOC=/usr/lib/rstudio/bin/pandoc
