@@ -17,7 +17,7 @@ optimalDemand = 0
 
 largest = max{r1, a3}
 
-for p in c, c+1, ..., (largest - 1):
+for p in (c 至 (largest - 1)):
     
     # 依據 p 所在區間決定 q(p)
     if 0 <= p < r1:
