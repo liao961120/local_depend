@@ -84,11 +84,11 @@ function briss(){
 
 
 # Backup ~/bin (Custom shell programs)
-cp -r ~/bin/* ~/local_depend/Ubuntu_16.04_setup/sh_program_bak/
+cp -r ~/bin/* ~/local_depend/Ubuntu_setup/sh_program_bak/
 
 # Backup self-defined cmd in git repo (prt lines after 'line 120')
-tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_16.04_setup/mybashrc.sh
-alias bak_rc='tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_16.04_setup/mybashrc_man.sh; echo -e "\n\n\n#### Backup Time\t$(date) ####" >> ~/local_depend/Ubuntu_16.04_setup/mybashrc_man.sh'
+tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_setup/mybashrc.sh
+alias bak_rc='tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_setup/mybashrc_man.sh; echo -e "\n\n\n#### Backup Time\t$(date) ####" >> ~/local_depend/Ubuntu_setup/mybashrc_man.sh'
 
 # added by travis gem
 [ -f /home/liao/.travis/travis.sh ] && source /home/liao/.travis/travis.sh
