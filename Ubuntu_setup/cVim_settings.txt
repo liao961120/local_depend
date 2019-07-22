@@ -1,0 +1,11 @@
+chrome-extension://ihlenndgcmojhcghmfjfneahoeklbjjh/pages/options.html
+
+
+```cVimrc
+" Settings
+
+map <C-Left> gT
+map <C-Right> gt
+
+let blacklists = ["https://liao961120.github.io/*","http://localhost/*","https://pbciat.github.io/*","file:///*","https://www.openvim.com/*","https://jeroen.github.io/*","https://www.speedtypingonline.com/*","https://thetypingcat.com/*","https://www.typingcourse-online.com/*"]
+```

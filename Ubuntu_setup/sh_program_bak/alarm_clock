@@ -1,0 +1,10 @@
+#!/bin/bash
+printf "What time are you setting this alarm for? "
+read date
+echo Okay! Will ring you on $(date --date="$date").
+sleep $(( $(date --date="$date" +%s) - $(date +%s) ));
+echo Wake up!
+while true; do
+  echo -ne '\007'
+  sleep 1
+done

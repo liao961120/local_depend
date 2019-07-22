@@ -1,0 +1,14 @@
+ori_dir=`pwd`
+
+if [[ $1 == '3.6' ]]; then
+  dir='/home/liao/jupyter'
+else
+  dir='/home/liao/py3.7'
+fi
+
+cd $dir
+source ./bin/activate
+cd $ori_dir
+
+jupyter lab
+
