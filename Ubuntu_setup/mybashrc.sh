@@ -11,17 +11,21 @@ alias r="radian"
 alias xampp='sudo /opt/lampp/manager-linux-x64.run'
 alias serve_j='chromium-browser "http://127.0.0.1:4000"; bundle exec jekyll serve --drafts'
 alias ipython='ipython --no-autoindent'
-alias serve='chromium-browser "http://0.0.0.0:8000/"; python3 -m http.server'
+alias serve_py='chromium-browser "http://0.0.0.0:8000/"; python3 -m http.server'
 alias micro='~/micro'
 alias bitly='chromium-browser --incognito https://bitly.com &'
 alias pdf_resize='java -jar Desktop/briss-0.9/briss-0.9.jar'
 alias gephi='~/Desktop/SNA/gephi-0.9.2/bin/gephi'
 alias lopessh='ssh yongfu@140.112.147.125'
-alias pandoc='/usr/lib/rstudio/bin/pandoc/pandoc'
 alias loderunner='bash ~/Desktop/LODERUNN/LODERUNN'
 alias slp='systemctl suspend'
 alias psudow='python3 ~/Desktop/psudoword_gen.py'
 alias open='xdg-open'
+alias node='cd ~/node; source ./bin/activate; cd -'
+alias mic2output='pactl load-module module-loopback latency_msec=1'
+alias mic2output_stop='pactl unload-module module-loopback'
+alias timer='open ~/Desktop/timer/index.html'
+alias praat='~/praat6103_linux64/praat &'
 
 export RSTUDIO_PANDOC=/usr/lib/rstudio/bin/pandoc
 PS1="\[\033[1;32m\]\u@nb:\[\033[1;34m\]\w\[\033[00m\]$ "
@@ -53,22 +57,17 @@ function tsv_viewer {
 }
 
 # timer
-function timer(){
-  date1=`date +%s`; 
-   while true; do 
-    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
-    sleep 0.1
-   done
-}
-:
+#function timer(){
+#  date1=`date +%s`; 
+#   while true; do 
+#    echo -ne "$(date -u --date @$((`date +%s` - $date1)) +%H:%M:%S)\r"; 
+#    sleep 0.1
+#   done
+#}
 
 # pyvir
 function pyvir(){
-  if [[ $1 == '3.6' ]]; then
-    dir='/home/liao/jupyter'
-  else
-    dir='/home/liao/py3.7'
-  fi
+  dir='/home/liao/jupyter'
   
   ori_dir=`pwd`
   cd $dir
