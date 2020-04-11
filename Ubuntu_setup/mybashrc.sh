@@ -67,7 +67,7 @@ function tsv_viewer {
 
 # pyvir
 function pyvir(){
-  dir='/home/liao/jupyter'
+  dir='/home/liao/py3.7'
   
   ori_dir=`pwd`
   cd $dir
@@ -95,3 +95,4 @@ alias bak_rc='tail -n +120  ~/.bashrc > ~/local_depend/Ubuntu_setup/mybashrc_man
 if [ $TILIX_ID ] || [ $VTE_VERSION ] ; then source /etc/profile.d/vte.sh; fi # Ubuntu Budgie END
 
 cd ~
+export PATH="$PATH:$HOME/miniconda/bin"
